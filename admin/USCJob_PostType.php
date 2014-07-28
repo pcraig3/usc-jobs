@@ -11,7 +11,7 @@ class USCJob_PostType extends AdminPageFramework_PostType {
     /**
      * This method is called at the end of the constructor.
      *
-     * ALternatevely, you may use the start_{extended class name} method, which also is called at the end of the constructor.
+     * Alternatively, you may use the start_{extended class name} method, which also is called at the end of the constructor.
      */
     public function start() {
 
@@ -80,7 +80,7 @@ class USCJob_PostType extends AdminPageFramework_PostType {
     /*
      * Built-in callback methods
      */
-    public function columns_apf_posts( $aHeaderColumns ) {	// columns_{post type slug}
+    public function columns_usc_jobs( $aHeaderColumns ) {	// columns_{post type slug}
 
         return array_merge(
             $aHeaderColumns,
@@ -97,12 +97,12 @@ class USCJob_PostType extends AdminPageFramework_PostType {
         );
 
     }
-    public function sortable_columns_apf_posts( $aSortableHeaderColumns ) {	// sortable_columns_{post type slug}
+    public function sortable_columns_usc_jobs( $aSortableHeaderColumns ) {	// sortable_columns_{post type slug}
         return $aSortableHeaderColumns + array(
             'samplecolumn' => 'samplecolumn',
         );
     }
-    public function cell_apf_posts_samplecolumn( $sCell, $iPostID ) {	// cell_{post type}_{column key}
+    public function cell_usc_jobs_samplecolumn( $sCell, $iPostID ) {	// cell_{post type}_{column key}
 
         return sprintf( __( 'Post ID: %1$s', 'usc-jobs' ), $iPostID ) . "<br />"
         . __( 'Text', 'usc-jobs' ) . ': ' . get_post_meta( $iPostID, 'metabox_text_field', true );

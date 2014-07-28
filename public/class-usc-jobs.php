@@ -230,6 +230,7 @@ class USC_Jobs {
 	 */
 	private static function single_activate() {
 		// @TODO: Define activation functionality here
+        flush_rewrite_rules();
 	}
 
 	/**
@@ -239,6 +240,7 @@ class USC_Jobs {
 	 */
 	private static function single_deactivate() {
 		// @TODO: Define deactivation functionality here
+        flush_rewrite_rules();
 	}
 
 	/**
