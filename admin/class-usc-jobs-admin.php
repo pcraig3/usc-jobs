@@ -23,7 +23,7 @@ class USC_Jobs_Admin {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @var      object
 	 */
@@ -32,7 +32,7 @@ class USC_Jobs_Admin {
 	/**
 	 * Slug of the plugin screen.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @var      string
 	 */
@@ -42,7 +42,7 @@ class USC_Jobs_Admin {
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 */
 	private function __construct() {
 
@@ -79,12 +79,43 @@ class USC_Jobs_Admin {
 		//add_action( '@TODO', array( $this, 'action_method_name' ) );
 		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
+        $this->add_jobs_post();
+
 	}
 
-	/**
+    public function add_jobs_post() {
+
+        //add_action( 'admin_enqueue_scripts', array( $this, 'add_manage_events_styles' ) );
+        //add_action( 'admin_enqueue_scripts', array( $this, 'add_manage_events_scripts' ) );
+
+        if ( ! class_exists( 'AdminPageFramework' ) )
+            include_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/library/admin-page-framework.min.php' );
+
+        include_once( 'USCJob_PostType.php' );
+        new USCJob_PostType( 'usc_jobs' );
+
+        if ( is_admin() ) {
+
+            // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
+            include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
+            new APF_MetaBox_BuiltinFieldTypes(
+                'sample_custom_meta_box',	// meta box ID
+                __( 'Demo Meta Box with Built-in Field Types', 'usc-jobs' ),	// title
+                array( 'usc_jobs' ),	// post type slugs: post, page, etc.
+                'normal',	// context (what kind of metabox this is)
+                'default'	// priority
+            );
+
+            // Add fields in the taxonomy page
+            include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
+            new APF_TaxonomyField( 'apf_sample_taxonomy' );		// taxonomy slug
+        }
+    }
+
+        /**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -108,7 +139,7 @@ class USC_Jobs_Admin {
 	/**
 	 * Register and enqueue admin-specific style sheet.
      *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -129,7 +160,7 @@ class USC_Jobs_Admin {
 	 * Register and enqueue admin-specific JavaScript.
 	 *
      *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -149,7 +180,7 @@ class USC_Jobs_Admin {
 	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function add_plugin_admin_menu() {
 
@@ -180,7 +211,7 @@ class USC_Jobs_Admin {
 	/**
 	 * Render the settings page for this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function display_plugin_admin_page() {
 		include_once( 'views/admin.php' );
@@ -189,7 +220,7 @@ class USC_Jobs_Admin {
 	/**
 	 * Add settings action link to the plugins page.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function add_action_links( $links ) {
 
@@ -209,7 +240,7 @@ class USC_Jobs_Admin {
 	 *           Actions:    http://codex.wordpress.org/Plugin_API#Actions
 	 *           Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function action_method_name() {
 		// @TODO: Define your action hook callback here
@@ -222,7 +253,7 @@ class USC_Jobs_Admin {
 	 *           Filters: http://codex.wordpress.org/Plugin_API#Filters
 	 *           Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function filter_method_name() {
 		// @TODO: Define your filter hook callback here
