@@ -1,12 +1,11 @@
 <?php
 /**
- * Plugin Name.
+ * USC Jobs.
  *
- * @package   Plugin_Name
- * @author    Your Name <email@example.com>
+ * @package   USC_Jobs
+ * @author    Paul Craig <pcraig3@uwo.ca>
  * @license   GPL-2.0+
- * @link      http://example.com
- * @copyright 2014 Your Name or Company Name
+ * @copyright 2014
  */
 
 /**
@@ -14,14 +13,12 @@
  * public-facing side of the WordPress site.
  *
  * If you're interested in introducing administrative or dashboard
- * functionality, then refer to `class-plugin-name-admin.php`
+ * functionality, then refer to `class-usc-jobs-admin.php`
  *
- * @TODO: Rename this class to a proper name for your plugin.
- *
- * @package Plugin_Name
- * @author  Your Name <email@example.com>
+ * @package USC_Jobs
+ * @author    Paul Craig <pcraig3@uwo.ca>
  */
-class Plugin_Name {
+class USC_Jobs {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -33,10 +30,8 @@ class Plugin_Name {
 	const VERSION = '1.0.0';
 
 	/**
-	 * @TODO - Rename "plugin-name" to the name of your plugin
 	 *
 	 * Unique identifier for your plugin.
-	 *
 	 *
 	 * The variable name is used as the text domain when internationalizing strings
 	 * of text. Its value should match the Text Domain file header in the main
@@ -46,7 +41,7 @@ class Plugin_Name {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'plugin-name';
+	protected $plugin_slug = 'usc-jobs';
 
 	/**
 	 * Instance of this class.
@@ -78,8 +73,8 @@ class Plugin_Name {
 		/* Define custom functionality.
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
-		add_action( '@TODO', array( $this, 'action_method_name' ) );
-		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+		//add_action( '@TODO', array( $this, 'action_method_name' ) );
+		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
 	}
 
