@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,9 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.3.0 =
+* USC Jobs are some resemblance of what a job post might look like.
 
 = 0.2.0 =
 * USC Jobs shows up for public / admin users.

@@ -39,22 +39,23 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                 ),
                 'public'			=>	true,
                 'menu_position' 	=>	5,  //below Posts
-                'supports'			=>	array( 'title', 'editor' ), // 'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),	// 'custom-fields'
+                'supports'			=>	array( 'title' ), // 'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),	// 'custom-fields'
                 'taxonomies'		=>	array( '' ),
                 'has_archive'		=>	true,
                 'show_admin_column' =>	true,	// this is for custom taxonomies to automatically add the column in the listing table.
-                //'menu_icon'			=>	plugins_url( 'asset/image/wp-logo_16x16.png', APFDEMO_FILE ),
+                'menu_icon'			=>	'dashicons-hammer',
                 // ( framework specific key ) this sets the screen icon for the post type for WordPress v3.7.1 or below.
                 'screen_icon'		=>	'http://testwestern.com/wp-content/plugins/admin-page-framework/asset/image/wp_logo_bw_32x32.png'
             )
         );
 
         // the setUp() method is too late to add taxonomies. So we use start_{class name} action hook.
+
         $this->addTaxonomy(
             'learning_outcomes', // taxonomy slug
             array(			// argument - for the argument array keys, refer to : http://codex.wordpress.org/Function_Reference/register_taxonomy#Arguments
                 'labels' => array(
-                    'name' => 'Learning Outcome',
+                    'name' => 'Learning Outcomes',
                     'add_new_item' => 'Add New Learning Outcome',
                     'new_item_name' => "New Learning Outcome"
                 ),
@@ -68,7 +69,6 @@ class USCJob_PostType extends AdminPageFramework_PostType {
             )
         );
 
-        $this->setFooterInfoRight( '<br />Custom text on the right hand side' );
 
         add_filter( 'the_content', array( $this, 'replyToPrintOptionValues' ) );
 
@@ -89,7 +89,6 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                 'author'		=> __( 'Author', 'usc-jobs' ),		// Post author.
                 // 'categories'	=> __( 'Categories', 'admin-page-framework' ),	// Categories the post belongs to.
                 // 'tags'		=> __( 'Tags', 'admin-page-framework' ),	// Tags for the post.
-                'comments' 		=> '<div class="comment-grey-bubble"></div>', // Number of pending comments.
                 'date'			=> __( 'Date', 'usc-jobs' ), 	// The date and publish status of the post.
                 'samplecolumn'			=> __( 'Sample Column' ),
             )

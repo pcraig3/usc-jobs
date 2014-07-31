@@ -23,11 +23,11 @@ class USC_Jobs {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   0.2.0
+	 * @since   0.3.0
 	 *
 	 * @var     string
 	 */
-	const VERSION = '0.2.0';
+	const VERSION = '0.3.0';
 
 	/**
 	 *
@@ -89,17 +89,18 @@ class USC_Jobs {
         if ( ! class_exists( 'AdminPageFramework' ) )
             include_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/library/admin-page-framework.min.php' );
 
-        include_once( 'USCJob_PostType.php' );
+        include_once('USC_Job_PostType.php');
         new USCJob_PostType( 'usc_jobs' );
 
         /* @TODO: Still thinking.  We could put the admin code in the admin part, but it all relates.  hmm. */
         if ( is_admin() ) {
 
             // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
-            include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
-            new APF_MetaBox_BuiltinFieldTypes(
+            //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
+            include_once('USC_Job_MetaBox.php');
+            new USC_Job_MetaBox(
                 'sample_custom_meta_box',	// meta box ID
-                __( 'Demo Meta Box with Built-in Field Types', 'usc-jobs' ),	// title
+                __( 'Job Fields', 'usc-jobs' ),	// title
                 array( 'usc_jobs' ),	// post type slugs: post, page, etc.
                 'normal',	// context (what kind of metabox this is)
                 'default'	// priority
@@ -307,7 +308,9 @@ class USC_Jobs {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
-	}
+        wp_enqueue_script( 'jquery-ui-datepicker' );
+
+    }
 
 	/**
 	 * NOTE:  Actions are points in the execution of a page or process
