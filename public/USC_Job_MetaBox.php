@@ -143,6 +143,18 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             ),
             array()
         );
+
+        http://testwestern.com//js/debug-bar.js?ver=20111209'
+
+        $this->enqueueScript(
+            '/wp-content/plugins/usc-jobs/public/test.js',   // source url or path /* @TODO: This sucks */
+            array( 'usc_jobs' ),
+            array(
+                'handle_id' => 'test',     // this handle ID also is used as the object name for the translation array below.
+                'dependencies ' => array('jquery'),
+                'in_footer' => true
+            )
+        );
     }
 
     public function validation_USC_Job_MetaBox( $aInput, $aOldInput ) {	// validation_{instantiated class name}
