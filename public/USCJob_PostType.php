@@ -51,16 +51,16 @@ class USCJob_PostType extends AdminPageFramework_PostType {
 
         // the setUp() method is too late to add taxonomies. So we use start_{class name} action hook.
         $this->addTaxonomy(
-            'apf_sample_taxonomy', // taxonomy slug
+            'learning_outcomes', // taxonomy slug
             array(			// argument - for the argument array keys, refer to : http://codex.wordpress.org/Function_Reference/register_taxonomy#Arguments
                 'labels' => array(
-                    'name' => 'Sample Genre',
-                    'add_new_item' => 'Add New Genre',
-                    'new_item_name' => "New Genre"
+                    'name' => 'Learning Outcome',
+                    'add_new_item' => 'Add New Learning Outcome',
+                    'new_item_name' => "New Learning Outcome"
                 ),
                 'show_ui' => true,
                 'show_tagcloud' => false,
-                'hierarchical' => true,
+                'hierarchical' => false,
                 'show_admin_column' => true,
                 'show_in_nav_menus' => true,
                 'show_table_filter' => true,	// framework specific key
@@ -68,7 +68,6 @@ class USCJob_PostType extends AdminPageFramework_PostType {
             )
         );
 
-        $this->setFooterInfoLeft( '<br />Custom Text on the left hand side.' );
         $this->setFooterInfoRight( '<br />Custom text on the right hand side' );
 
         add_filter( 'the_content', array( $this, 'replyToPrintOptionValues' ) );
@@ -86,12 +85,12 @@ class USCJob_PostType extends AdminPageFramework_PostType {
             $aHeaderColumns,
             array(
                 'cb'			=> '<input type="checkbox" />',	// Checkbox for bulk actions.
-                'title'			=> __( 'Title', 'admin-page-framework' ),		// Post title. Includes "edit", "quick edit", "trash" and "view" links. If $mode (set from $_REQUEST['mode']) is 'excerpt', a post excerpt is included between the title and links.
-                'author'		=> __( 'Author', 'admin-page-framework' ),		// Post author.
+                'title'			=> __( 'Title', 'usc-jobs' ),		// Post title. Includes "edit", "quick edit", "trash" and "view" links. If $mode (set from $_REQUEST['mode']) is 'excerpt', a post excerpt is included between the title and links.
+                'author'		=> __( 'Author', 'usc-jobs' ),		// Post author.
                 // 'categories'	=> __( 'Categories', 'admin-page-framework' ),	// Categories the post belongs to.
                 // 'tags'		=> __( 'Tags', 'admin-page-framework' ),	// Tags for the post.
                 'comments' 		=> '<div class="comment-grey-bubble"></div>', // Number of pending comments.
-                'date'			=> __( 'Date', 'admin-page-framework' ), 	// The date and publish status of the post.
+                'date'			=> __( 'Date', 'usc-jobs' ), 	// The date and publish status of the post.
                 'samplecolumn'			=> __( 'Sample Column' ),
             )
         );

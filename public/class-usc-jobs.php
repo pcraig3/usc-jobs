@@ -76,7 +76,34 @@ class USC_Jobs {
 		//add_action( '@TODO', array( $this, 'action_method_name' ) );
 		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
+        $this->add_jobs_post_type();
 	}
+
+    function add_jobs_post_type() {
+
+        if ( ! class_exists( 'AdminPageFramework' ) )
+            include_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/library/admin-page-framework.min.php' );
+
+        include_once( 'USCJob_PostType.php' );
+        new USCJob_PostType( 'usc_jobs' );
+
+        if ( is_admin() ) {
+
+            // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
+            include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
+            new APF_MetaBox_BuiltinFieldTypes(
+                'sample_custom_meta_box',	// meta box ID
+                __( 'Demo Meta Box with Built-in Field Types', 'usc-jobs' ),	// title
+                array( 'usc_jobs' ),	// post type slugs: post, page, etc.
+                'normal',	// context (what kind of metabox this is)
+                'default'	// priority
+            );
+
+            // Add fields in the taxonomy page
+            include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
+            new APF_TaxonomyField( 'learning_outcomes' );		// taxonomy slug
+        }
+    }
 
 	/**
 	 * Return the plugin slug.
