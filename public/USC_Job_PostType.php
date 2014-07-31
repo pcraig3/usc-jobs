@@ -52,15 +52,15 @@ class USCJob_PostType extends AdminPageFramework_PostType {
         // the setUp() method is too late to add taxonomies. So we use start_{class name} action hook.
 
         $this->addTaxonomy(
-            'learning_outcomes', // taxonomy slug
+            'departments', // taxonomy slug
             array(			// argument - for the argument array keys, refer to : http://codex.wordpress.org/Function_Reference/register_taxonomy#Arguments
                 'labels' => array(
-                    'name' => 'Learning Outcomes',
-                    'add_new_item' => 'Add New Learning Outcome',
-                    'new_item_name' => "New Learning Outcome"
+                    'name' => 'Departments',
+                    'add_new_item' => 'Add New Department',
+                    'new_item_name' => 'New Department'
                 ),
                 'show_ui' => true,
-                'show_tagcloud' => false,
+                'show_tagcloud' => true,
                 'hierarchical' => false,
                 'show_admin_column' => true,
                 'show_in_nav_menus' => true,

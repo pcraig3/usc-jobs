@@ -92,11 +92,29 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'help'			=> __( 'Link to the application form (offsite).', 'usc-jobs' ),
             ),
             array( // Single File Upload Field
-                'field_id'		=>	'pdf_description',
-                'title'			=>	__( 'PDF Job Description', 'usc-jobs' ),
+                'field_id'		=>	'pdf_posting',
+                'title'			=>	__( 'Job Posting (PDF File)', 'usc-jobs' ),
                 'type'			=>	'file',
-                'description'	=>	__( 'Upload the job description PDF file (if any)', 'usc-jobs' ),
-                'description'	=>	__( 'Upload the job description PDF file (if any)', 'usc-jobs' ),
+                'description'	=>	__( 'Upload the job posting PDF file', 'usc-jobs' ),
+                'help'	        =>	__( 'Upload the job posting PDF file', 'usc-jobs' ),
+            ),
+            array(
+                'field_id'		=>	'pdf_description',
+                'title'			=>	__( 'Job Description (PDF File)', 'usc-jobs' ),
+                'type'			=>	'file',
+                'description'	=>	__( 'Upload the job description PDF file (optional)', 'usc-jobs' ),
+                'help'	        =>	__( 'Upload the job description PDF file (optional)', 'usc-jobs' ),
+            ),
+            array(
+                'field_id'		=> 'contact_information',
+                'type'			=> 'textarea',
+                'title'			=> __( 'Contact Information Description', 'usc-jobs' ),
+                'description'	=> __( 'Who to contact for more information.  Can be just an email, or a name and phone number, etc. ', 'usc-jobs' ),
+                'help'	        => __( 'Who to contact for more information.  Can be just an email, or a name and phone number, etc. ', 'usc-jobs' ),
+                'default'		=> __( 'usc.jobs@westernusc.ca.', 'usc-jobs' ),
+                'attributes'	=>	array(
+                    'cols'	=>	40,
+                ),
             )
         );
 

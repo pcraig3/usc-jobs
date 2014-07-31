@@ -107,8 +107,9 @@ class USC_Jobs {
             );
 
             // Add fields in the taxonomy page
-            include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
-            new APF_TaxonomyField( 'learning_outcomes' );		// taxonomy slug
+            //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
+            include_once('USC_Department_TaxonomyField.php');
+            new USC_Department_TaxonomyField( 'departments' );	 	// taxonomy slug
         }
     }
 
