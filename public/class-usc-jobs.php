@@ -23,11 +23,11 @@ class USC_Jobs {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   0.1.0
+	 * @since   0.2.0
 	 *
 	 * @var     string
 	 */
-	const VERSION = '0.1.0';
+	const VERSION = '0.2.0';
 
 	/**
 	 *
@@ -56,7 +56,7 @@ class USC_Jobs {
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since     0.1.0
+	 * @since     0.2.0
 	 */
 	private function __construct() {
 
@@ -79,6 +79,11 @@ class USC_Jobs {
         $this->add_jobs_post_type();
 	}
 
+    /**
+     * Creates a new Job Post Type.  You should apply.
+     *
+     * @since 0.2.0
+     */
     function add_jobs_post_type() {
 
         if ( ! class_exists( 'AdminPageFramework' ) )
@@ -87,6 +92,7 @@ class USC_Jobs {
         include_once( 'USCJob_PostType.php' );
         new USCJob_PostType( 'usc_jobs' );
 
+        /* @TODO: Still thinking.  We could put the admin code in the admin part, but it all relates.  hmm. */
         if ( is_admin() ) {
 
             // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
