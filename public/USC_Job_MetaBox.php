@@ -76,11 +76,27 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'field_id'		=> 'renumeration',
                 'type'			=> 'radio',
                 'title'			=> __( 'Renumeration Expected', 'usc-jobs' ),
-                'description'	=> __( 'Is this a paid or a volunteer position?', 'usc-jobs' ),
-                'help'	        => __( 'Is this a paid or a volunteer position?', 'usc-jobs' ),
+                'description'	=> __( 'Is this a paid position, a volunteer position, or an internship?', 'usc-jobs' ),
+                'help'	        => __( 'Is this a paid position, a volunteer position, or an internship?', 'usc-jobs' ),
                 'label' => array(
                     'volunteer' => __( 'Volunteer', 'usc-jobs' ),
                     'paid' => __( 'Paid', 'usc-jobs' ),
+                    'internship' => __( 'Internship', 'usc-jobs' ),
+                ),
+                'default' => 'volunteer',
+            ),
+            array (
+                'field_id'		=> 'position',
+                'type'			=> 'radio',
+                'title'			=> __( 'Position', 'usc-jobs' ),
+                'description'	=> __( 'What kind of position this job is for.', 'usc-jobs' ),
+                'help'	        => __( 'What kind of position this job is for.', 'usc-jobs' ),
+                'label' => array(
+                    'ft_permanent'  => __( 'Full-Time Permanent', 'usc-jobs' ),
+                    'ft_contract'   => __( 'Full-Time Contract', 'usc-jobs' ),
+                    'pt_permanent'  => __( 'Part-Time Permanent', 'usc-jobs' ),
+                    'pt_contract'   => __( 'Part-Time Contract', 'usc-jobs' ),
+                    'honourarium'   => __( 'Honourarium', 'usc-jobs' ),
                 ),
                 'default' => 'volunteer',
             ),
@@ -95,15 +111,15 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'field_id'		=>	'pdf_posting',
                 'title'			=>	__( 'Job Posting (PDF File)', 'usc-jobs' ),
                 'type'			=>	'file',
-                'description'	=>	__( 'Upload the job posting PDF file', 'usc-jobs' ),
-                'help'	        =>	__( 'Upload the job posting PDF file', 'usc-jobs' ),
+                'description'	=>	__( 'Upload the job posting PDF file.', 'usc-jobs' ),
+                'help'	        =>	__( 'Upload the job posting PDF file.', 'usc-jobs' ),
             ),
             array(
                 'field_id'		=>	'pdf_description',
                 'title'			=>	__( 'Job Description (PDF File)', 'usc-jobs' ),
                 'type'			=>	'file',
-                'description'	=>	__( 'Upload the job description PDF file (optional)', 'usc-jobs' ),
-                'help'	        =>	__( 'Upload the job description PDF file (optional)', 'usc-jobs' ),
+                'description'	=>	__( 'Upload the job description PDF file (optional).', 'usc-jobs' ),
+                'help'	        =>	__( 'Upload the job description PDF file (optional).', 'usc-jobs' ),
             ),
             array(
                 'field_id'		=> 'contact_information',
@@ -122,8 +138,8 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             array (
                 'field_id'		=> 'taxonomy_checklist',
                 'type'			=> 'taxonomy',
-                'title'			=> __( 'Taxonomy Checklist', 'admin-page-framework-demo' ),
-                'taxonomy_slugs' => get_taxonomies( '', 'names' ),
+                'title'			=> __( 'Departments', 'usc-jobs' ),
+                'taxonomy_slugs'	=>	array( 'departments' )
             ),
             array()
         );
