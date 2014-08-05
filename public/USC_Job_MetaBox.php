@@ -32,6 +32,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         new DateCustomFieldType( $sClassName );
         new TimeCustomFieldType( $sClassName );
         new DateTimeCustomFieldType( $sClassName );
+
     }
 
     /*
@@ -120,6 +121,10 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'type'			=>	'file',
                 'description'	=>	__( 'Upload the job description PDF file (optional).', 'usc-jobs' ),
                 'help'	        =>	__( 'Upload the job description PDF file (optional).', 'usc-jobs' ),
+                'attributes'	=>	array(
+                    'data-nonce'	=>	wp_create_nonce('pdf_description_nonce'),
+                    //'style'	=>	'background-color: #C8AEFF;',
+                ),
             ),
             array(
                 'field_id'		=> 'contact_information',
@@ -127,7 +132,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'title'			=> __( 'Contact Information Description', 'usc-jobs' ),
                 'description'	=> __( 'Who to contact for more information.  Can be just an email, or a name and phone number, etc. ', 'usc-jobs' ),
                 'help'	        => __( 'Who to contact for more information.  Can be just an email, or a name and phone number, etc. ', 'usc-jobs' ),
-                'default'		=> __( 'usc.jobs@westernusc.ca.', 'usc-jobs' ),
+                'default'		=> __( 'usc.jobs@westernusc.ca', 'usc-jobs' ),
                 'attributes'	=>	array(
                     'cols'	=>	40,
                 ),
@@ -157,6 +162,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         );
     }
 
+    /** @TODO: draft if errors found in validation: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish */
     public function validation_USC_Job_MetaBox( $aInput, $aOldInput ) {	// validation_{instantiated class name}
 
         $_fIsValid = true;
@@ -166,7 +172,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
             'job_description'   => 'Sorry, but Job Description cannot be empty.',
             'apply_by_date'     => 'Yikes!  You forgot to put in an apply-by date.',
-            'application_link'  => 'Oops, forgot to link to the application form'
+            'application_link'  => 'Oops, forgot to link to the application form.'
         );
 
         // You can check the passed values and correct the data by modifying them.
@@ -184,13 +190,26 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
         }
 
-/*
-        if ( strlen( trim( $aInput['metabox_text_field'] ) ) < 3 ) {
+        //get only the file extension
+        $pdf_description_extension = pathinfo($aInput['pdf_description'], PATHINFO_EXTENSION);
 
-            $_aErrors['metabox_text_field'] = __( 'The entered text is too short! Type more than 2 characters.', 'admin-page-framework-demo' ) . ': ' . $aInput['metabox_text_field'];
+        /*
+         * http://stackoverflow.com/questions/7563658/php-check-file-extension
+         * empty string "" is for files then end with .. NULL is for no file extension.
+        */
+
+        if ( $pdf_description_extension !== "pdf" ) {
+
+            $_aErrors['pdf_description'] = __( 'The selected is not a valid "pdf" file.  Please fix.', 'usc-jobs' ) . ': ' . $aInput['pdf_description'];
             $_fIsValid = false;
 
+            //wp_die( 'The file you elected to upload sucks.' );
+
+            //okay, so wp_delete_post( $postid, $force_delete ); right away?  It's hacky, but it might work.
+
         }
+
+        /*
         if ( empty( $aInput['metabox_password'] ) ) {
 
             $_aErrors['metabox_password'] = __( 'The password cannot be empty.', 'admin-page-framework-demo' );
@@ -198,10 +217,19 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
         }
 
+    @TODO: Validate URLs please.
+
   */      if ( ! $_fIsValid ) {
 
+            //global $post;
+
+            add_filter('wp_insert_post_data', 'my_post_data_validator', '99');
+
             $this->setFieldErrors( $_aErrors );
-            $this->setSettingNotice( __( 'There was an error in your input in meta box form fields', 'admin-page-framework-demo' ) );
+            $this->setSettingNotice( __( '<pre>someone ' . print_r($aInput, true) . '</pre>', 'admin-page-framework-demo' ) );
+            //$this->setSettingNotice( __( '<pre>' . print_r($post, true) . '</pre><pre>publish ' . $_POST['publish'] . '</pre><pre>save ' . $_POST['save'] . '</pre>
+            //<pre>status ' . $_POST['post_status'] . '</pre><pre>' . print_r($wpdb, true) . '</pre>', 'admin-page-framework-demo' ) );
+
             return $aOldInput;
 
         }
@@ -210,4 +238,12 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
     }
 
+}
+
+function my_post_data_validator( $data ) {
+    //if ($data['post_type'] == 'post') {
+        // If post data is invalid then
+        $data['post_status'] = 'pending';
+    //}
+    return $data;
 }
