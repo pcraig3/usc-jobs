@@ -79,7 +79,29 @@ class USC_Jobs_Admin {
 		//add_action( '@TODO', array( $this, 'action_method_name' ) );
 		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
+        $this->add_jobs_post_type_admin();
+
 	}
+
+    function add_jobs_post_type_admin() {
+
+        // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
+        //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
+        include_once('USC_Job_MetaBox.php');
+        new USC_Job_MetaBox(
+            'sample_custom_meta_box',	// meta box ID
+            __( 'Job Fields', 'usc-jobs' ),	// title
+            array( 'usc_jobs' ),	// post type slugs: post, page, etc.
+            'normal',	// context (what kind of metabox this is)
+            'default'	// priority
+        );
+
+        // Add fields in the taxonomy page
+        //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
+        include_once('USC_Department_TaxonomyField.php');
+        new USC_Department_TaxonomyField( 'departments' );	 	// taxonomy slug
+
+    }
 
         /**
 	 * Return an instance of this class.

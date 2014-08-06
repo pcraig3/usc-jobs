@@ -92,7 +92,7 @@ class USC_Jobs {
         include_once('USC_Job_PostType.php');
         new USCJob_PostType( 'usc_jobs' );
 
-        /* @TODO: Still thinking.  We could put the admin code in the admin part, but it all relates.  hmm. */
+        /* @TODO: Still thinking.  We could put the admin code in the admin part, but it all relates.  hmm. *//*
         if ( is_admin() ) {
 
             // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
@@ -110,7 +110,7 @@ class USC_Jobs {
             //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
             include_once('USC_Department_TaxonomyField.php');
             new USC_Department_TaxonomyField( 'departments' );	 	// taxonomy slug
-        }
+        }*/
     }
 
 	/**

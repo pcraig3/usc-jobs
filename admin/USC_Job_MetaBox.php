@@ -55,19 +55,18 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             array(
                 'field_id'		=> 'job_description',
                 'type'			=> 'textarea',
-                'title'			=> __( 'Job Description', 'usc-jobs' ),
-                'description'	=> __( 'Write a short description of the job here.', 'usc-jobs' ),
-                'help'			=> __( 'Write a short description of the job here.', 'usc-jobs' ),
-                //'default'		=> __( 'This is a default text value.', 'admin-page-framework-demo' ),
+                'title'			=> __( 'Job Description*', 'usc-jobs' ),
+                'description'	=> __( '(required)', 'usc-jobs' ),
+                'help'			=> __( 'Write a short description for the job here.', 'usc-jobs' ),
                 'attributes'	=>	array(
                     'cols'	=>	40,
-                ),
+                )
             ),
             array(	// date picker
                 'field_id'	    =>	'apply_by_date',
-                'title'	        =>	__( 'Apply-by Date', 'usc-jobs'),
-                'description'	=>	__( 'Candidates must have their applications in by this date.', 'usc-jobs' ),
-                'description'	=>	__( 'Candidates must have their applications in by this date.', 'usc-jobs' ),
+                'title'	        =>	__( 'Apply-by Date*', 'usc-jobs'),
+                'description'	=>	__( 'Candidates must have their applications in by this date. (required)', 'usc-jobs' ),
+                'help'	        =>	__( 'Candidates must have their applications in by this date.', 'usc-jobs' ),
                 'type'          =>  'date_time',
                 'date_format'	=>	'yy-mm-dd',
                 'time_format'	=>  'HH:mm',
@@ -77,7 +76,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'field_id'		=> 'renumeration',
                 'type'			=> 'radio',
                 'title'			=> __( 'Renumeration Expected', 'usc-jobs' ),
-                'description'	=> __( 'Is this a paid position, a volunteer position, or an internship?', 'usc-jobs' ),
+                //'description'	=> __( 'If this is a paid position, the following fields', 'usc-jobs' ),
                 'help'	        => __( 'Is this a paid position, a volunteer position, or an internship?', 'usc-jobs' ),
                 'label' => array(
                     'volunteer' => __( 'Volunteer', 'usc-jobs' ),
@@ -89,8 +88,8 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             array (
                 'field_id'		=> 'position',
                 'type'			=> 'radio',
-                'title'			=> __( 'Position', 'usc-jobs' ),
-                'description'	=> __( 'What kind of position this job is for.', 'usc-jobs' ),
+                'title'			=> __( 'Position*', 'usc-jobs' ),
+                'description'	=> __( '(required if position is paid)', 'usc-jobs' ),
                 'help'	        => __( 'What kind of position this job is for.', 'usc-jobs' ),
                 'label' => array(
                     'ft_permanent'  => __( 'Full-Time Permanent', 'usc-jobs' ),
@@ -100,29 +99,34 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                     'honourarium'   => __( 'Honourarium', 'usc-jobs' ),
                 ),
                 'default' => 'volunteer',
+                'attributes'	=>	array(
+                    'class'	=>	'hidden',
+                ),
             ),
             array(
                 'field_id'		=> 'application_link',
                 'type'			=> 'text',
                 'title'			=> __( 'Application Link', 'usc-jobs' ),
-                'description'	=> __( 'Link to the application form.', 'usc-jobs' ),
-                'help'			=> __( 'Link to the application form (offsite).', 'usc-jobs' ),
+                'description'	=> __( 'Link to an offsite application form.', 'usc-jobs' ),
+                'help'			=> __( 'Link to an offsite application form.', 'usc-jobs' ),
             ),
-            array( // Single File Upload Field
-                'field_id'		=>	'pdf_posting',
-                'title'			=>	__( 'Job Posting (PDF File)', 'usc-jobs' ),
-                'type'			=>	'file',
-                'description'	=>	__( 'Upload the job posting PDF file.', 'usc-jobs' ),
-                'help'	        =>	__( 'Upload the job posting PDF file.', 'usc-jobs' ),
+            array( // Media File (which we are constraining to PDFs.)
+                'field_id'		=>	'job_posting_file',
+                'title'			=>	__( 'Job Posting File', 'usc-jobs' ),
+                'type'			=>	'media',
+                'description'	=>	__( 'Upload the job posting file.', 'usc-jobs' ),
+                'help'	        =>	__( 'Upload the job posting file.', 'usc-jobs' ),
+                'allow_external_source'	=>	true,
             ),
             array(
-                'field_id'		=>	'pdf_description',
-                'title'			=>	__( 'Job Description (PDF File)', 'usc-jobs' ),
-                'type'			=>	'file',
-                'description'	=>	__( 'Upload the job description PDF file (optional).', 'usc-jobs' ),
-                'help'	        =>	__( 'Upload the job description PDF file (optional).', 'usc-jobs' ),
+                'field_id'		=>	'job_description_file',
+                'title'			=>	__( 'Job Description File*', 'usc-jobs' ),
+                'type'			=>	'media',
+                'description'	=>	__( 'Only PDF and Word documents are accepted. (required)', 'usc-jobs' ),
+                'help'	        =>	__( 'Upload the job description file (required).', 'usc-jobs' ),
+                'allow_external_source'	=>	false,
                 'attributes'	=>	array(
-                    'data-nonce'	=>	wp_create_nonce('pdf_description_nonce'),
+                    'data-nonce'	=>	wp_create_nonce('job_description_file_nonce'),
                     //'style'	=>	'background-color: #C8AEFF;',
                 ),
             ),
@@ -137,46 +141,44 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                     'cols'	=>	40,
                 ),
             )
-        );
-
-        $this->addSettingFields(
-            array (
-                'field_id'		=> 'taxonomy_checklist',
-                'type'			=> 'taxonomy',
-                'title'			=> __( 'Departments', 'usc-jobs' ),
-                'taxonomy_slugs'	=>	array( 'departments' )
-            ),
-            array()
+        /* ,
+        array (
+            'field_id'		=> 'taxonomy_checklist',
+            'type'			=> 'taxonomy',
+            'title'			=> __( 'Departments', 'usc-jobs' ),
+            'taxonomy_slugs'	=>	array( 'departments' )
+        )
+        */
         );
 
         http://testwestern.com//js/debug-bar.js?ver=20111209'
 
         $this->enqueueScript(
-            '/wp-content/plugins/usc-jobs/public/test.js',   // source url or path /* @TODO: This sucks */
+            plugins_url('assets/js/reveal_job_pane.js', __FILE__ ),   // source url or path
             array( 'usc_jobs' ),
             array(
-                'handle_id' => 'test',     // this handle ID also is used as the object name for the translation array below.
+                'handle_id' => 'reveal_job_pane',     // this handle ID also is used as the object name for the translation array below.
                 'dependencies ' => array('jquery'),
                 'in_footer' => true
             )
         );
     }
 
-    /** @TODO: draft if errors found in validation: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish */
+    /** Draft if errors found in validation: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish */
     public function validation_USC_Job_MetaBox( $aInput, $aOldInput ) {	// validation_{instantiated class name}
 
         $_fIsValid = true;
         $_aErrors = array();
 
+        // You can check the passed values and correct the data by modifying them.
+        //echo $this->oDebug->logArray( $aInput );
+
         $non_empty_fields = array(
 
             'job_description'   => 'Sorry, but Job Description cannot be empty.',
             'apply_by_date'     => 'Yikes!  You forgot to put in an apply-by date.',
-            'application_link'  => 'Oops, forgot to link to the application form.'
+            'job_description_file'  => 'Oh no! Please upload and select a job description file.'
         );
-
-        // You can check the passed values and correct the data by modifying them.
-        //echo $this->oDebug->logArray( $aInput );
 
         // Validate the submitted data.
         foreach( $non_empty_fields as $key => $value ) {
@@ -185,52 +187,55 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
                 $_aErrors[$key] = __( $value, 'usc-jobs' );
                 $_fIsValid = false;
+            }
+        }
+
+        if( ! isset( $_aErrors['job_description_file'] ) ) {
+
+            //get only the file extension
+            $job_description_file_extension = pathinfo($aInput['job_description_file'], PATHINFO_EXTENSION);
+
+            $allowed_extensions = array(
+                'pdf',
+                'doc',
+                'docx'
+            );
+
+            if ( ! in_array($job_description_file_extension, $allowed_extensions) ) {
+
+                $_aErrors['job_description_file'] = __( 'Not an acceptable file type.  Please upload a PDF or a Word Document.', 'usc-jobs' );
+                $_fIsValid = false;
+            }
+            ///http://stackoverflow.com/questions/7952977/php-check-if-url-and-a-file-exists
+            elseif ( ! $this->web_item_exists( $aInput['job_description_file'] ) ){
+
+                $_aErrors['job_description_file'] = __( 'Sorry, but your URL doesn\'t appear to exist. Try uploading and selecting your file again.', 'usc-jobs' );
+                $_fIsValid = false;
 
             }
-
         }
 
-        //get only the file extension
-        $pdf_description_extension = pathinfo($aInput['pdf_description'], PATHINFO_EXTENSION);
+        if( ! filter_var( $aInput['application_link'], FILTER_VALIDATE_URL )  ) {
 
-        /*
-         * http://stackoverflow.com/questions/7563658/php-check-file-extension
-         * empty string "" is for files then end with .. NULL is for no file extension.
-        */
-
-        if ( $pdf_description_extension !== "pdf" ) {
-
-            $_aErrors['pdf_description'] = __( 'The selected is not a valid "pdf" file.  Please fix.', 'usc-jobs' ) . ': ' . $aInput['pdf_description'];
-            $_fIsValid = false;
-
-            //wp_die( 'The file you elected to upload sucks.' );
-
-            //okay, so wp_delete_post( $postid, $force_delete ); right away?  It's hacky, but it might work.
-
-        }
-
-        /*
-        if ( empty( $aInput['metabox_password'] ) ) {
-
-            $_aErrors['metabox_password'] = __( 'The password cannot be empty.', 'admin-page-framework-demo' );
+            $_aErrors['application_link'] = __( 'Sorry, can you try a properly formatted URL?', 'usc-jobs' );
             $_fIsValid = false;
 
         }
 
-    @TODO: Validate URLs please.
-
-  */      if ( ! $_fIsValid ) {
-
-            //global $post;
-
-            add_filter('wp_insert_post_data', 'my_post_data_validator', '99');
+        if ( ! $_fIsValid ) {
 
             $this->setFieldErrors( $_aErrors );
-            $this->setSettingNotice( __( '<pre>someone ' . print_r($aInput, true) . '</pre>', 'admin-page-framework-demo' ) );
-            //$this->setSettingNotice( __( '<pre>' . print_r($post, true) . '</pre><pre>publish ' . $_POST['publish'] . '</pre><pre>save ' . $_POST['save'] . '</pre>
-            //<pre>status ' . $_POST['post_status'] . '</pre><pre>' . print_r($wpdb, true) . '</pre>', 'admin-page-framework-demo' ) );
+            $this->setSettingNotice( __( '<pre>' . print_r($aInput, true) . '</pre><p>' . 'nothing' . '</p>', 'usc-jobs' ) );
 
-            return $aOldInput;
+            //hacky, but fun!
+            add_filter( 'wp_insert_post_data', function( $data ) { //use ( $status ) {
+
+                $data['post_status'] = 'pending';
+
+                return $data;
+            });
+
+            return $aInput;
 
         }
 
@@ -238,12 +243,25 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
     }
 
+    /**
+     * Check if an item exists out there in the "ether".
+     *
+     * @param string $url - preferably a fully qualified URL
+     * @return boolean - true if it is out there somewhere
+     */
+    private function web_item_exists( $url ) {
+        if ( !isset( $url ) || empty( $url ) )
+            return false;
+
+        $response = wp_remote_head( $url, array( 'timeout' => 5 ) );
+
+        $accepted_status_codes = array( 200, 301, 302 );
+
+        if ( ! is_wp_error( $response ) && in_array( wp_remote_retrieve_response_code( $response ), $accepted_status_codes ) ) {
+            return true;
+        }
+        return false;
+    }
 }
 
-function my_post_data_validator( $data ) {
-    //if ($data['post_type'] == 'post') {
-        // If post data is invalid then
-        $data['post_status'] = 'pending';
-    //}
-    return $data;
-}
+

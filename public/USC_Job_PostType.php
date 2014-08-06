@@ -60,8 +60,8 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                     'new_item_name' => 'New Department'
                 ),
                 'show_ui' => true,
-                'show_tagcloud' => true,
-                'hierarchical' => false,
+                'show_tagcloud' => false,
+                'hierarchical' => true,
                 'show_admin_column' => true,
                 'show_in_nav_menus' => true,
                 'show_table_filter' => true,	// framework specific key
