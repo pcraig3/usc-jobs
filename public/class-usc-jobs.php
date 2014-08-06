@@ -104,7 +104,7 @@ class USC_Jobs {
      * If no usc_jobs-archive tempate is present the plug-in will pick the most appropriate
      * option, first from the theme/child-theme directory then the plugin.
      *
-     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L152
+     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L153
      * @author  Stephen Harris
      *
      * @since 0.4.2
@@ -137,7 +137,8 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
      *
-     * @since 0.4.2
+     * @since 0.4.3
+     *
      * @param string $template Absolute path to template
      * @return string Absolute path to template
      */
@@ -169,6 +170,19 @@ class USC_Jobs {
         return $template;
     }
 
+    /**
+     * Function triggered by the the_content filter for our usc_jobs single post type.
+     * The idea here is that you can just inject whatever you want into the single.php template that the theme uses
+     * and that way not muck everything up.
+     *
+     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L243
+     * @author  Stephen Harris
+     *
+     * @since 0.4.3
+     *
+     * @param $content
+     * @return string
+     */
     public function _usc_jobs_single_event_content( $content ){
 
         //Sanity check!
@@ -178,10 +192,11 @@ class USC_Jobs {
         //Object buffering
         ob_start();
         $this->usc_jobs_get_template_part('usc_jobs-meta','usc_jobs-single');
-        //include(EVENT_ORGANISER_DIR.'templates/event-meta-event-single.php');
+
         $usc_jobs_content = ob_get_contents();
         ob_end_clean();
 
+        //filter that someone someday might latch on to.  Probably not though.
         $usc_jobs_content = apply_filters('usc_jobs_pre_usc_jobs_content', $usc_jobs_content, $content);
 
         return $usc_jobs_content.$content;
@@ -190,7 +205,7 @@ class USC_Jobs {
     /**
      * Load a template part into a template
      *
-     * Identical to {@see `get_template_part()`} except that it uses {@see `eo_locate_template()`}
+     * Identical to {@see `get_template_part()`} except that it uses {@see `usc_jobs_locate_template()`}
      * instead of {@see `locate_template()`}.
      *
      * Makes it easy for a theme to reuse sections of code in a easy to overload way
@@ -198,8 +213,12 @@ class USC_Jobs {
      *
      * You may include the same template part multiple times.
      *
-     * @uses eo_locate_template()
-     * @since 1.7
+     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L7
+     * @author  Stephen Harris
+     *
+     * @since 0.4.3
+     *
+     * @uses usc_jobs_locate_template()
      * @uses do_action() Calls `get_template_part_{$slug}` action.
      *
      * @param string $slug The slug name for the generic template.
@@ -225,7 +244,10 @@ class USC_Jobs {
      *
      * Behaves almost identically to {@see locate_template()}
      *
-     * @since 1.7
+     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L38
+     * @author  Stephen Harris
+     *
+     * @since 0.4.3
      *
      * @param string|array $template_names Template file(s) to search for, in order.
      * @param bool $load If true the template file will be loaded if it is found.
@@ -238,9 +260,6 @@ class USC_Jobs {
         $template_dir = get_stylesheet_directory(); //child theme
         $parent_template_dir = get_template_directory(); //parent theme
 
-        /**
-         * @TODO: maybe getting the directory this way isn't super cool.
-         */
         $stack = apply_filters( 'usc_jobs_template_stack', array( $template_dir, $parent_template_dir, trailingslashit( dirname( __DIR__ ) ) . 'templates' ) );
 
         foreach ( (array) $template_names as $template_name ) {
