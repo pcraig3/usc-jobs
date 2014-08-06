@@ -72,7 +72,7 @@ class USCJob_PostType extends AdminPageFramework_PostType {
 
         add_filter( 'the_content', array( $this, 'replyToPrintOptionValues' ) );
 
-        add_filter( 'request', array( $this, 'replyToSortCustomColumn' ) );
+        //add_filter( 'request', array( $this, 'replyToSortCustomColumn' ) );
 
     }
 
@@ -90,22 +90,24 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                 // 'categories'	=> __( 'Categories', 'admin-page-framework' ),	// Categories the post belongs to.
                 // 'tags'		=> __( 'Tags', 'admin-page-framework' ),	// Tags for the post.
                 'date'			=> __( 'Date', 'usc-jobs' ), 	// The date and publish status of the post.
-                'samplecolumn'			=> __( 'Sample Column' ),
+                //'samplecolumn'			=> __( 'Sample Column' ),
             )
         );
 
     }
-    public function sortable_columns_usc_jobs( $aSortableHeaderColumns ) {	// sortable_columns_{post type slug}
+
+
+    /*public function sortable_columns_usc_jobs( $aSortableHeaderColumns ) {	// sortable_columns_{post type slug}
         return $aSortableHeaderColumns + array(
             'samplecolumn' => 'samplecolumn',
         );
-    }
-    public function cell_usc_jobs_samplecolumn( $sCell, $iPostID ) {	// cell_{post type}_{column key}
+    }*/
+    /*public function cell_usc_jobs_samplecolumn( $sCell, $iPostID ) {	// cell_{post type}_{column key}
 
         return sprintf( __( 'Post ID: %1$s', 'usc-jobs' ), $iPostID ) . "<br />"
         . __( 'Text', 'usc-jobs' ) . ': ' . get_post_meta( $iPostID, 'metabox_text_field', true );
 
-    }
+    }*/
 
     /**
      * Custom callback methods
@@ -115,19 +117,19 @@ class USCJob_PostType extends AdminPageFramework_PostType {
      * Modifies the way how the sample column is sorted. This makes it sorted by post ID.
      *
      * @see			http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters
-     */
+     *
     public function replyToSortCustomColumn( $aVars ){
 
-        if ( isset( $aVars['orderby'] ) && 'samplecolumn' == $aVars['orderby'] ){
-            $aVars = array_merge(
-                $aVars,
-                array(
-                    'meta_key'	=>	'metabox_text_field',
-                    'orderby'	=>	'meta_value',
-                )
-            );
-        }
-        return $aVars;
+    if ( isset( $aVars['orderby'] ) && 'samplecolumn' == $aVars['orderby'] ){
+    $aVars = array_merge(
+    $aVars,
+    array(
+    'meta_key'	=>	'metabox_text_field',
+    'orderby'	=>	'meta_value',
+    )
+    );
+    }
+    return $aVars;
     }
 
     /**
@@ -135,24 +137,60 @@ class USCJob_PostType extends AdminPageFramework_PostType {
      */
     public function replyToPrintOptionValues( $sContent ) {
 
-        if ( ! isset( $GLOBALS['post']->ID ) || get_post_type() != 'usc_jobs' ) return $sContent;
+        if ( ! isset( $GLOBALS['post']->ID ) || get_post_type() !== 'usc_jobs' ) return $sContent;
 
         // 1. To retrieve the meta box data	- get_post_meta( $post->ID ) will return an array of all the meta field values.
         // or if you know the field id of the value you want, you can do $value = get_post_meta( $post->ID, $field_id, true );
+        /*
+         *
+         Possible Meta Values (useless ones are indented)
+
+                [_edit_last] => 1
+            [job_description] => Make bread cats can't remove.
+            [apply_by_date] => 2014-08-13 12:00
+            [renumeration] => volunteer
+            [application_link] => http://33.media.tumblr.com/2d95777547966a733ccdfb3e34afaacc/tumblr_n55qheEABg1qlka8ko1_400.gif
+            [job_posting_file] => http://testwestern.com/wp-content/uploads/2014/08/Governance.pdf
+            [job_description_file] => http://testwestern.com/wp-content/uploads/2014/08/Governance.pdf
+            [contact_information] => email@westernusc.ca
+                [_edit_lock] => 1407311587:1
+         */
+
         $iPostID = $GLOBALS['post']->ID;
-        $aPostData = array();
-        foreach( ( array ) get_post_custom_keys( $iPostID ) as $sKey ) 	// This way, array will be unserialized; easier to view.
-            $aPostData[ $sKey ] = get_post_meta( $iPostID, $sKey, true );
 
-        // 2. To retrieve the saved options in the setting pages created by the framework - use the get_option() function.
-        // The key name is the class name by default. The key can be changed by passing an arbitrary string
-        // to the first parameter of the constructor of the AdminPageFramework class.
-        $aSavedOptions = get_option( 'USC_Jobs' );
+        $aPostData = get_post_custom($iPostID);
 
-        return "<h3>" . __( 'Saved Meta Field Values', 'usc-jobs' ) . "</h3>"
-        . $this->oDebug->getArray( $aPostData )
-        . "<h3>" . __( 'Saved Setting Options', 'usc-jobs' ) . "</h3>"
-        . $this->oDebug->getArray( $aSavedOptions );
+        $html_string = "";
+
+        /** @TODO: get the departments */
+
+        $subhead = "";
+
+        foreach( $aPostData as $key => $value ) {
+
+            //anything starting with an underscore we don't want.
+            if( ! (substr($key, 0, 1) === '_') ) {
+
+                //get the first item of the array
+                //var_dump($key . ' => '. $value);
+                $value = (string) array_shift($value);
+
+                //get a better title
+                $subhead = ucwords(str_replace("_", " ", $key));
+
+                if( filter_var( $value, FILTER_VALIDATE_URL )  ) { //test for a url
+
+                    $html_string .= '<a href="' . esc_url($value) . '" title="click me!"><h3>' . __( $subhead , 'usc-jobs') . '</h3></a>';
+                }
+                else {
+
+                    $html_string .= '<h3>' . __( $subhead , 'usc-jobs') . '</h3>'
+                        . '<p>' . $value . '</p>';
+                }
+            }
+        }
+
+        return $html_string;
 
     }
 
