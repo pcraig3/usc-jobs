@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.4.1
+Stable tag: 0.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,8 +32,11 @@ No.  Maybe once we're at 0.9.0
 
 == Changelog ==
 
+= 0.4.2 =
+* USC Jobs have a bad custom archive layout instead of the general one.
+
 = 0.4.1 =
-* USC Jobs have a bad layout instead of a horrendous one now.
+* USC Jobs have a bad layout instead of a horrendous one from before.
 
 = 0.4.0 =
 * USC Jobs are closer to finalized, after getting input from Chris Noble and Cassandra.

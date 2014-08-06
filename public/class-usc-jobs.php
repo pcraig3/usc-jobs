@@ -77,7 +77,10 @@ class USC_Jobs {
 		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
         $this->add_jobs_post_type();
-	}
+
+        add_filter( 'template_include', array( $this, 'usc_jobs_set_template' ) ) ;
+
+    }
 
     /**
      * Creates a new Job Post Type.  You should apply.
@@ -94,6 +97,58 @@ class USC_Jobs {
 
         /* Look in admin-usc-jobs for the rest of the USC_Jobs stuff */
 
+    }
+
+    /**
+     * Checks if provided template path points to a 'usc_jobs' template recognised by our humble little plugin.
+     * If no usc_jobs-archive tempate is present the plug-in will pick the most appropriate
+     * option, first from the theme/child-theme directory then the plugin.
+     *
+     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L152
+     * @author  Stephen Harris
+     *
+     * @since 0.4.2
+     *
+     * @param string    $templatePath absolute path to template or filename (with .php extension)
+     * @param string    $context What the template is for ('usc_jobs','archive-usc_jobs', etc).
+     * @return bool     return true if template is recognised as an 'event' template. False otherwise.
+     */
+    function usc_jobs_is_job_template($templatePath,$context=''){
+
+        $template = basename($templatePath);
+
+        switch($context):
+            case 'usc_jobs';
+                return $template === 'single-usc_jobs.php';
+
+            case 'archive':
+                return $template === 'archive-usc_jobs.php';
+
+        endswitch;
+
+        return false;
+    }
+
+    /**
+     * Checks to see if appropriate templates are present in active template directory.
+     * Otherwises uses templates present in plugin's template directory.
+     * Hooked onto template_include'
+     *
+     * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
+     * @author  Stephen Harris
+     *
+     * @since 0.4.2
+     * @param string $template Absolute path to template
+     * @return string Absolute path to template
+     */
+    function usc_jobs_set_template( $template ){
+
+        //If WordPress couldn't find a 'usc_jobs' archive template use plug-in instead:
+
+        if( is_post_type_archive('usc_jobs') && ! $this->usc_jobs_is_job_template( $template, 'archive' ) )
+            $template = dirname( __DIR__ ) . '/templates/archive-usc_jobs.php';
+
+        return $template;
     }
 
 	/**
