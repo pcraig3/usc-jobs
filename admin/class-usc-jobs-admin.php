@@ -42,7 +42,7 @@ class USC_Jobs_Admin {
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
-	 * @since     0.1.0
+	 * @since     0.4.0
 	 */
 	private function __construct() {
 
@@ -83,6 +83,11 @@ class USC_Jobs_Admin {
 
 	}
 
+    /**
+     * Creates all of the admin menus for new Job Post Type.  You should publish one.
+     *
+     * @since 0.4.0
+     */
     function add_jobs_post_type_admin() {
 
         // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.

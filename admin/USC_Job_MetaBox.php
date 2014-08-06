@@ -38,6 +38,13 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
     /*
      * ( optional ) Use the setUp() method to define settings of this meta box.
      */
+    /**
+     * Framework method sets up all of the fields on the page and enqueues some JS
+     *
+     * @remark  this is a pre-defined framework method
+     *
+     * @since    0.4.0
+     */
     public function setUp() {
 
         /*
@@ -206,7 +213,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 $_aErrors['job_description_file'] = __( 'Not an acceptable file type.  Please upload a PDF or a Word Document.', 'usc-jobs' );
                 $_fIsValid = false;
             }
-            ///http://stackoverflow.com/questions/7952977/php-check-if-url-and-a-file-exists
+
             elseif ( ! $this->web_item_exists( $aInput['job_description_file'] ) ){
 
                 $_aErrors['job_description_file'] = __( 'Sorry, but your URL doesn\'t appear to exist. Try uploading and selecting your file again.', 'usc-jobs' );
@@ -225,7 +232,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         if ( ! $_fIsValid ) {
 
             $this->setFieldErrors( $_aErrors );
-            $this->setSettingNotice( __( '<pre>' . print_r($aInput, true) . '</pre><p>' . 'nothing' . '</p>', 'usc-jobs' ) );
+            $this->setSettingNotice( __( '<pre>' . print_r($aInput, true) . '</pre>', 'usc-jobs' ) );
 
             //hacky, but fun!
             add_filter( 'wp_insert_post_data', function( $data ) { //use ( $status ) {
@@ -245,6 +252,12 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
     /**
      * Check if an item exists out there in the "ether".
+     * Ripped off of stackoverflow
+     * http://stackoverflow.com/questions/7952977/php-check-if-url-and-a-file-exists
+     *
+     * @author Charleston Software Associates
+     *
+     * @since    0.4.0
      *
      * @param string $url - preferably a fully qualified URL
      * @return boolean - true if it is out there somewhere
