@@ -137,6 +137,8 @@ class USCJob_PostType extends AdminPageFramework_PostType {
      */
     public function replyToPrintOptionValues( $sContent ) {
 
+        return $sContent;
+
         if ( ! isset( $GLOBALS['post']->ID ) || get_post_type() !== 'usc_jobs' ) return $sContent;
 
         // 1. To retrieve the meta box data	- get_post_meta( $post->ID ) will return an array of all the meta field values.

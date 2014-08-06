@@ -3,7 +3,7 @@
 
 	$(function () {
 
-		// Place your public-facing JavaScript here
+		//$('.post-type-archive-usc_jobs #main').hide();
 
 	});
 

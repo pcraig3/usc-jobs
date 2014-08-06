@@ -25,7 +25,7 @@
                 <section class="entry-content clearfix">
                     <p>Application Deadline: <?php echo date('g a, \o\n F d', strtotime( get_post_meta( get_the_ID(), "apply_by_date", true ) ) ); ?></p>
                     <p>Whether Paid: <?php echo ucwords(get_post_meta( get_the_ID(), "renumeration", true )); ?></p>
-                    <span class="float-right"><?php echo(' <a href="'. get_permalink($post->ID) . '" title="Read '.get_the_title($post->ID).'">Full Details on &raquo;</a>') ?></span>
+                    <span class="float-right"><?php echo(' <a href="'. get_permalink($post->ID) . '" title="Check out this job!">Full Details &raquo;</a>') ?></span>
                 </section> <!-- end article section -->
 
                 <footer class="article-footer">
