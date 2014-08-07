@@ -5,7 +5,16 @@
     <div id="main" class="eightcol first clearfix" role="main">
 
         <h1 class="archive-title h2">
-            <?php post_type_archive_title(); ?>
+            <?php
+
+            post_type_archive_title();
+
+            $remuneration = get_query_var('usc_jobs_remuneration');
+
+            if( ! empty($remuneration) ) {
+                echo ': ' . ucfirst($remuneration);
+            }
+            ?>
         </h1>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -24,7 +33,7 @@
 
                 <section class="entry-content clearfix">
                     <p>Application Deadline: <?php echo date('g a, \o\n F d', strtotime( get_post_meta( get_the_ID(), "apply_by_date", true ) ) ); ?></p>
-                    <p>Whether Paid: <?php echo ucwords(get_post_meta( get_the_ID(), "renumeration", true )); ?></p>
+                    <p>Whether Paid: <?php echo ucwords(get_post_meta( get_the_ID(), "remuneration", true )); ?></p>
                     <span class="float-right"><?php echo(' <a href="'. get_permalink($post->ID) . '" title="Check out this job!">Full Details &raquo;</a>') ?></span>
                 </section> <!-- end article section -->
 
@@ -61,6 +70,14 @@
     </div> <!-- end #main -->
 
     <?php get_sidebar(); ?>
+
+    <?php if ( is_active_sidebar( 'usc_jobs_archive_sidebar' ) ) : ?>
+        <div id="secondary" class="sidebar-container fourcol" role="complementary">
+     	        <div class="widget-area">
+     	            <?php dynamic_sidebar( 'usc_jobs_archive_sidebar' ); ?>
+     	        </div><!-- .widget-area -->
+     	</div><!-- #secondary -->
+    <?php endif; ?>
 
 </div> <!-- end #content -->
 

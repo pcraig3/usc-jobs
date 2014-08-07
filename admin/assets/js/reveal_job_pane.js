@@ -6,10 +6,10 @@
 jQuery(function ($) {
     /* You can safely use $ in this code block to reference jQuery */
 
-    var $renumeration_row           = $('#fieldrow-renumeration');
-    var $renumeration_radio_buttons = $renumeration_row.find('#field-renumeration__0');
-    var $radio_button_paid          = $renumeration_radio_buttons.find('#renumeration__0_paid');
-    var $position_row               = $renumeration_row.next();
+    var $remuneration_row           = $('#fieldrow-remuneration');
+    var $remuneration_radio_buttons = $remuneration_row.find('#field-remuneration__0');
+    var $radio_button_paid          = $remuneration_radio_buttons.find('#remuneration__0_paid');
+    var $position_row               = $remuneration_row.next();
 
     $(document).ready(function() {
 
@@ -19,9 +19,9 @@ jQuery(function ($) {
     //one method checks if the field is checked
 
     /**
-     * OnClick function that calls 'check_paid' every time a radio button in the 'renumeration section is clicked'
+     * OnClick function that calls 'check_paid' every time a radio button in the 'remuneration section is clicked'
      */
-    $renumeration_radio_buttons.on('click', function() {
+    $remuneration_radio_buttons.on('click', function() {
 
         check_paid();
     });

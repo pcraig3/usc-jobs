@@ -11,8 +11,8 @@
  * @wordpress-plugin
  * Plugin Name:       USC Jobs
  * Plugin URI:        http://testwestern.com
- * Description:       Creates the 'Job' Custom Post Type on the Admin side.  Nothing special on the public-facing side.
- * Version:           0.4.4
+ * Description:       Creates the 'Job' Custom Post Type and *~`ArChIvEs`~*!!
+ * Version:           0.4.5
  * Author:            Paul Craig
  * Author URI:        https://profiles.wordpress.org/pcraig3/
  * Text Domain:       usc-jobs

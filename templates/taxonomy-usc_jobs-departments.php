@@ -32,7 +32,7 @@
 
                 <section class="entry-content clearfix">
                     <p>Application Deadline: <?php echo date('g a, \o\n F d', strtotime( get_post_meta( get_the_ID(), "apply_by_date", true ) ) ); ?></p>
-                    <p>Whether Paid: <?php echo ucwords(get_post_meta( get_the_ID(), "renumeration", true )); ?></p>
+                    <p>Whether Paid: <?php echo ucwords(get_post_meta( get_the_ID(), "remuneration", true )); ?></p>
                     <span class="float-right"><?php echo(' <a href="'. get_permalink($post->ID) . '" title="Check out this job!">Full Details &raquo;</a>') ?></span>
                 </section> <!-- end article section -->
 
@@ -69,6 +69,14 @@
     </div> <!-- end #main -->
 
     <?php get_sidebar(); ?>
+
+    <?php if ( is_active_sidebar( 'usc_jobs_archive_sidebar' ) ) : ?>
+        <div id="secondary" class="sidebar-container fourcol" role="complementary">
+            <div class="widget-area">
+                <?php dynamic_sidebar( 'usc_jobs_archive_sidebar' ); ?>
+            </div><!-- .widget-area -->
+        </div><!-- #secondary -->
+    <?php endif; ?>
 
 </div> <!-- end #content -->
 

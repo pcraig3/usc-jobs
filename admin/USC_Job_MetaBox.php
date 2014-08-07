@@ -80,9 +80,9 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'size'          =>  '40',
             ),
             array (
-                'field_id'		=> 'renumeration',
+                'field_id'		=> 'remuneration',
                 'type'			=> 'radio',
-                'title'			=> __( 'Renumeration Expected', 'usc-jobs' ),
+                'title'			=> __( 'Remuneration Expected', 'usc-jobs' ),
                 //'description'	=> __( 'If this is a paid position, the following fields', 'usc-jobs' ),
                 'help'	        => __( 'Is this a paid position, a volunteer position, or an internship?', 'usc-jobs' ),
                 'label' => array(

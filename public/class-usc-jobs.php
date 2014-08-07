@@ -56,7 +56,7 @@ class USC_Jobs {
      * Initialize the plugin by setting localization and loading public scripts
      * and styles.
      *
-     * @since     0.2.0
+     * @since     0.4.5
      */
     private function __construct() {
 
@@ -80,6 +80,98 @@ class USC_Jobs {
 
         add_filter( 'template_include', array( $this, 'usc_jobs_set_template' ) ) ;
 
+        add_action( 'widgets_init', array( $this, 'usc_jobs_register_sidebars' ) );
+
+
+        //define the rewrite tag and a url pattern that triggers it
+        add_action( 'init', array( $this, 'usc_jobs_rewrite_rules' ) );
+        //add 'usc_jobs_remuneration' to our query variables
+        add_action( 'init', array( $this, 'usc_jobs_add_remuneration' ) );
+
+        //define what our query looks like when we call our custom url
+        add_action( 'pre_get_posts', array( $this, 'usc_jobs_get_meta_remuneration' ) );
+
+    }
+
+    /**
+     * Change Posts Per Page for Event Archive
+     *
+     * @author Bill Erickson
+     * @link http://www.billerickson.net/customize-the-wordpress-query/
+     *
+     * @since    0.4.5
+     *
+     * @param object $query data
+     */
+    public function usc_jobs_get_meta_remuneration( $query ) {
+
+        $remuneration = get_query_var('usc_jobs_remuneration');
+
+        if( !empty($remuneration) && $query->is_main_query() && !$query->is_feed() && !is_admin() && is_post_type_archive( 'usc_jobs' ) ) {
+            $meta_query = array(
+                array(
+                    'key' => 'remuneration',
+                    'value' => $remuneration,
+                    'compare' => '='
+                )
+            );
+            $query->set( 'meta_query', $meta_query );
+
+        }
+    }
+
+    /**
+     * Function adds the 'usc_jobs_remuneration' parameter to the query variables, as WordPress calls them.
+     * If the function below this one describes the pattern in which 'usc_jobs_remuneration' should be used,
+     * this is the function that registers the name of the variable with WordPress
+     *
+     * more information here:
+     * http://wordpress.stackexchange.com/questions/71305/when-should-add-rewrite-tag-be-used
+     *
+     * @since    0.4.5
+     */
+    public function usc_jobs_add_remuneration() {
+
+        global $wp;
+
+        $wp->add_query_var('usc_jobs_remuneration');
+    }
+
+    /**
+     * Static function sets the rewrite rules for archives of USC Jobs based on the 'remuneration' meta value.
+     * The idea is that we should be able to generate a specific archive if the url contains a useful 'remuneration' value
+     * Function is static so that it can be called on plugin activation.
+     *
+     * @since    0.4.5
+     */
+    public static function usc_jobs_rewrite_rules() {
+
+        // Custom tag we will be using to recognize page requests
+        add_rewrite_tag('%usc_jobs_remuneration%','([^/]+)');
+
+        // Custom rewrite rule to hijack page generation
+        add_rewrite_rule('usc_jobs/remuneration/([^/]+)/?$','index.php?post_type=usc_jobs&usc_jobs_remuneration=$matches[1]','top');
+    }
+
+    /**
+     * Register Sidebar
+     *
+     * http://devotepress.com/wordpress-coding/how-to-register-sidebars-in-wordpress/#.U-MXWxa-MUY
+     */
+    public function usc_jobs_register_sidebars() {
+
+        /* Register the primary sidebar. */
+        register_sidebar(
+            array(
+                'id' => 'usc_jobs_archive_sidebar',
+                'name' => __( 'USC Jobs Archive Sidebar', 'usc-jobs' ),
+                'description' => __( 'Only found on USC Jobs archives.', 'usc-jobs' ),
+                'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+                'after_widget' => '</aside>',
+                'before_title' => '<h3 class="widget-title">',
+                'after_title' => '</h3>'
+            )
+        );
     }
 
     /**
@@ -139,7 +231,7 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
      *
-     * @since 0.4.4
+     * @since 0.4.5
      *
      * @param string $template Absolute path to template
      * @return string Absolute path to template
@@ -435,20 +527,24 @@ class USC_Jobs {
     /**
      * Fired for each blog when the plugin is activated.
      *
-     * @since    0.1.0
+     * @since    0.4.5
      */
     private static function single_activate() {
-        // @TODO: Define activation functionality here
+
+        self::usc_jobs_rewrite_rules();
+
+        // flush rewrite rules - only do this on activation as anything more frequent is bad!
         flush_rewrite_rules();
     }
 
     /**
      * Fired for each blog when the plugin is deactivated.
      *
-     * @since    0.1.0
+     * @since    0.4.5
      */
     private static function single_deactivate() {
-        // @TODO: Define deactivation functionality here
+
+        // flush rules on deactivate as well so they're not left hanging around uselessly
         flush_rewrite_rules();
     }
 
