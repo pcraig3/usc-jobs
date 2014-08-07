@@ -103,6 +103,115 @@ class USC_Jobs {
     }
 
     /**
+     * http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-practical-example-of-wp_remote_get--wp-32109
+     * Tom McFarlin
+     */
+    private function HTTP_GET_usc_jobs() {
+
+        $response = wp_remote_get("http://www.testwestern.com/api/get_posts/?post_type=usc_jobs");
+
+        try {
+
+            // Note that we decode the body's response since it's the actual JSON feed
+            // second parameter returns response as an array
+            $json = json_decode( $response['body'], true );
+
+        } catch ( Exception $ex ) {
+            $json = null;
+        } // end try/catch
+
+        return $json;
+    }
+
+    private function filter_js_format_API_response( $json_response = null, array $fields_to_keep = array(
+                'type',
+                'slug',
+                'url',
+                'title',
+                'title_plain',
+                'date',
+                'modified',
+                'custom_fields',
+                'taxonomy_departments')
+            ) {
+
+        $json_response_modified = null;
+
+        if ( null == ( $json_response ) ) {
+
+            /** @TODO: This is a bad error message */
+            wp_die('Sorry, your USC Jobs request failed.  Please reload the page.');
+
+        } elseif ( ! empty( $fields_to_keep ) ) {
+
+            /** We JUST WANT POSTS.
+             * @TODO: This might mean problems paging in the future.  I guess we'll see.
+             * maybe check if json_response['count'] == json_response['count_total']
+             *
+             * Anyway, here's the simplified version.
+            posts   //array
+                id -> wp_id (because filter_js needs an id to work properly).
+                type
+                slug
+                url
+                //limit by status = "publish"
+                title
+                title_plain
+                date
+                modified
+                author  //array
+                custom_fields //array
+                    job_description         //array (w/string)
+                    apply_by_date  	    	//array (w/string)
+                    remuneration     		//array (w/string)
+                    position    			//array (w/string)
+                    application_link    	//array (w/link)
+                    job_posting_file	    //array (w/link)
+                    job_description_file	//array (w/link)
+                    contact_information	    //array (w/string)
+                taxonomy_departments	//array (w/arrays)
+                    id
+                    slug
+                    title
+                    description
+                    parent
+                    post_count
+             */
+
+            $posts = $json_response['posts'];
+
+            $temp_post = array();
+
+            foreach( $posts as $num => $post ) {
+
+                if('publish' === $post['status']) {
+
+                    $temp_post['id'] = $num; //filter_js needs sequential id numbers
+                    $temp_post['wp_id'] = $post['id'];
+
+                    foreach( $fields_to_keep as &$field ) {
+
+                        $temp_post[$field] = $post[$field];
+                    }
+                    unset($field);
+
+                    $posts[$num] = $temp_post;
+
+                }
+                else
+                    //if not published, remove the post
+                    unset($posts[$num]);
+            }
+
+            //array_values in case any posts were removed.
+            $json_response_modified = array_values($posts);
+
+        } // end if/else
+
+        return ( is_null($json_response_modified) ) ? $json_response : $json_response_modified;
+    }
+
+    /**
      * Change Posts Per Page for Event Archive
      *
      * @author Bill Erickson
@@ -599,6 +708,10 @@ class USC_Jobs {
         global $wp_query;
 
         if( $wp_query->is_main_query() && is_post_type_archive( 'usc_jobs' ) ) {
+
+            echo '<pre>';
+            var_dump( $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() ) );
+            echo '</pre>';
 
             wp_enqueue_script( 'tinysort', $this->usc_jobs_dir . 'bower_components/tinysort/dist/jquery.tinysort.min.js', array( 'jquery' ), self::VERSION );
 
