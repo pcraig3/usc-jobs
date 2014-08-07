@@ -3,11 +3,6 @@
 $html_string    = "";
 $subhead        = "";
 
-/**
-echo '<pre>';
-echo  var_dump( get_the_terms( get_the_ID(), 'departments' ) );
-echo '</pre>';
-**/
 
 /**
 echo '<pre>';

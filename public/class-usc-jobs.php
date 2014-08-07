@@ -52,13 +52,20 @@ class USC_Jobs {
      */
     protected static $instance = null;
 
+
+    protected $usc_jobs_dir =  '';
+
+
     /**
      * Initialize the plugin by setting localization and loading public scripts
      * and styles.
      *
-     * @since     0.4.5
+     * @since     0.5.0
      */
     private function __construct() {
+
+        //exactly one up from this directory is the home directory of the plugin
+        $this->usc_jobs_dir = trailingslashit( dirname( __DIR__ ) );
 
         // Load plugin text domain
         add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
@@ -91,6 +98,8 @@ class USC_Jobs {
         //define what our query looks like when we call our custom url
         add_action( 'pre_get_posts', array( $this, 'usc_jobs_get_meta_remuneration' ) );
 
+        //add filter_js scripts if post_archive of usc jobs.
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
     }
 
     /**
@@ -221,8 +230,6 @@ class USC_Jobs {
         return false;
     }
 
-    /** @TODO: Jane Birkin & Serge Gainsbourg ; Tetes Raides */
-
     /**
      * Checks to see if appropriate templates are present in active template directory.
      * Otherwises uses templates present in plugin's template directory.
@@ -238,15 +245,13 @@ class USC_Jobs {
      */
     public function usc_jobs_set_template( $template ){
 
-        $plugin_dir = trailingslashit( dirname( __DIR__ ) );
-
         //If WordPress couldn't find a 'usc_jobs' archive template use plug-in instead:
 
         if( is_post_type_archive( 'usc_jobs' ) && ! $this->usc_jobs_is_job_template( $template, 'archive' ) )
-            $template = $plugin_dir . 'templates/archive-usc_jobs.php';
+            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
 
         if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template($template,'departments'))
-            $template = $plugin_dir.'templates/taxonomy-usc_jobs-departments.php';
+            $template = $this->usc_jobs_dir.'templates/taxonomy-usc_jobs-departments.php';
 
         /*
         * In view of theme compatibility, if an event template isn't found
@@ -357,7 +362,7 @@ class USC_Jobs {
         $template_dir = get_stylesheet_directory(); //child theme
         $parent_template_dir = get_template_directory(); //parent theme
 
-        $stack = apply_filters( 'usc_jobs_template_stack', array( $template_dir, $parent_template_dir, trailingslashit( dirname( __DIR__ ) ) . 'templates' ) );
+        $stack = apply_filters( 'usc_jobs_template_stack', array( $template_dir, $parent_template_dir, $this->usc_jobs_dir . 'templates' ) );
 
         foreach ( (array) $template_names as $template_name ) {
             if ( !$template_name )
@@ -582,6 +587,40 @@ class USC_Jobs {
         wp_enqueue_script( 'jquery-ui-datepicker' );
 
     }
+
+    /**
+     * Register and enqueues public-facing JavaScript files relating to filter_js
+     * @TODO: Call for DEPARTMENTS as well
+     *
+     * @since    0.5.0
+     */
+    public function enqueue_filter_js_scripts() {
+
+        global $wp_query;
+
+        if( $wp_query->is_main_query() && is_post_type_archive( 'usc_jobs' ) ) {
+
+            wp_enqueue_script( 'tinysort', $this->usc_jobs_dir . 'bower_components/tinysort/dist/jquery.tinysort.min.js', array( 'jquery' ), self::VERSION );
+
+            //<soops h4ck> disable jQuery.noConflict for the length of the externally-hosted filter.js
+            wp_enqueue_script( 'jquery_no_conflict_disable', plugins_url( '/assets/js/jquery-no-conflict-disable.js', __FILE__ ), array( 'jquery', 'tinysort' ), self::VERSION );
+            wp_enqueue_script( 'filterjs', "https://raw.githubusercontent.com/jiren/filter.js/master/filter.js", array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
+
+            //</soops h4ck>
+            wp_enqueue_script( 'jquery_no_conflict_enable', plugins_url( '/assets/js/jquery-no-conflict-enable.js', __FILE__ ), array( 'jquery', 'filterjs' ), self::VERSION );
+
+            wp_enqueue_script( 'init_filterjs', plugins_url( '/assets/js/init-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs', 'jquery_no_conflict_enable' ), self::VERSION );
+            wp_enqueue_script( 'public_filterjs', plugins_url( '/assets/js/public-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs', 'init_filterjs' ), self::VERSION );
+
+            // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
+            wp_localize_script( 'public_filterjs', "options", array(
+                'jobs'  => "nothing yet",
+            ) );
+
+        }
+    }
+
+
 
     /**
      * NOTE:  Actions are points in the execution of a page or process
