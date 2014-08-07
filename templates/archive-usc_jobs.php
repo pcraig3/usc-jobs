@@ -30,13 +30,30 @@
                             <input id="paid" value="paid" type="checkbox">
                             <span>paid</span>
                         </li>
-                        <li>
+                        <!--li>
                             <input id="volunteer" value="volunteer" type="checkbox">
                             <span>volunteer</span>
-                        </li>
+                        </li-->
                         <li>
                             <input id="internship" value="internship" type="checkbox">
                             <span>internship</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="filterjs__filter__checkbox__wrapper">
+                    <h4>Filter by Dept</h4>
+                    <ul id="taxonomy_departments">
+                        <li>
+                            <input id="finance" value="finance" type="checkbox">
+                            <span>finance</span>
+                        </li>
+                        <!--li>
+                            <input id="volunteer" value="volunteer" type="checkbox">
+                            <span>volunteer</span>
+                        </li-->
+                        <li>
+                            <input id="chrw" value="chrw" type="checkbox">
+                            <span>chrw</span>
                         </li>
                     </ul>
                 </div>

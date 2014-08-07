@@ -67,7 +67,8 @@ jQuery(function ($) {
 
         var settings = {
             filter_criteria: {
-             remuneration: ['#remuneration input:checkbox', 'custom_fields.remuneration']
+             remuneration: ['#remuneration input:checkbox', 'custom_fields.remuneration'],
+             taxonomy_departments: ['#taxonomy_departments input:checkbox', 'taxonomy_departments.ARRAY.slug']
              },
             search: {input: '#search_box' },
             and_filter_on: true,
