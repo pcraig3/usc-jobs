@@ -142,6 +142,7 @@ class USC_Jobs {
                 'title_plain',
                 'date',
                 'modified',
+                'author',
                 'custom_fields',
                 'taxonomy_departments')
             ) {
@@ -207,12 +208,17 @@ class USC_Jobs {
                     unset($field);
 
                     //custom_fields don't need to be arrays.  At least not for jobs.
-                    if( in_array('custom_fields', $fields_to_keep) ) {
+                    if( in_array('custom_fields', $fields_to_keep ) ) {
 
                         foreach( $temp_post['custom_fields'] as $key => $value ) {
 
                             $temp_post['custom_fields'][$key] = array_shift($value);
                         }
+                    }
+
+                    if( in_array('custom_fields', $fields_to_keep ) ) {
+
+                        $temp_post['custom_fields']['apply_by_date'] = date('g a, \o\n F d', strtotime( $temp_post['custom_fields']['apply_by_date'] ) );
                     }
 
                     $posts[$num] = $temp_post;

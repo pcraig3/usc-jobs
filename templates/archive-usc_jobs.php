@@ -42,19 +42,17 @@
                 </div-->
             </div>
             <br>
-            <?php /** @TODO: FIX ABSOLUTE LINK **/ ?>
             <div class="filterjs__list__wrapper">
                 <div class="filterjs__loading filterjs__loading--ajax">
-                    <img class="filterjs__loading__img" title="meow meow"
-                         src="<?php echo 'http://testwestern.com/wp-content/plugins/usc-jobs/assets/horse.gif'; ?>" alt="Loading" height="91" width="160">
+                    <img class="filterjs__loading__img" title="go mustangs!"
+                         src="<?php echo plugins_url( 'assets/horse.gif', __DIR__ ); ?>" alt="Loading" height="91" width="160">
                     <p class="filterjs__loading__status">
                         * Loading *
                     </p>
-                    <a class="filterjs__loading__nojs" href="events-from-facebook-no-js/">Loading too slowly? Click here!</a>
                 </div>
 
                 <!--div class="filterjs__list__crop"-->
-                <div class="filterjs__list" id="event_list" data-nonce="<?php echo wp_create_nonce("event_list_nonce"); ?>"></div>
+                <div class="filterjs__list" id="usc_jobs_list"></div>
                 <!--/div-->
             </div>
             <div class="clearfix cf"></div>

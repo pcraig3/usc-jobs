@@ -22,8 +22,8 @@ var AjaxEvents = {
             {
                 //action:         "get_events",
                 //api_url:        api_url
-                //attr_id:        "event_list",
-                //nonce:          jQuery("#event_list").data("nonce"),
+                //attr_id:        "usc_jobs_list",
+                //nonce:          jQuery("#usc_jobs_list").data("nonce"),
                 //remove_events:  1
                 //we don't need this column because it defaults to false.
                 //whitelist: 0

@@ -3,7 +3,7 @@
 
 	$(function () {
 
-		//$('.post-type-archive-usc_jobs #main').hide();
+		$('.post-type-archive-usc_jobs #main').find('article').hide();
 
 	});
 
