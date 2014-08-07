@@ -8,7 +8,7 @@ jQuery(function ($) {
         //I don't think we need limits.
         //events = AjaxEvents.limit_events( jobs, limit );
 
-        $('#remuneration :checkbox').prop('checked', true);
+        $('#remuneration :checkbox, #taxonomy_departments :checkbox').prop('checked', true);
 
         fJS = filterInit( jobs );
 
@@ -21,7 +21,7 @@ jQuery(function ($) {
      *
      * @param jobs    a list of jobs. Data is pulled from the USC Jobs Custom Post Type in our database.
      *
-     * @since   0.5.1
+     * @since   0.6.0
      *
      * @returns {*} A list of searchable jobs in the backend.
      */

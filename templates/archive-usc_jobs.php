@@ -30,10 +30,10 @@
                             <input id="paid" value="paid" type="checkbox">
                             <span>paid</span>
                         </li>
-                        <!--li>
+                        <li>
                             <input id="volunteer" value="volunteer" type="checkbox">
                             <span>volunteer</span>
-                        </li-->
+                        </li>
                         <li>
                             <input id="internship" value="internship" type="checkbox">
                             <span>internship</span>
@@ -43,18 +43,23 @@
                 <div class="filterjs__filter__checkbox__wrapper">
                     <h4>Filter by Dept</h4>
                     <ul id="taxonomy_departments">
-                        <li>
-                            <input id="finance" value="finance" type="checkbox">
-                            <span>finance</span>
-                        </li>
-                        <!--li>
-                            <input id="volunteer" value="volunteer" type="checkbox">
-                            <span>volunteer</span>
-                        </li-->
-                        <li>
-                            <input id="chrw" value="chrw" type="checkbox">
-                            <span>chrw</span>
-                        </li>
+                        <?php
+
+                        $departments = get_terms( 'departments' );
+
+                        foreach( $departments as &$department ) {
+
+                            if( $department->count > 0 ) {
+
+                                echo '<li><input id="' . $department->slug . '" value="' . $department->slug . '" type="checkbox">';
+                                echo    ' <span>' . $department->name . '</span>';
+                                echo '</li>';
+                            }
+
+                        }
+                        unset( $department );
+
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -131,10 +136,10 @@
 
     <?php if ( is_active_sidebar( 'usc_jobs_archive_sidebar' ) ) : ?>
         <div id="secondary" class="sidebar-container fourcol" role="complementary">
-     	        <div class="widget-area">
-     	            <?php dynamic_sidebar( 'usc_jobs_archive_sidebar' ); ?>
-     	        </div><!-- .widget-area -->
-     	</div><!-- #secondary -->
+            <div class="widget-area">
+                <?php dynamic_sidebar( 'usc_jobs_archive_sidebar' ); ?>
+            </div><!-- .widget-area -->
+        </div><!-- #secondary -->
     <?php endif; ?>
 
 </div> <!-- end #content -->

@@ -128,7 +128,7 @@ class USC_Jobs {
 
     /**
      *
-     * @since     0.5.1
+     * @since     0.6.0
      *
      * @param null $json_response
      * @param array $fields_to_keep
@@ -214,11 +214,6 @@ class USC_Jobs {
 
                             $temp_post['custom_fields'][$key] = array_shift($value);
                         }
-                    }
-
-                    if( in_array('custom_fields', $fields_to_keep ) ) {
-
-                        $temp_post['custom_fields']['apply_by_date'] = date('g a, \o\n F d', strtotime( $temp_post['custom_fields']['apply_by_date'] ) );
                     }
 
                     $posts[$num] = $temp_post;
