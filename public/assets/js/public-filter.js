@@ -8,6 +8,8 @@ jQuery(function ($) {
         //I don't think we need limits.
         //events = AjaxEvents.limit_events( jobs, limit );
 
+        $('#remuneration :checkbox').prop('checked', true);
+
         fJS = filterInit( jobs );
 
         $('#usc_jobs_list').trigger( "change" );
@@ -64,11 +66,11 @@ jQuery(function ($) {
         }
 
         var settings = {
-            /*filter_criteria: {
-             removed: ['#removed :checkbox', 'removed']
-             },*/
+            filter_criteria: {
+             remuneration: ['#remuneration input:checkbox', 'custom_fields.remuneration']
+             },
             search: {input: '#search_box' },
-            //and_filter_on: true,
+            and_filter_on: true,
             id_field: 'id' //Default is id. This is only for usecase
         };
 
@@ -80,9 +82,9 @@ jQuery(function ($) {
         var usc_jobs_as_json = JSON.parse(options.jobs);
 
         console.log( usc_jobs_as_json[0] );
-        console.log( usc_jobs_as_json[0]['id'] );
 
         AjaxEvents.ajax_jobs_gotten( usc_jobs_as_json, 0 );
+
     });
 
 });

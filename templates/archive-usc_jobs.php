@@ -23,23 +23,23 @@
                     <h4>Search with filter.js</h4>
                     <input type="text" id="search_box" class="searchbox" placeholder="Type here...."/>
                 </div>
-                <!--div class="filterjs__filter__checkbox__wrapper">
-                    <h4>Filter by Status</h4>
-                    <ul id="removed">
+                <div class="filterjs__filter__checkbox__wrapper">
+                    <h4>Filter by Money</h4>
+                    <ul id="remuneration">
                         <li>
-                            <input id="display" value="display" type="checkbox">
-                            <span>Display</span>
+                            <input id="paid" value="paid" type="checkbox">
+                            <span>paid</span>
                         </li>
                         <li>
-                            <input id="modified" value="modified" type="checkbox">
-                            <span>Modified</span>
+                            <input id="volunteer" value="volunteer" type="checkbox">
+                            <span>volunteer</span>
                         </li>
                         <li>
-                            <input id="removed" value="removed" type="checkbox">
-                            <span>Removed</span>
+                            <input id="internship" value="internship" type="checkbox">
+                            <span>internship</span>
                         </li>
                     </ul>
-                </div-->
+                </div>
             </div>
             <br>
             <div class="filterjs__list__wrapper">

@@ -198,7 +198,7 @@ class USC_Jobs {
 
                 if('publish' === $post['status']) {
 
-                    $temp_post['id'] = $num; //filter_js needs sequential id numbers
+                    $temp_post['id'] = $num + 1; //filter_js needs sequential id numbers
                     $temp_post['wp_id'] = $post['id'];
 
                     foreach( $fields_to_keep as &$field ) {
@@ -742,11 +742,12 @@ class USC_Jobs {
             echo '</pre>';
             **/
 
-            wp_enqueue_script( 'tinysort', $this->usc_jobs_dir . 'bower_components/tinysort/dist/jquery.tinysort.min.js', array( 'jquery' ), self::VERSION );
+            wp_enqueue_script( 'tinysort', plugins_url( '/bower_components/tinysort/dist/jquery.tinysort.min.js', __DIR__ ), array( 'jquery' ), self::VERSION );
 
             //<soops h4ck> disable jQuery.noConflict for the length of the externally-hosted filter.js
             wp_enqueue_script( 'jquery_no_conflict_disable', plugins_url( '/assets/js/jquery-no-conflict-disable.js', __FILE__ ), array( 'jquery', 'tinysort' ), self::VERSION );
-            wp_enqueue_script( 'filterjs', "https://raw.githubusercontent.com/jiren/filter.js/master/filter.js", array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
+            wp_enqueue_script( 'filterjs', plugins_url( '/assets/js/filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
+            //wp_enqueue_script( 'filterjs', "https://raw.githubusercontent.com/jiren/filter.js/master/filter.js", array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
 
             wp_enqueue_script( 'init_filterjs', plugins_url( '/assets/js/init-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs' ), self::VERSION );
             wp_enqueue_script( 'public_filterjs', plugins_url( '/assets/js/public-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs', 'init_filterjs' ), self::VERSION );
