@@ -94,7 +94,10 @@ jQuery(function ($) {
 
         //AjaxEvents.ajax_get_events( options );
 
-        console.log( options.jobs );
+        var usc_jobs_as_json = JSON.parse(options.jobs);
+
+        console.log( usc_jobs_as_json[0] );
+        console.log( usc_jobs_as_json[0]['id'] );
     });
 
 });

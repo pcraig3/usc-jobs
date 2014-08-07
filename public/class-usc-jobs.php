@@ -195,6 +195,15 @@ class USC_Jobs {
                     }
                     unset($field);
 
+                    //custom_fields don't need to be arrays.  At least not for jobs.
+                    if( in_array('custom_fields', $fields_to_keep) ) {
+
+                        foreach( $temp_post['custom_fields'] as $key => $value ) {
+
+                            $temp_post['custom_fields'][$key] = array_shift($value);
+                        }
+                    }
+
                     $posts[$num] = $temp_post;
 
                 }
@@ -709,9 +718,12 @@ class USC_Jobs {
 
         if( $wp_query->is_main_query() && is_post_type_archive( 'usc_jobs' ) ) {
 
+            $usc_jobs_as_json_array = $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() );
+            /**
             echo '<pre>';
-            var_dump( $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() ) );
+            var_dump( $usc_jobs_as_json_array );
             echo '</pre>';
+            **/
 
             wp_enqueue_script( 'tinysort', $this->usc_jobs_dir . 'bower_components/tinysort/dist/jquery.tinysort.min.js', array( 'jquery' ), self::VERSION );
 
@@ -727,7 +739,7 @@ class USC_Jobs {
 
             // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
             wp_localize_script( 'public_filterjs', "options", array(
-                'jobs'  => "nothing yet",
+                'jobs'  => json_encode($usc_jobs_as_json_array),
             ) );
 
         }
