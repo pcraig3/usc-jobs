@@ -105,6 +105,9 @@ class USC_Jobs {
     /**
      * http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-practical-example-of-wp_remote_get--wp-32109
      * Tom McFarlin
+     *
+     * @since     0.5.1
+     *
      */
     private function HTTP_GET_usc_jobs() {
 
@@ -123,6 +126,14 @@ class USC_Jobs {
         return $json;
     }
 
+    /**
+     *
+     * @since     0.5.1
+     *
+     * @param null $json_response
+     * @param array $fields_to_keep
+     * @return array|null
+     */
     private function filter_js_format_API_response( $json_response = null, array $fields_to_keep = array(
                 'type',
                 'slug',
@@ -710,7 +721,7 @@ class USC_Jobs {
      * Register and enqueues public-facing JavaScript files relating to filter_js
      * @TODO: Call for DEPARTMENTS as well
      *
-     * @since    0.5.0
+     * @since    0.5.1
      */
     public function enqueue_filter_js_scripts() {
 
@@ -731,11 +742,12 @@ class USC_Jobs {
             wp_enqueue_script( 'jquery_no_conflict_disable', plugins_url( '/assets/js/jquery-no-conflict-disable.js', __FILE__ ), array( 'jquery', 'tinysort' ), self::VERSION );
             wp_enqueue_script( 'filterjs', "https://raw.githubusercontent.com/jiren/filter.js/master/filter.js", array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
 
-            //</soops h4ck>
-            wp_enqueue_script( 'jquery_no_conflict_enable', plugins_url( '/assets/js/jquery-no-conflict-enable.js', __FILE__ ), array( 'jquery', 'filterjs' ), self::VERSION );
-
-            wp_enqueue_script( 'init_filterjs', plugins_url( '/assets/js/init-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs', 'jquery_no_conflict_enable' ), self::VERSION );
+            wp_enqueue_script( 'init_filterjs', plugins_url( '/assets/js/init-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs' ), self::VERSION );
             wp_enqueue_script( 'public_filterjs', plugins_url( '/assets/js/public-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs', 'init_filterjs' ), self::VERSION );
+
+            //</soops h4ck>
+            //this messes up filterJS later on, so we can't really include it again.
+            //wp_enqueue_script( 'jquery_no_conflict_enable', plugins_url( '/assets/js/jquery-no-conflict-enable.js', __FILE__ ), array( 'jquery', 'filterjs', 'public_filterjs' ), self::VERSION );
 
             // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
             wp_localize_script( 'public_filterjs', "options", array(
