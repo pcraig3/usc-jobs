@@ -5,7 +5,7 @@ $subhead        = "";
 
 /**
 echo '<pre>';
-echo var_dump( get_the_terms( get_the_ID(), 'departments' ) );
+echo  var_dump( get_the_terms( get_the_ID(), 'departments' ) );
 echo '</pre>';
 **/
 
@@ -30,7 +30,11 @@ else {
 
     foreach( $array_of_departments as &$department) {
 
-        $html_string .= $department->name . ", ";
+        $department_archive_url = get_site_url( get_current_blog_id(), trailingslashit( $department->taxonomy . '/' . $department->slug ) );
+
+        $html_string .= '<a title="Find more Jobs in ' . $department->name . '" ';
+        $html_string .= ' href="' . $department_archive_url . '" >';
+        $html_string .= $department->name . "</a>, ";
 
     }
     unset($department);
@@ -57,7 +61,11 @@ or if you know the field id of the value you want, you can do $value = get_post_
  */
 
 
+
     $array_of_meta_values =  get_post_meta( get_the_ID() );
+
+$html_string .= '<br>';
+
 
 foreach( $array_of_meta_values as $key => $value ) {
 
@@ -72,17 +80,14 @@ foreach( $array_of_meta_values as $key => $value ) {
 
         if( filter_var( $value, FILTER_VALIDATE_URL )  ) { //test for a url
 
-            $html_string .= '<a href="' . esc_url($value) . '" title="click me!"><h3>' . __( $subhead , 'usc-jobs') . '</h3></a>';
+            $html_string .= '<a href="' . esc_url($value) . '" title="click me!"><h3>' . __( $subhead , 'usc-jobs') . '</h3></a><br>';
         }
         else {
 
             $html_string .= '<h3>' . __( $subhead , 'usc-jobs') . '</h3>'
-                . '<p>' . $value . '</p>';
+                . '<p>' . $value . '</p><br>';
         }
     }
 }
 
 echo $html_string;
-
-
-?>

@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.4.3
+Stable tag: 0.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,9 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.4.4 =
+* Figured out the archive for my custom Departments Taxonomy.
 
 = 0.4.3 =
 * Getting the template for single USC Jobs has been revolutionized along the lines of Stephen Harris' content-modifying method.

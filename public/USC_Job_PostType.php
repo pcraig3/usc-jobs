@@ -56,6 +56,7 @@ class USCJob_PostType extends AdminPageFramework_PostType {
             array(			// argument - for the argument array keys, refer to : http://codex.wordpress.org/Function_Reference/register_taxonomy#Arguments
                 'labels' => array(
                     'name' => 'Departments',
+                    'singular_name' => 'Department',
                     'add_new_item' => 'Add New Department',
                     'new_item_name' => 'New Department'
                 ),

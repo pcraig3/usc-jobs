@@ -129,6 +129,8 @@ class USC_Jobs {
         return false;
     }
 
+    /** @TODO: Jane Birkin & Serge Gainsbourg ; Tetes Raides */
+
     /**
      * Checks to see if appropriate templates are present in active template directory.
      * Otherwises uses templates present in plugin's template directory.
@@ -137,7 +139,7 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
      *
-     * @since 0.4.3
+     * @since 0.4.4
      *
      * @param string $template Absolute path to template
      * @return string Absolute path to template
@@ -151,9 +153,12 @@ class USC_Jobs {
         if( is_post_type_archive( 'usc_jobs' ) && ! $this->usc_jobs_is_job_template( $template, 'archive' ) )
             $template = $plugin_dir . 'templates/archive-usc_jobs.php';
 
+        if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template($template,'departments'))
+            $template = $plugin_dir.'templates/taxonomy-usc_jobs-departments.php';
+
         /*
         * In view of theme compatibility, if an event template isn't found
-        * rather than using our own single-usc_jobs.php, we use ordinary single.php and
+        * rather than using our own (hypothetical) single-usc_jobs.php, we use ordinary single.php and
         * add content in via the_content
         */
         if( is_singular( 'usc_jobs' ) && ! $this->usc_jobs_is_job_template( $template,'usc_jobs' ) ){
