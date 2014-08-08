@@ -7,13 +7,30 @@
         <h1 class="archive-title h2">
             <?php
 
-            post_type_archive_title();
+            $is_departments = is_tax( 'departments' );
+            $is_usc_jobs    = is_post_type_archive( 'usc_jobs' );
 
-            $remuneration = get_query_var('usc_jobs_remuneration');
+            if( $is_departments ) {
 
-            if( ! empty($remuneration) ) {
-                echo ': ' . ucfirst($remuneration);
+                //get the slug of the taxonomy term (ie, "finance")
+                $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+
+                //get the taxonomy object
+                $taxonomy = get_taxonomy($term->taxonomy);
+
+                echo $taxonomy->labels->singular_name . ': ' . $term->name;
             }
+            if( $is_usc_jobs ) {
+
+                post_type_archive_title();
+
+                $remuneration = get_query_var('usc_jobs_remuneration');
+
+                if( ! empty($remuneration) ) {
+                    echo ': ' . ucfirst($remuneration);
+                }
+            }
+
             ?>
         </h1>
 
@@ -40,7 +57,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="filterjs__filter__checkbox__wrapper">
+                <div class="filterjs__filter__checkbox__wrapper" <?php echo ( ! $is_departments ) ? '' : 'style="display:none"'; ?> >
                     <h4>Filter by Dept</h4>
                     <ul id="taxonomy_departments">
                         <?php
@@ -49,9 +66,12 @@
 
                         foreach( $departments as &$department ) {
 
+                            $checked_by_default = ( ! $is_departments ) ? "check_me" : ( $term->slug === $department->slug ) ? "check_me" : "" ;
+
                             if( $department->count > 0 ) {
 
-                                echo '<li><input id="' . $department->slug . '" value="' . $department->slug . '" type="checkbox">';
+                                echo '<li><input class="' . $checked_by_default
+                                    . '" id="' . $department->slug . '" value="' . $department->slug . '" type="checkbox">';
                                 echo    ' <span>' . $department->name . '</span>';
                                 echo '</li>';
                             }

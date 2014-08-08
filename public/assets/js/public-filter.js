@@ -8,7 +8,7 @@ jQuery(function ($) {
         //I don't think we need limits.
         //events = AjaxEvents.limit_events( jobs, limit );
 
-        $('#remuneration :checkbox, #taxonomy_departments :checkbox').prop('checked', true);
+        $('#remuneration :checkbox, #taxonomy_departments :checkbox.check_me').prop('checked', true);
 
         fJS = filterInit( jobs );
 

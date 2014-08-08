@@ -381,7 +381,7 @@ class USC_Jobs {
             $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
 
         if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template($template,'departments'))
-            $template = $this->usc_jobs_dir.'templates/taxonomy-usc_jobs-departments.php';
+            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
 
         /*
         * In view of theme compatibility, if an event template isn't found
@@ -728,7 +728,7 @@ class USC_Jobs {
 
         global $wp_query;
 
-        if( $wp_query->is_main_query() && is_post_type_archive( 'usc_jobs' ) ) {
+        if( $wp_query->is_main_query() && ( is_post_type_archive( 'usc_jobs' ) || is_tax( 'departments' ) ) ) {
 
             $usc_jobs_as_json_array = $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() );
             /**
