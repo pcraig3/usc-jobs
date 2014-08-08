@@ -94,7 +94,7 @@ class USC_Jobs_Admin {
         //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
         include_once('USC_Job_MetaBox.php');
         new USC_Job_MetaBox(
-            'sample_custom_meta_box',	// meta box ID
+            'usc_jobs_metabox',	// meta box ID
             __( 'Job Fields', 'usc-jobs' ),	// title
             array( 'usc_jobs' ),	// post type slugs: post, page, etc.
             'normal',	// context (what kind of metabox this is)

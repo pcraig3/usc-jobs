@@ -38,12 +38,14 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                     'plugin_listing_table_title_cell_link'	=>	__( 'Jobs', 'usc-jobs' ),		// framework specific key. [3.0.6+]
                 ),
                 'public'			=>	true,
+                'description'       =>  'USC Job postings. Yay!',
                 'menu_position' 	=>	5,  //below Posts
                 'supports'			=>	array( 'title' ), // 'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),	// 'custom-fields'
                 'taxonomies'		=>	array( '' ),
                 'has_archive'		=>	true,
                 'show_admin_column' =>	true,	// this is for custom taxonomies to automatically add the column in the listing table.
                 'menu_icon'			=>	'dashicons-hammer',
+                'rewrite'           => array( 'slug' => 'jobs','with_front' => false ),
                 // ( framework specific key ) this sets the screen icon for the post type for WordPress v3.7.1 or below.
                 'screen_icon'		=>	'http://testwestern.com/wp-content/plugins/admin-page-framework/asset/image/wp_logo_bw_32x32.png'
             )
@@ -65,11 +67,11 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                 'hierarchical' => true,
                 'show_admin_column' => true,
                 'show_in_nav_menus' => true,
+                'rewrite' => array( 'with_front' => false ),
                 'show_table_filter' => true,	// framework specific key
                 'show_in_sidebar_menus' => true,	// framework specific key
             )
         );
-
 
         add_filter( 'the_content', array( $this, 'replyToPrintOptionValues' ) );
 

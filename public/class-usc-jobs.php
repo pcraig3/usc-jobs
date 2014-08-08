@@ -83,6 +83,8 @@ class USC_Jobs {
         //add_action( '@TODO', array( $this, 'action_method_name' ) );
         //add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
+        //department taxonomy doesn't load on 'init'
+        //add_action( 'init', array( $this, 'add_jobs_post_type' ) );
         $this->add_jobs_post_type();
 
         add_filter( 'template_include', array( $this, 'usc_jobs_set_template' ) ) ;
@@ -99,7 +101,7 @@ class USC_Jobs {
         add_action( 'pre_get_posts', array( $this, 'usc_jobs_get_meta_remuneration' ) );
 
         //add filter_js scripts if post_archive of usc jobs.
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
+        /*add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );*/
     }
 
     /**
@@ -281,7 +283,7 @@ class USC_Jobs {
      * The idea is that we should be able to generate a specific archive if the url contains a useful 'remuneration' value
      * Function is static so that it can be called on plugin activation.
      *
-     * @since    0.4.5
+     * @since    0.6.1
      */
     public static function usc_jobs_rewrite_rules() {
 
@@ -289,7 +291,7 @@ class USC_Jobs {
         add_rewrite_tag('%usc_jobs_remuneration%','([^/]+)');
 
         // Custom rewrite rule to hijack page generation
-        add_rewrite_rule('usc_jobs/remuneration/([^/]+)/?$','index.php?post_type=usc_jobs&usc_jobs_remuneration=$matches[1]','top');
+        add_rewrite_rule('jobs/remuneration/([^/]+)/?$','index.php?post_type=usc_jobs&usc_jobs_remuneration=$matches[1]','top');
     }
 
     /**
