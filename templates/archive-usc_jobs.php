@@ -7,8 +7,9 @@
         <h1 class="archive-title h2">
             <?php
 
-            $is_departments = is_tax( 'departments' );
-            $is_usc_jobs    = is_post_type_archive( 'usc_jobs' );
+            $is_departments     = is_tax( 'departments' );
+            $is_usc_jobs        = is_post_type_archive( 'usc_jobs' );
+            $is_remuneration    = false;
 
             if( $is_departments ) {
 
@@ -16,7 +17,7 @@
                 $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 
                 //get the taxonomy object
-                $taxonomy = get_taxonomy($term->taxonomy);
+                $taxonomy = get_taxonomy( $term->taxonomy );
 
                 echo $taxonomy->labels->singular_name . ': ' . $term->name;
             }
@@ -24,10 +25,12 @@
 
                 post_type_archive_title();
 
-                $remuneration = get_query_var('usc_jobs_remuneration');
+                $remuneration = get_query_var( 'usc_jobs_remuneration' );
 
-                if( ! empty($remuneration) ) {
-                    echo ': ' . ucfirst($remuneration);
+                if( ! empty( $remuneration ) ) {
+
+                    $is_remuneration = true;
+                    echo ': ' . ucfirst( $remuneration );
                 }
             }
 
@@ -40,24 +43,34 @@
                     <h4>Search with filter.js</h4>
                     <input type="text" id="search_box" class="searchbox" placeholder="Type here...."/>
                 </div>
-                <div class="filterjs__filter__checkbox__wrapper">
+                <div class="filterjs__filter__checkbox__wrapper" <?php echo ( $is_remuneration ) ? 'style="display:none"' : ''; ?> >
                     <h4>Filter by Money</h4>
                     <ul id="remuneration">
-                        <li>
-                            <input id="paid" value="paid" type="checkbox">
-                            <span>paid</span>
-                        </li>
-                        <li>
-                            <input id="volunteer" value="volunteer" type="checkbox">
-                            <span>volunteer</span>
-                        </li>
-                        <li>
-                            <input id="internship" value="internship" type="checkbox">
-                            <span>internship</span>
-                        </li>
+                        <?php
+
+                            $remuneration_values = array(
+                                'paid',
+                                'volunteer',
+                                'internship'
+                            );
+
+                            foreach( $remuneration_values as &$remuneration_value ) {
+
+                                $checked_by_default = ( ! $is_remuneration ) ? "check_me" : ( $remuneration === $remuneration_value ) ? "check_me" : "" ;
+
+                                echo '<li><input class="' . $checked_by_default
+                                    . '" id="' . $remuneration_value . '" value="' . $remuneration_value . '" type="checkbox">';
+                                echo    ' <span>' . $remuneration_value . '</span>';
+                                echo '</li>';
+
+                            }
+                            unset( $remuneration_value );
+
+                        ?>
+
                     </ul>
                 </div>
-                <div class="filterjs__filter__checkbox__wrapper" <?php echo ( ! $is_departments ) ? '' : 'style="display:none"'; ?> >
+                <div class="filterjs__filter__checkbox__wrapper" <?php echo ( $is_departments ) ? 'style="display:none"' : ''; ?> >
                     <h4>Filter by Dept</h4>
                     <ul id="taxonomy_departments">
                         <?php
@@ -68,6 +81,7 @@
 
                             $checked_by_default = ( ! $is_departments ) ? "check_me" : ( $term->slug === $department->slug ) ? "check_me" : "" ;
 
+                            /** @TODO: I mean, really we just want the departments of the current jobs */
                             if( $department->count > 0 ) {
 
                                 echo '<li><input class="' . $checked_by_default

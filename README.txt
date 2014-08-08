@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.6.2
+Stable tag: 0.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.6.3 =
+* Ripped out a bunch of crappy JS, and updated code for remuneration archives.
 
 = 0.6.2 =
 * I think we're done enough of it to move onward.  Not styled yet, but functionally it looks okay.

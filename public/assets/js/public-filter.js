@@ -1,14 +1,16 @@
 jQuery(function ($) {
     /* You can safely use $ in this code block to reference jQuery */
 
-    AjaxEvents.ajax_jobs_gotten = function( jobs, limit ) {
+    var fJS;
+
+    //call this right away.  don't wait for $(document).ready
+    $('.post-type-archive-usc_jobs #main, .tax-departments #main').find('article').remove();
+
+    function jobs_gotten( jobs ) {
 
         $('.filterjs__loading').addClass('hidden');
 
-        //I don't think we need limits.
-        //events = AjaxEvents.limit_events( jobs, limit );
-
-        $('#remuneration :checkbox, #taxonomy_departments :checkbox.check_me').prop('checked', true);
+        $('#remuneration :checkbox.check_me, #taxonomy_departments :checkbox.check_me').prop('checked', true);
 
         fJS = filterInit( jobs );
 
@@ -78,17 +80,14 @@ jQuery(function ($) {
         return FilterJS(jobs, "#usc_jobs_list", view, settings);
     }
 
-    $(document).ready(function($) {
+    $(document).ready(function() {
 
         var usc_jobs_as_json = JSON.parse(options.jobs);
 
-        console.log( usc_jobs_as_json[0] );
+        //console.log( usc_jobs_as_json[0] );
 
-        AjaxEvents.ajax_jobs_gotten( usc_jobs_as_json, 0 );
+        jobs_gotten( usc_jobs_as_json );
 
     });
-
-    /* $('.post-type-archive-usc_jobs #main, .tax-departments #main').find('article').remove(); */
-
 
 });
