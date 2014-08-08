@@ -101,19 +101,19 @@ class USC_Jobs {
         add_action( 'pre_get_posts', array( $this, 'usc_jobs_get_meta_remuneration' ) );
 
         //add filter_js scripts if post_archive of usc jobs.
-        /*add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );*/
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
     }
 
     /**
      * http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-practical-example-of-wp_remote_get--wp-32109
      * Tom McFarlin
      *
-     * @since     0.5.1
+     * @since     0.6.2
      *
      */
     private function HTTP_GET_usc_jobs() {
 
-        $response = wp_remote_get("http://www.testwestern.com/api/get_posts/?post_type=usc_jobs");
+        $response = wp_remote_get( trailingslashit( get_bloginfo( 'url' ) ) . 'api/get_posts/?post_type=usc_jobs');
 
         try {
 

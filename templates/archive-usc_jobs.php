@@ -34,7 +34,71 @@
             ?>
         </h1>
 
+        <div class="filterjs">
+            <div class="filterjs__filter">
+                <div class="filterjs__filter__search__wrapper">
+                    <h4>Search with filter.js</h4>
+                    <input type="text" id="search_box" class="searchbox" placeholder="Type here...."/>
+                </div>
+                <div class="filterjs__filter__checkbox__wrapper">
+                    <h4>Filter by Money</h4>
+                    <ul id="remuneration">
+                        <li>
+                            <input id="paid" value="paid" type="checkbox">
+                            <span>paid</span>
+                        </li>
+                        <li>
+                            <input id="volunteer" value="volunteer" type="checkbox">
+                            <span>volunteer</span>
+                        </li>
+                        <li>
+                            <input id="internship" value="internship" type="checkbox">
+                            <span>internship</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="filterjs__filter__checkbox__wrapper" <?php echo ( ! $is_departments ) ? '' : 'style="display:none"'; ?> >
+                    <h4>Filter by Dept</h4>
+                    <ul id="taxonomy_departments">
+                        <?php
 
+                        $departments = get_terms( 'departments' );
+
+                        foreach( $departments as &$department ) {
+
+                            $checked_by_default = ( ! $is_departments ) ? "check_me" : ( $term->slug === $department->slug ) ? "check_me" : "" ;
+
+                            if( $department->count > 0 ) {
+
+                                echo '<li><input class="' . $checked_by_default
+                                    . '" id="' . $department->slug . '" value="' . $department->slug . '" type="checkbox">';
+                                echo    ' <span>' . $department->name . '</span>';
+                                echo '</li>';
+                            }
+
+                        }
+                        unset( $department );
+
+                        ?>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="filterjs__list__wrapper">
+                <div class="filterjs__loading filterjs__loading--ajax">
+                    <img class="filterjs__loading__img" title="go mustangs!"
+                         src="<?php echo plugins_url( 'assets/horse.gif', __DIR__ ); ?>" alt="Loading" height="91" width="160">
+                    <p class="filterjs__loading__status">
+                        * Loading *
+                    </p>
+                </div>
+
+                <!--div class="filterjs__list__crop"-->
+                <div class="filterjs__list" id="usc_jobs_list"></div>
+                <!--/div-->
+            </div>
+            <div class="clearfix cf"></div>
+        </div>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
