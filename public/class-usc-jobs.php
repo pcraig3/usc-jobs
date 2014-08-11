@@ -238,12 +238,12 @@ class USC_Jobs {
     }
 
     /**
-     * Change Posts Per Page for Event Archive
+     * Change Posts Per Page for USC Job Archive
      *
      * @author Bill Erickson
      * @link http://www.billerickson.net/customize-the-wordpress-query/
      *
-     * @since    0.4.5
+     * @since    0.7.1
      *
      * @param object $query data
      */
@@ -407,7 +407,7 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
      *
-     * @since 0.7.0
+     * @since 0.7.1
      *
      * @param string $template Absolute path to template
      * @return string Absolute path to template

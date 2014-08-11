@@ -50,8 +50,7 @@
 
                             $remuneration_values = array(
                                 'paid',
-                                'volunteer',
-                                'internship'
+                                'volunteer'
                             );
 
                             foreach( $remuneration_values as &$remuneration_value ) {

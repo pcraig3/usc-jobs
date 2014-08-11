@@ -66,11 +66,10 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'type'			=> 'radio',
                 'title'			=> __( 'Remuneration Expected', 'usc-jobs' ),
                 //'description'	=> __( 'If this is a paid position, the following fields', 'usc-jobs' ),
-                'help'	        => __( 'Is this a paid position, a volunteer position, or an internship?', 'usc-jobs' ),
+                'help'	        => __( 'Is this a paid position or a volunteer position?', 'usc-jobs' ),
                 'label' => array(
                     'volunteer' => __( 'Volunteer', 'usc-jobs' ),
                     'paid' => __( 'Paid', 'usc-jobs' ),
-                    'internship' => __( 'Internship', 'usc-jobs' ),
                 ),
                 'default' => 'volunteer',
             ),
@@ -81,11 +80,13 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'description'	=> __( '(required if position is paid)', 'usc-jobs' ),
                 'help'	        => __( 'What kind of position this job is for.', 'usc-jobs' ),
                 'label' => array(
-                    'full-time_permanent'  => __( 'Full-Time Permanent', 'usc-jobs' ),
-                    'full-time_contract'   => __( 'Full-Time Contract', 'usc-jobs' ),
-                    'part-time_permanent'  => __( 'Part-Time Permanent', 'usc-jobs' ),
-                    'part-time_contract'   => __( 'Part-Time Contract', 'usc-jobs' ),
-                    'honourarium'   => __( 'Honourarium', 'usc-jobs' ),
+                    'full-time_permanent'   => __( 'Full-Time Permanent', 'usc-jobs' ),
+                    'full-time_contract'    => __( 'Full-Time Contract', 'usc-jobs' ),
+                    'part-time_permanent'   => __( 'Part-Time Permanent', 'usc-jobs' ),
+                    'part-time_contract'    => __( 'Part-Time Contract', 'usc-jobs' ),
+                    'honourarium'           => __( 'Honourarium', 'usc-jobs' ),
+                    'internship'            => __( 'Internship', 'usc-jobs' ),
+
                 ),
                 'default' => 'volunteer',
                 'attributes'	=>	array(
