@@ -301,16 +301,29 @@ class USC_Jobs {
      */
     public function usc_jobs_register_sidebars() {
 
-        /* Register the primary sidebar. */
+        /* Register the usc jobs archive sidebar. */
         register_sidebar(
             array(
                 'id' => 'usc_jobs_archive_sidebar',
                 'name' => __( 'USC Jobs Archive Sidebar', 'usc-jobs' ),
                 'description' => __( 'Only found on USC Jobs archives.', 'usc-jobs' ),
-                'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+                'before_widget' => '<aside id="%1$s" class="et_pb_widget %2$s">',
                 'after_widget' => '</aside>',
-                'before_title' => '<h3 class="widget-title">',
-                'after_title' => '</h3>'
+                'before_title' => '<h4 class="widgettitle">',
+                'after_title' => '</h4>'
+            )
+        );
+
+        /* Register the usc jobs single sidebar. */
+        register_sidebar(
+            array(
+                'id' => 'usc_jobs_single_sidebar',
+                'name' => __( 'USC Job Single Sidebar', 'usc-jobs' ),
+                'description' => __( 'Only found individual USC Jobs Posts.', 'usc-jobs' ),
+                'before_widget' => '<aside id="%1$s" class="et_pb_widget %2$s">',
+                'after_widget' => '</aside>',
+                'before_title' => '<h4 class="widgettitle">',
+                'after_title' => '</h4>'
             )
         );
     }
@@ -375,7 +388,7 @@ class USC_Jobs {
      * @param string $template Absolute path to template
      * @return string Absolute path to template
      */
-    public function usc_jobs_set_template( $template ){
+    public function usc_jobs_set_template( $template ) {
 
         //If WordPress couldn't find a 'usc_jobs' archive template use plug-in instead:
 
@@ -394,11 +407,13 @@ class USC_Jobs {
             //Viewing a single usc_jobs
 
             //Hide next/previous post link
-            add_filter("next_post_link",'__return_false');
+            /*add_filter("next_post_link",'__return_false');
             add_filter("previous_post_link",'__return_false');
 
             //Prepend our event details
-            add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );
+            add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );*/
+
+            $template = $this->usc_jobs_dir . 'templates/single-usc_jobs.php';
         }
 
         return $template;
@@ -406,7 +421,7 @@ class USC_Jobs {
 
     /**
      * Function triggered by the the_content filter for our usc_jobs single post type.
-     * The idea here is that you can just inject whatever you want into the single.php template that the theme uses
+     * The idea here is that you can just inject whatever you want into the single-usc_jobs.php template that the theme uses
      * and that way not muck everything up.
      *
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L243
