@@ -18,9 +18,9 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         $aFiles = array(
 
             /*dirname( __FILE__ ) . '/custom-fields/event-modify-custom-field-type/EventModifyCustomFieldType.php', @TODO: Don't think we need this */
-            dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/DateCustomFieldType.php',
-            dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/TimeCustomFieldType.php',
-            dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/DateTimeCustomFieldType.php',
+            dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/DateCustomFieldType.php',
+            dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/TimeCustomFieldType.php',
+            dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/DateTimeCustomFieldType.php',
         );
 
         foreach( $aFiles as $sFilePath )
@@ -46,14 +46,6 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
      * @since    0.4.0
      */
     public function setUp() {
-
-        /*
-         * ( optional ) Adds a contextual help pane at the top right of the page that the meta box resides.
-         */
-        $this->addHelpText(
-            __( 'This text will DANCE in the contextual help pane.', 'admin-page-framework-demo' ),
-            __( 'This description LAZES in the sidebar of the help pane.', 'admin-page-framework-demo' )
-        );
 
         /*
          * ( optional ) Adds setting fields into the meta box.
