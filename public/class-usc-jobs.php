@@ -100,8 +100,12 @@ class USC_Jobs {
         //define what our query looks like when we call our custom url
         add_action( 'pre_get_posts', array( $this, 'usc_jobs_get_meta_remuneration' ) );
 
+        //call it LATER than the other one so that you overwrite its value
+        add_action( 'pre_get_posts', array( $this, 'usc_jobs_return_20_posts_per_page' ), 24);
+
         //add filter_js scripts if post_archive of usc jobs.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
+
     }
 
     /**
@@ -232,6 +236,27 @@ class USC_Jobs {
 
         return ( is_null($json_response_modified) ) ? $json_response : $json_response_modified;
     }
+
+    /**
+     * Change Posts Per Page for Event Archive
+     *
+     * @author Bill Erickson
+     * @link http://www.billerickson.net/customize-the-wordpress-query/
+     *
+     * @since    0.4.5
+     *
+     * @param object $query data
+     */
+    public function usc_jobs_return_20_posts_per_page( $query ) {
+
+        if( $query->is_main_query() && !$query->is_feed() && !is_admin()
+            && ( is_post_type_archive( 'usc_jobs' )  || ( is_tax('departments') ) ) ) {
+
+            $query->set( 'posts_per_page', 20 );
+
+        }
+    }
+
 
     /**
      * Change Posts Per Page for Event Archive
@@ -392,10 +417,10 @@ class USC_Jobs {
         //If WordPress couldn't find a 'usc_jobs' archive template use plug-in instead:
 
         if( is_post_type_archive( 'usc_jobs' ) && ! $this->usc_jobs_is_job_template( $template, 'archive' ) )
-            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
+            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs_westernusc.php';
 
         if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template($template,'departments'))
-            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
+            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs_westernusc.php';
 
         /*
         * In view of theme compatibility, if an event template isn't found

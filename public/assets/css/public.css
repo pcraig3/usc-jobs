@@ -26,6 +26,8 @@
       .button_area_at_the_bottom_of_a_single_usc_job ul li a:hover {
         color: #2EA3F2; }
 
+.btn-menu ul li a {
+  position: relative; }
 .btn-menu .job_description_file:before {
   content: ''; }
 .btn-menu .job_posting_file:before {
