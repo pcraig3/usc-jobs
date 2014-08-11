@@ -151,7 +151,6 @@ class USCJob_PostType extends AdminPageFramework_PostType {
          Possible Meta Values (useless ones are indented)
 
                 [_edit_last] => 1
-            [job_description] => Make bread cats can't remove.
             [apply_by_date] => 2014-08-13 12:00
             [remuneration] => volunteer
             [application_link] => http://33.media.tumblr.com/2d95777547966a733ccdfb3e34afaacc/tumblr_n55qheEABg1qlka8ko1_400.gif

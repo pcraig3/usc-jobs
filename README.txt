@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.6.3
+Stable tag: 0.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.7.0 =
+* First real template for westernusc (have to put it in the theme rather than the plugin), and no more job_description textarea
 
 = 0.6.3 =
 * Ripped out a bunch of crappy JS, and updated code for remuneration archives.

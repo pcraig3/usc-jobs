@@ -1,11 +1,41 @@
+@charset "CP850";
 /* This stylesheet is used to style the public-facing components of the plugin. */
-
 .news-entry-content.news-entry-content__usc_jobs p {
-    margin-left:    0;
-}
-
+  margin-left: 0; }
 .news-entry-content.news-entry-content__usc_jobs span.subheading {
+  display: inline-block;
+  font-weight: bold;
+  padding-right: 5px; }
 
-    display:        inline-block;
-    font-weight:    bold;
-}
+.button_area_at_the_bottom_of_a_single_usc_job {
+  text-align: right; }
+  .button_area_at_the_bottom_of_a_single_usc_job ul li {
+    display: inline-block;
+    width: 25%;
+    text-align: left;
+    padding: 0 10px;
+    box-sizing: border-box; }
+    .button_area_at_the_bottom_of_a_single_usc_job ul li a {
+      color: #666;
+      position: relative; }
+      .button_area_at_the_bottom_of_a_single_usc_job ul li a:hover {
+        color: #2EA3F2; }
+
+.btn-menu .job_description_file:before {
+  content: ''; }
+.btn-menu .job_posting_file:before {
+  content: ''; }
+.btn-menu .application_link:before {
+  content: ''; }
+
+@media screen and (min-width: 981px) and (max-width: 1100px) {
+  .btn-menu.button_area_at_the_bottom_of_a_single_usc_job ul li {
+    margin: 10px 0 10px 0;
+    width: 50%;
+    padding-left: 0;
+    padding-right: 20px; } }
+@media screen and (max-width: 980px) {
+  .button_area_at_the_bottom_of_a_single_usc_job ul li {
+    width: 100%;
+    display: block;
+    padding: 0; } }

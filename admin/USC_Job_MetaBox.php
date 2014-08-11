@@ -51,16 +51,6 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
          * ( optional ) Adds setting fields into the meta box.
          */
         $this->addSettingFields(
-            /*array(
-                'field_id'		=> 'job_description',
-                'type'			=> 'textarea',
-                'title'			=> __( 'Job Description*', 'usc-jobs' ),
-                'description'	=> __( '(required)', 'usc-jobs' ),
-                'help'			=> __( 'Write a short description for the job here.', 'usc-jobs' ),
-                'attributes'	=>	array(
-                    'cols'	=>	40,
-                )
-            ),*/
             array(	// date picker
                 'field_id'	    =>	'apply_by_date',
                 'title'	        =>	__( 'Apply-by Date*', 'usc-jobs'),

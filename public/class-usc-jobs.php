@@ -175,7 +175,6 @@ class USC_Jobs {
                 modified
                 author  //array
                 custom_fields //array
-                    job_description         //array (w/string)
                     apply_by_date  	    	//array (w/string)
                     remuneration     		//array (w/string)
                     position    			//array (w/string)
@@ -383,7 +382,7 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
      *
-     * @since 0.4.5
+     * @since 0.7.0
      *
      * @param string $template Absolute path to template
      * @return string Absolute path to template
@@ -413,6 +412,7 @@ class USC_Jobs {
             //Prepend our event details
             add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );*/
 
+            //@TODO: change this back.  Template goes in the child theme.
             $template = $this->usc_jobs_dir . 'templates/single-usc_jobs.php';
         }
 

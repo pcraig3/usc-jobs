@@ -86,18 +86,44 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                                     . ucfirst( array_shift( $array_of_meta_values['remuneration'] ) ) . "</p>";
                                 $html_string .= '<p><span class="subheading">' . __( 'Apply By Date', 'usc-jobs' ) . '</span>  '
                                                     . date( 'F j, Y', strtotime( array_shift( $array_of_meta_values['apply_by_date'] ) ) ) . "</p>";
-                                $html_string .= '<p><span class="subheading">' . __( 'Start Date', 'usc-jobs' ) . '</span>  '
+                                $html_string .= '<p><span class="subheading">' . __( 'Start Date', 'usc-jobs' ) . '</span> '
                                                     . "September 13, 2014" . "</p>";
 
                                 $html_string .= '<br>';
 
                                 $html_string .= '<p><span class="subheading">' . __( 'Description', 'usc-jobs' ) . '</span></p>';
-                                //$html_string .= '<p>' . esc_html( array_shift( $array_of_meta_values['job_description'] ) ) . '</p>';
-
 
                                 echo $html_string;
 
                                 the_content();
+
+                                //button area
+
+                                $job_description_file   = array_shift($array_of_meta_values['job_description_file']);;
+                                $job_posting_file       = array_shift($array_of_meta_values['job_posting_file']);
+                                $application_link       = array_shift($array_of_meta_values['application_link']);;
+
+
+                                //application_link',
+                 			    //job_posting_file',
+               		            //job_description_file',
+
+                                $html_string =  '<div class="button_area_at_the_bottom_of_a_single_usc_job btn-menu">';
+                                $html_string .=     '<ul>';
+                                if( !empty( $job_description_file ) )
+                                    $html_string .=     '<li><a class="job_description_file" href="' . esc_url( $job_description_file ) . '">' . __( 'Job Description', 'usc-jobs' ) .'</a></li>';
+
+                                if( !empty( $job_posting_file ) )
+                                    $html_string .=     '<li><a class="job_posting_file" href="' . esc_url( $job_posting_file ) . '">' . __( 'Job Posting', 'usc-jobs' ) . '</a></li>';
+
+                                if( !empty( $application_link ) )
+                                    $html_string .=     '<li><a class="application_link" href="' . esc_url( $application_link ) . '">' . __( 'Application Link', 'usc-jobs' ) . '</a></li>';
+
+                                $html_string .=     '</ul>';
+                                $html_string .= '</div>';
+
+                                echo $html_string;
+
 
                                 if ( ! $is_page_builder_used )
                                     wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'Divi' ), 'after' => '</div>' ) );
