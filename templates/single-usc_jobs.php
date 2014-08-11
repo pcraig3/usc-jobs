@@ -9,7 +9,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
         <?php if ( ! $is_page_builder_used ) : ?>
 
-        <div class="et_pb_section et_pb_fullwidth_section et_section_regular" style="background-color:#695f8c;">
+        <div class="et_pb_section et_pb_fullwidth_section et_section_regular">
 
 
 
@@ -24,6 +24,13 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
         <div id="news-post" class="container">
             <div id="content-area" class="clearfix et_pb_row">
                 <div class="et_pb_column et_pb_column_2_3">
+
+                    <div class="breadcrumbs">
+                        <?php if(function_exists('bcn_display'))
+                        {
+                            bcn_display();
+                        }?>
+                    </div>
 
                     <?php endif; ?>
 
@@ -140,7 +147,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                 <?php if ( is_active_sidebar( 'usc_jobs_single_sidebar' ) ) : ?>
                     <div class="et_pb_column et_pb_column_1_3">
-                        <div class="et_pb_widget_area et_pb_widget_area_right clearfix et_pb_bg_layout_light btn-menu">
+                        <div class="et_pb_widget_area et_pb_widget_arzea_right clearfix et_pb_bg_layout_light btn-menu">
                             <?php dynamic_sidebar( 'usc_jobs_single_sidebar' ); ?>
                         </div><!-- .et_pb_widget_area .btn-menu -->
                     </div><!-- .et_pb_column -->

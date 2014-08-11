@@ -318,7 +318,7 @@ class USC_Jobs {
             array(
                 'id' => 'usc_jobs_single_sidebar',
                 'name' => __( 'USC Job Single Sidebar', 'usc-jobs' ),
-                'description' => __( 'Only found individual USC Jobs Posts.', 'usc-jobs' ),
+                'description' => __( 'Widgets only meant for individual USC Jobs Posts.', 'usc-jobs' ),
                 'before_widget' => '<aside id="%1$s" class="et_pb_widget %2$s">',
                 'after_widget' => '</aside>',
                 'before_title' => '<h4 class="widgettitle">',
