@@ -406,14 +406,13 @@ class USC_Jobs {
             //Viewing a single usc_jobs
 
             //Hide next/previous post link
-            /*add_filter("next_post_link",'__return_false');
+            add_filter("next_post_link",'__return_false');
             add_filter("previous_post_link",'__return_false');
 
             //Prepend our event details
-            add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );*/
+            add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );
 
-            //@TODO: change this back.  Template goes in the child theme.
-            $template = $this->usc_jobs_dir . 'templates/single-usc_jobs.php';
+            //$template = $this->usc_jobs_dir . 'templates/single-usc_jobs.php';
         }
 
         return $template;

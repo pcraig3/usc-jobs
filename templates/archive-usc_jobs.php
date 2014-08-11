@@ -166,8 +166,6 @@
 
     </div> <!-- end #main -->
 
-    <?php get_sidebar(); ?>
-
     <?php if ( is_active_sidebar( 'usc_jobs_archive_sidebar' ) ) : ?>
         <div id="secondary" class="sidebar-container fourcol" role="complementary">
             <div class="widget-area">

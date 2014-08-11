@@ -1,6 +1,8 @@
 /* This stylesheet is used to style the public-facing components of the plugin. */
 
-.single-usc_jobs .et_pb_fullwidth_section.et_section_regular {
+.single-usc_jobs .et_pb_fullwidth_header,
+.post-type-archive-usc_jobs .et_pb_fullwidth_header,
+#fake_usc_jobs {
 
   background-color: #1FB2E8;
 }

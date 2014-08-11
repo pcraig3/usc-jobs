@@ -11,8 +11,6 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
         <div class="et_pb_section et_pb_fullwidth_section et_section_regular">
 
-
-
             <section class="et_pb_fullwidth_header et_pb_bg_layout_dark et_pb_text_align_left">
                 <div class="et_pb_row">
                     <h1><?php the_title(); ?></h1>
@@ -118,13 +116,13 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                 $html_string =  '<div class="button_area_at_the_bottom_of_a_single_usc_job btn-menu">';
                                 $html_string .=     '<ul>';
                                 if( !empty( $job_description_file ) )
-                                    $html_string .=     '<li><a class="job_description_file" href="' . esc_url( $job_description_file ) . '">' . __( 'Job Description', 'usc-jobs' ) .'</a></li>';
+                                    $html_string .=     '<li><a class="job_description_file" target="_blank" href="' . esc_url( $job_description_file ) . '">' . __( 'Job Description', 'usc-jobs' ) .'</a></li>';
 
                                 if( !empty( $job_posting_file ) )
-                                    $html_string .=     '<li><a class="job_posting_file" href="' . esc_url( $job_posting_file ) . '">' . __( 'Job Posting', 'usc-jobs' ) . '</a></li>';
+                                    $html_string .=     '<li><a class="job_posting_file" target="_blank" href="' . esc_url( $job_posting_file ) . '">' . __( 'Job Posting', 'usc-jobs' ) . '</a></li>';
 
                                 if( !empty( $application_link ) )
-                                    $html_string .=     '<li><a class="application_link" href="' . esc_url( $application_link ) . '">' . __( 'Application Link', 'usc-jobs' ) . '</a></li>';
+                                    $html_string .=     '<li><a class="application_link" target="_blank" href="' . esc_url( $application_link ) . '">' . __( 'Application Link', 'usc-jobs' ) . '</a></li>';
 
                                 $html_string .=     '</ul>';
                                 $html_string .= '</div>';
