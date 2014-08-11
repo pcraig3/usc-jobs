@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.7.2
+Stable tag: 0.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.7.3 =
+* Jobs Archive now works just about perfectly before we start mucking about with the JavaScript.
 
 = 0.7.2 =
 * Moved 'internship' to the list of positions rather than a top-level category.  Archive retrieval still works.

@@ -19,16 +19,30 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
         </div>
 
+        <div class="et_pb_section usc-breadcrumbs et_section_regular" style="background-color:#fbfbfb;">
+
+            <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_4_4">
+                    <div class="et_pb_text et_pb_bg_layout_light et_pb_text_align_left">
+
+
+                        <div class="breadcrumbs">
+                            <?php if(function_exists('bcn_display'))
+                            {
+                                bcn_display();
+                            }?>
+                        </div>
+
+
+                    </div> <!-- .et_pb_text -->
+                </div> <!-- .et_pb_column -->
+            </div> <!-- .et_pb_row -->
+
+        </div>
+
         <div id="news-post" class="container">
             <div id="content-area" class="clearfix et_pb_row">
                 <div class="et_pb_column et_pb_column_2_3">
-
-                    <div class="breadcrumbs">
-                        <?php if(function_exists('bcn_display'))
-                        {
-                            bcn_display();
-                        }?>
-                    </div>
 
                     <?php endif; ?>
 
@@ -91,8 +105,10 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                                     . ucfirst( array_shift( $array_of_meta_values['remuneration'] ) ) . "</p>";
                                 $html_string .= '<p><span class="subheading">' . __( 'Apply By Date', 'usc-jobs' ) . '</span>  '
                                                     . date( 'F j, Y', strtotime( array_shift( $array_of_meta_values['apply_by_date'] ) ) ) . "</p>";
-                                $html_string .= '<p><span class="subheading">' . __( 'Start Date', 'usc-jobs' ) . '</span> '
-                                                    . "September 13, 2014" . "</p>";
+                                /*
+                                 $html_string .= '<p><span class="subheading">' . __( 'Start Date', 'usc-jobs' ) . '</span> '
+                                    . "September 13, 2014" . "</p>";
+                                */
 
                                 $html_string .= '<br>';
 
@@ -103,10 +119,9 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                 the_content();
 
                                 //button area
-
-                                $job_description_file   = array_shift($array_of_meta_values['job_description_file']);;
-                                $job_posting_file       = array_shift($array_of_meta_values['job_posting_file']);
-                                $application_link       = array_shift($array_of_meta_values['application_link']);;
+                                $job_description_file   = ( isset( $array_of_meta_values['job_description_file'] ) ) ? array_shift($array_of_meta_values['job_description_file']) : '';
+                                $job_posting_file       = ( isset( $array_of_meta_values['job_posting_file'] ) ) ? array_shift($array_of_meta_values['job_posting_file']) : '';
+                                $application_link       = ( isset( $array_of_meta_values['application_link'] ) ) ? array_shift($array_of_meta_values['application_link']) : '';
 
 
                                 //application_link',

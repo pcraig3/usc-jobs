@@ -4,7 +4,7 @@ jQuery(function ($) {
     var fJS;
 
     //call this right away.  don't wait for $(document).ready
-    $('.post-type-archive-usc_jobs #main, .tax-departments #main').find('article').remove();
+    //$('.post-type-archive-usc_jobs #main, .tax-departments #main').find('article').remove();
 
     function jobs_gotten( jobs ) {
 
@@ -86,7 +86,7 @@ jQuery(function ($) {
 
         console.log( usc_jobs_as_json[0] );
 
-        jobs_gotten( usc_jobs_as_json );
+        //jobs_gotten( usc_jobs_as_json );
 
     });
 
