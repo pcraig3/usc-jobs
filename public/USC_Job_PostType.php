@@ -40,7 +40,7 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                 'public'			=>	true,
                 'description'       =>  'USC Job postings. Yay!',
                 'menu_position' 	=>	5,  //below Posts
-                'supports'			=>	array( 'title' ), // 'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),	// 'custom-fields'
+                'supports'			=>	array( 'title', 'editor' ), // 'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),	// 'custom-fields'
                 'taxonomies'		=>	array( '' ),
                 'has_archive'		=>	true,
                 'show_admin_column' =>	true,	// this is for custom taxonomies to automatically add the column in the listing table.

@@ -51,7 +51,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
          * ( optional ) Adds setting fields into the meta box.
          */
         $this->addSettingFields(
-            array(
+            /*array(
                 'field_id'		=> 'job_description',
                 'type'			=> 'textarea',
                 'title'			=> __( 'Job Description*', 'usc-jobs' ),
@@ -60,7 +60,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'attributes'	=>	array(
                     'cols'	=>	40,
                 )
-            ),
+            ),*/
             array(	// date picker
                 'field_id'	    =>	'apply_by_date',
                 'title'	        =>	__( 'Apply-by Date*', 'usc-jobs'),
@@ -174,7 +174,6 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
         $non_empty_fields = array(
 
-            'job_description'   => 'Sorry, but Job Description cannot be empty.',
             'apply_by_date'     => 'Yikes!  You forgot to put in an apply-by date.',
             'job_description_file'  => 'Oh no! Please upload and select a job description file.'
         );

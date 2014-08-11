@@ -92,11 +92,12 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                 $html_string .= '<br>';
 
                                 $html_string .= '<p><span class="subheading">' . __( 'Description', 'usc-jobs' ) . '</span></p>';
-                                $html_string .= '<p>' . esc_html( array_shift( $array_of_meta_values['job_description'] ) ) . '</p>';
+                                //$html_string .= '<p>' . esc_html( array_shift( $array_of_meta_values['job_description'] ) ) . '</p>';
 
 
                                 echo $html_string;
-                                //the_content();  there is no content (although I'm thinking there could be.)
+
+                                the_content();
 
                                 if ( ! $is_page_builder_used )
                                     wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'Divi' ), 'after' => '</div>' ) );
