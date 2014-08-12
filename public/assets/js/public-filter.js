@@ -176,7 +176,7 @@ jQuery(function ($) {
             html_string +=          '</p>';
 
             html_string +=          '<p>';
-            html_string +=              '<span class="subheading">Compensation</span> ' +  job.custom_fields.remuneration.charAt(0).toUpperCase() + job.custom_fields.remuneration.slice(1);
+            html_string +=              '<span class="subheading">Remuneration</span> ' +  job.custom_fields.remuneration.charAt(0).toUpperCase() + job.custom_fields.remuneration.slice(1);
             html_string +=          '</p>';
             html_string +=          '<p>';
             html_string +=              '<span class="subheading">Apply By Date</span> ' +  AjaxUSCJobs.date_format(job.custom_fields.apply_by_date);

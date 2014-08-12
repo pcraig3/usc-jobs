@@ -245,7 +245,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                                         //var_dump($array_of_meta_values);
 
-                                        $html_string .= '<p><span class="subheading">' . __( 'Compensation', 'usc-jobs' ) . '</span>  '
+                                        $html_string .= '<p><span class="subheading">' . __( 'Remuneration', 'usc-jobs' ) . '</span>  '
                                             . ucfirst( array_shift( $array_of_meta_values['remuneration'] ) ) . "</p>";
                                         $html_string .= '<p><span class="subheading">' . __( 'Apply By Date', 'usc-jobs' ) . '</span>  '
                                             . date( 'F j, Y', strtotime( array_shift( $array_of_meta_values['apply_by_date'] ) ) ) . "</p>";
