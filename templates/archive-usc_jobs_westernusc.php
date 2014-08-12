@@ -100,11 +100,11 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                             <div class="filterjs hidden">
                                 <div class="filterjs__filter">
                                     <aside  id="nav_menu-search-1000" class="filterjs__filter__search__wrapper et_pb_widget widget_nav_menu">
-                                        <h4 class="widgettitle">Search with filter.js</h4>
-                                        <input type="text" id="search_box" class="searchbox" placeholder="Type here...."/>
+                                        <h4 class="widgettitle">Search Jobs</h4>
+                                        <input type="text" id="search_box" class="searchbox" placeholder="^.^"/>
                                     </aside>
                                     <aside id="nav_menu-remuneration-1000" class="filterjs__filter__checkbox__wrapper et_pb_widget widget_nav_menu" <?php echo ( $is_remuneration ) ? 'style="display:none"' : ''; ?> >
-                                        <h4 class="widgettitle">Filter by Money</h4>
+                                        <h4 class="widgettitle">Remuneration</h4>
                                         <ul id="remuneration">
                                             <?php
 
@@ -119,7 +119,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                                                 echo '<li><input class="' . $checked_by_default
                                                     . '" id="' . $remuneration_value . '" value="' . $remuneration_value . '" type="checkbox">';
-                                                echo    ' <span>' . $remuneration_value . '</span>';
+                                                echo    ' <span>' . ucfirst($remuneration_value) . '</span>';
                                                 echo '</li>';
 
                                             }
@@ -130,7 +130,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                         </ul>
                                     </aside>
                                     <aside id="nav_menu-departments-1000" class="filterjs__filter__checkbox__wrapper et_pb_widget widget_nav_menu" <?php echo ( $is_departments ) ? 'style="display:none"' : ''; ?> >
-                                        <h4 class="widgettitle">Filter by Dept</h4>
+                                        <h4 class="widgettitle">Departments</h4>
                                         <ul id="taxonomy_departments">
                                             <?php
 

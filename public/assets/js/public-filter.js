@@ -67,9 +67,29 @@ jQuery(function ($) {
 
             }
 
-            console.log('ramen 8');
+            $widgets_column.find('#search_box').on('keyup', function() {
+
+                AjaxUSCJobs.typewatch(function () {
+                    AjaxUSCJobs.update_visible_jobs()
+                }, 50);
+
+            });
+
+            $widgets_column.find('#taxonomy_departments, #remuneration').delegate('input', 'click', function() {
+
+                AjaxUSCJobs.update_visible_jobs();
+                console.log( $('#usc_jobs_list').find('article:visible').length );
+            });
 
         },
+
+        typewatch: (function(){
+            var timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            }
+        })(),
 
         jobs_gotten: function( jobs ) {
 
@@ -99,6 +119,13 @@ jQuery(function ($) {
 
             //August 22, 2014
             return  months[ d.getMonth() ] + " " + d.getDate() + ", " + d.getFullYear();
+        },
+
+        update_visible_jobs: function() {
+
+            var $jobs_column = $('.et_pb_text');
+
+            $jobs_column.find('#counter').text( $jobs_column.find('article:visible').length );
         }
 
     };

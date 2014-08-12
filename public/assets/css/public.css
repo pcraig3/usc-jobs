@@ -18,6 +18,33 @@
   font-weight: 600;
   padding-right: 5px; }
 
+.post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget {
+  margin: 15px 0px 25px; }
+  .post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget .widgettitle {
+    color: #1fb2e8; }
+.post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__search__wrapper input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  font-size: 1.75em;
+  margin: 10px 0; }
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__search__wrapper input:focus {
+    border-bottom: 1px solid #1fb2e8; }
+.post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li {
+  border: 1px solid #cccccc;
+  padding: 15px 15px;
+  display: block;
+  position: relative;
+  margin: 0;
+  background: none repeat scroll 0% 0% #efefef;
+  border-bottom: none; }
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:first-of-type {
+    margin-top: 15px; }
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #CCC; }
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li input {
+    margin: 3px 18px 3px 3px; }
 .post-type-archive-usc_jobs .usc_jobs--count {
   box-sizing: border-box;
   margin-top: 15px;
@@ -26,13 +53,14 @@
   padding: 0;
   font-style: italic;
   font-weight: 400; }
-
 .post-type-archive-usc_jobs .type-usc_jobs {
+  /* border color, margin, background color */
   border: 1px solid #efefef;
   padding: 15px 15px;
   display: block;
   position: relative;
-  margin: 15px 0 25px; }
+  margin: 15px 0 25px;
+  background: none repeat scroll 0% 0% white; }
   .post-type-archive-usc_jobs .type-usc_jobs h2 {
     margin: 0 0 10px 0;
     padding: 10px 0 20px 0;

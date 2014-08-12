@@ -3,6 +3,18 @@
 $usc-jobs-blue: rgb(31, 178, 232);
 $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
+
+@mixin btn-style($border-color: #CCC, $margin: 15px 0 10px, $background-color: #EFEFEF) {
+
+  border:       1px solid $border-color;
+  padding:      15px 15px;
+  display:      block;
+  position:     relative;
+  margin:       $margin;
+  background:   none repeat scroll 0% 0% $background-color;
+
+}
+
 .single-usc_jobs .et_pb_fullwidth_header,
 .post-type-archive-usc_jobs .et_pb_fullwidth_header {
 
@@ -35,77 +47,133 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
   }
 }
 
-.post-type-archive-usc_jobs .usc_jobs--count {
+.post-type-archive-usc_jobs {
 
-  box-sizing:     border-box;
-  margin-top:     15px;
-  color:          #666666;
-  text-transform: none;
-  padding:        0;
-  font-style:     italic;
-  font-weight:    400;
-}
+  .et_pb_widget_area  {
 
-.post-type-archive-usc_jobs .type-usc_jobs {
+    .et_pb_widget {
 
-  border:       1px solid #efefef;;
-  padding:      15px 15px;
-  display:      block;
-  position:     relative;
-  margin:       15px 0 25px;
+      margin: 15px 0px 25px;
 
-  h2 {
+      .widgettitle {
 
-    margin:         0 0 10px 0;
-    padding:        10px 0 20px 0;
-    border-bottom:  1px dashed #efefef;
-    color:          $usc-jobs-blue;
-    position:       relative;
-
-    &:hover {
-
-      color:  $usc-jobs-blue--transparent;
+        color: $usc-jobs-blue;
+      }
     }
 
-    &:before {
+    .filterjs__filter__search__wrapper {
 
-      font-family:    'ETmodules';content: "\45";
-      font-size:      0.75em;
-      position:       absolute;
-      right:          2px;
+      input {
+
+        border:         none;
+        border-bottom:  1px solid #ccc;
+        width:          100%;
+        font-size:      1.75em;
+        margin:         10px 0;
+
+        &:focus {
+          border-bottom:  1px solid $usc-jobs-blue;
+        }
+
+      }
+    }
+
+
+    .filterjs__filter__checkbox__wrapper {
+
+
+      ul li {
+
+        @include btn-style( #CCC, 0 );
+        border-bottom: none;
+
+        &:first-of-type {
+          margin-top: 15px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 10px;
+          border-bottom: 1px solid #CCC;
+        }
+
+        input {
+
+          margin: 3px 18px 3px 3px;
+        }
+
+      }
+    }
+  }
+
+  .usc_jobs--count {
+
+    box-sizing:     border-box;
+    margin-top:     15px;
+    color:          #666666;
+    text-transform: none;
+    padding:        0;
+    font-style:     italic;
+    font-weight:    400;
+  }
+
+  .type-usc_jobs {
+
+    /* border color, margin, background color */
+    @include btn-style(#efefef, 15px 0 25px, #FFF );
+
+    h2 {
+
+      margin:         0 0 10px 0;
+      padding:        10px 0 20px 0;
+      border-bottom:  1px dashed #efefef;
       color:          $usc-jobs-blue;
+      position:       relative;
 
-      -webkit-transition-property: right;
-      -moz-transition-property: right;
-      -o-transition-property: right;
-      transition-property: right;
-      -webkit-transition-duration: 0.05s;
-      -moz-transition-duration: 0.05s;
-      -o-transition-duration: 0.05s;
-      transition-duration: 0.05s;
-      -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-      -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-      -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-      transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-      -webkit-transition-delay: 0s;
-      -moz-transition-delay: 0s;
-      -o-transition-delay: 0s;
-      transition-delay: 0s;
+      &:hover {
+
+        color:  $usc-jobs-blue--transparent;
+      }
+
+      &:before {
+
+        font-family:    'ETmodules';content: "\45";
+        font-size:      0.75em;
+        position:       absolute;
+        right:          2px;
+        color:          $usc-jobs-blue;
+
+        -webkit-transition-property: right;
+        -moz-transition-property: right;
+        -o-transition-property: right;
+        transition-property: right;
+        -webkit-transition-duration: 0.05s;
+        -moz-transition-duration: 0.05s;
+        -o-transition-duration: 0.05s;
+        transition-duration: 0.05s;
+        -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+      }
+
+      &:hover:before{
+
+        right:  0;
+        color:  $usc-jobs-blue--transparent;
+      }
     }
 
-    &:hover:before{
+    p,
+    .post-meta {
 
-      right:  0;
-      color:  $usc-jobs-blue--transparent;
+      padding: 0;
     }
+
   }
-
-  p,
-  .post-meta {
-
-    padding: 0;
-  }
-
 }
 
 .button_area_at_the_bottom_of_a_single_usc_job {
