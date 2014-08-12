@@ -3,7 +3,6 @@
 $usc-jobs-blue: rgb(31, 178, 232);
 $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
-
 @mixin btn-style($border-color: #CCC, $margin: 15px 0 10px, $background-color: #EFEFEF) {
 
   border:       1px solid $border-color;
@@ -15,15 +14,22 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
 }
 
-.single-usc_jobs .et_pb_fullwidth_header,
-.post-type-archive-usc_jobs .et_pb_fullwidth_header {
+.single-usc_jobs,
+.post-type-archive-usc_jobs,
+.tax-departments {
 
-  background-color: $usc-jobs-blue;
+  .et_pb_fullwidth_header {
+
+    background-color: $usc-jobs-blue;
+  }
 }
 
-.single-usc_jobs #content-area {
+.single-usc_jobs {
+
+  #content-area {
 
   padding: 0;
+  }
 
   .news-article-info {
 
@@ -31,12 +37,12 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
   }
 }
 
-.news-entry-content.news-entry-content__usc_jobs,
-.post-type-archive-usc_jobs .type-usc_jobs {
+.news-entry-content.news-entry-content__usc_jobs {
 
   p {
 
     margin-left:    0;
+    padding-bottom: .35em;
   }
 
   span.subheading {
@@ -47,7 +53,8 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
   }
 }
 
-.post-type-archive-usc_jobs {
+.post-type-archive-usc_jobs,
+.tax-departments {
 
   .et_pb_widget_area  {
 
@@ -77,7 +84,6 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
       }
     }
-
 
     .filterjs__filter__checkbox__wrapper {
 
@@ -117,6 +123,9 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
   }
 
   .type-usc_jobs {
+
+    @extend .news-entry-content.news-entry-content__usc_jobs;
+
 
     /* border color, margin, background color */
     @include btn-style(#efefef, 15px 0 25px, #FFF );
@@ -241,5 +250,11 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     width:    100%;
     display:  block;
     padding:  0;
+  }
+
+  /* Hide 'Remuneration' and 'Departments' checkboxes on mobile */
+  .filterjs__filter__checkbox__wrapper {
+
+    display: none;
   }
 }

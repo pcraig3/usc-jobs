@@ -1,36 +1,43 @@
 @charset "CP850";
 /* This stylesheet is used to style the public-facing components of the plugin. */
 .single-usc_jobs .et_pb_fullwidth_header,
-.post-type-archive-usc_jobs .et_pb_fullwidth_header {
+.post-type-archive-usc_jobs .et_pb_fullwidth_header,
+.tax-departments .et_pb_fullwidth_header {
   background-color: #1fb2e8; }
 
 .single-usc_jobs #content-area {
   padding: 0; }
-  .single-usc_jobs #content-area .news-article-info {
-    margin-bottom: 0; }
+.single-usc_jobs .news-article-info {
+  margin-bottom: 0; }
 
-.news-entry-content.news-entry-content__usc_jobs p,
-.post-type-archive-usc_jobs .type-usc_jobs p {
-  margin-left: 0; }
-.news-entry-content.news-entry-content__usc_jobs span.subheading,
-.post-type-archive-usc_jobs .type-usc_jobs span.subheading {
+.news-entry-content.news-entry-content__usc_jobs p, .post-type-archive-usc_jobs .type-usc_jobs p,
+.tax-departments .type-usc_jobs p {
+  margin-left: 0;
+  padding-bottom: .35em; }
+.news-entry-content.news-entry-content__usc_jobs span.subheading, .post-type-archive-usc_jobs .type-usc_jobs span.subheading,
+.tax-departments .type-usc_jobs span.subheading {
   display: inline-block;
   font-weight: 600;
   padding-right: 5px; }
 
-.post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget {
+.post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget,
+.tax-departments .et_pb_widget_area .et_pb_widget {
   margin: 15px 0px 25px; }
-  .post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget .widgettitle {
+  .post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget .widgettitle,
+  .tax-departments .et_pb_widget_area .et_pb_widget .widgettitle {
     color: #1fb2e8; }
-.post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__search__wrapper input {
+.post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__search__wrapper input,
+.tax-departments .et_pb_widget_area .filterjs__filter__search__wrapper input {
   border: none;
   border-bottom: 1px solid #ccc;
   width: 100%;
   font-size: 1.75em;
   margin: 10px 0; }
-  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__search__wrapper input:focus {
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__search__wrapper input:focus,
+  .tax-departments .et_pb_widget_area .filterjs__filter__search__wrapper input:focus {
     border-bottom: 1px solid #1fb2e8; }
-.post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li {
+.post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li,
+.tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li {
   border: 1px solid #cccccc;
   padding: 15px 15px;
   display: block;
@@ -38,14 +45,18 @@
   margin: 0;
   background: none repeat scroll 0% 0% #efefef;
   border-bottom: none; }
-  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:first-of-type {
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:first-of-type,
+  .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:first-of-type {
     margin-top: 15px; }
-  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type {
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type,
+  .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type {
     margin-bottom: 10px;
     border-bottom: 1px solid #CCC; }
-  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li input {
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li input,
+  .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li input {
     margin: 3px 18px 3px 3px; }
-.post-type-archive-usc_jobs .usc_jobs--count {
+.post-type-archive-usc_jobs .usc_jobs--count,
+.tax-departments .usc_jobs--count {
   box-sizing: border-box;
   margin-top: 15px;
   color: #666666;
@@ -53,7 +64,8 @@
   padding: 0;
   font-style: italic;
   font-weight: 400; }
-.post-type-archive-usc_jobs .type-usc_jobs {
+.post-type-archive-usc_jobs .type-usc_jobs,
+.tax-departments .type-usc_jobs {
   /* border color, margin, background color */
   border: 1px solid #efefef;
   padding: 15px 15px;
@@ -61,15 +73,18 @@
   position: relative;
   margin: 15px 0 25px;
   background: none repeat scroll 0% 0% white; }
-  .post-type-archive-usc_jobs .type-usc_jobs h2 {
+  .post-type-archive-usc_jobs .type-usc_jobs h2,
+  .tax-departments .type-usc_jobs h2 {
     margin: 0 0 10px 0;
     padding: 10px 0 20px 0;
     border-bottom: 1px dashed #efefef;
     color: #1fb2e8;
     position: relative; }
-    .post-type-archive-usc_jobs .type-usc_jobs h2:hover {
+    .post-type-archive-usc_jobs .type-usc_jobs h2:hover,
+    .tax-departments .type-usc_jobs h2:hover {
       color: rgba(31, 178, 232, 0.5); }
-    .post-type-archive-usc_jobs .type-usc_jobs h2:before {
+    .post-type-archive-usc_jobs .type-usc_jobs h2:before,
+    .tax-departments .type-usc_jobs h2:before {
       font-family: 'ETmodules';
       content: "\45";
       font-size: 0.75em;
@@ -92,11 +107,14 @@
       -moz-transition-delay: 0s;
       -o-transition-delay: 0s;
       transition-delay: 0s; }
-    .post-type-archive-usc_jobs .type-usc_jobs h2:hover:before {
+    .post-type-archive-usc_jobs .type-usc_jobs h2:hover:before,
+    .tax-departments .type-usc_jobs h2:hover:before {
       right: 0;
       color: rgba(31, 178, 232, 0.5); }
   .post-type-archive-usc_jobs .type-usc_jobs p,
-  .post-type-archive-usc_jobs .type-usc_jobs .post-meta {
+  .post-type-archive-usc_jobs .type-usc_jobs .post-meta,
+  .tax-departments .type-usc_jobs p,
+  .tax-departments .type-usc_jobs .post-meta {
     padding: 0; }
 
 .button_area_at_the_bottom_of_a_single_usc_job {
@@ -132,4 +150,8 @@
   .button_area_at_the_bottom_of_a_single_usc_job ul li {
     width: 100%;
     display: block;
-    padding: 0; } }
+    padding: 0; }
+
+  /* Hide 'Remuneration' and 'Departments' checkboxes on mobile */
+  .filterjs__filter__checkbox__wrapper {
+    display: none; } }

@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.7.3
+Stable tag: 0.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,11 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.8.0 =
+* Took bloody ages, but I think it's paid off.
+* JavaScript (for those who have it, which is most people) takes out the sidebar widgets and does sorting and filtering.
+* UI more or less finalized.
 
 = 0.7.3 =
 * Jobs Archive now works just about perfectly before we start mucking about with the JavaScript.

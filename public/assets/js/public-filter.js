@@ -9,7 +9,7 @@ jQuery(function ($) {
         /** Remove something that's supposed to be there an put in something that's not. */
         remove_wordpress_jobs_for_filterjs_jobs: function() {
 
-            var $jobs_column = $('.post-type-archive-usc_jobs .et_pb_text, .tax-departments #main');
+            var $jobs_column = $('.post-type-archive-usc_jobs .et_pb_text, .tax-departments .et_pb_text');
             var $to_detach = $jobs_column.find('.filterjs__list__wrapper');
 
             //http://bugs.jquery.com/ticket/13400
@@ -26,7 +26,7 @@ jQuery(function ($) {
 
         remove_wordpress_widgets_for_filterjs_imposter_widgets : function() {
 
-            var $widgets_column = $('.post-type-archive-usc_jobs .et_pb_widget_area, .tax-departments #main');
+            var $widgets_column = $('.post-type-archive-usc_jobs .et_pb_widget_area, .tax-departments .et_pb_widget_area');
             var $filterjs       = $('.filterjs.hidden');
 
 

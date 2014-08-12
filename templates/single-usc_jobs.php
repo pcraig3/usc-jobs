@@ -100,15 +100,38 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                 $array_of_meta_values =  get_post_meta( get_the_ID() );
 
                                 //var_dump($array_of_meta_values);
+                                $remuneration           = ( isset( $array_of_meta_values['remuneration'] ) ) ? array_shift($array_of_meta_values['remuneration']) : '';
+                                $apply_by_date          = ( isset( $array_of_meta_values['apply_by_date'] ) ) ? array_shift($array_of_meta_values['apply_by_date']) : '';
+                                $contact_information    = ( isset( $array_of_meta_values['contact_information'] ) ) ? array_shift($array_of_meta_values['contact_information']) : '';
 
-                                $html_string .= '<p><span class="subheading">' . __( 'Compensation', 'usc-jobs' ) . '</span>  '
-                                                    . ucfirst( array_shift( $array_of_meta_values['remuneration'] ) ) . "</p>";
-                                $html_string .= '<p><span class="subheading">' . __( 'Apply By Date', 'usc-jobs' ) . '</span>  '
-                                                    . date( 'F j, Y', strtotime( array_shift( $array_of_meta_values['apply_by_date'] ) ) ) . "</p>";
+
+                                if( !empty( $remuneration ) )
+                                    $html_string .= '<p><span class="subheading">' . __( 'Remuneration', 'usc-jobs' ) . '</span>  '
+                                                    . ucfirst( $remuneration ) . "</p>";
+
+                                if( !empty( $apply_by_date ) )
+                                    $html_string .= '<p><span class="subheading">' . __( 'Apply By Date', 'usc-jobs' ) . '</span>  '
+                                                    . date( 'F j, Y', strtotime( $apply_by_date ) ) . "</p>";
                                 /*
                                  $html_string .= '<p><span class="subheading">' . __( 'Start Date', 'usc-jobs' ) . '</span> '
                                     . "September 13, 2014" . "</p>";
                                 */
+                                //array_shift( $array_of_meta_values['remuneration'] )
+
+                                if( !empty($contact_information) ) {
+
+                                    $contact_information = trim($contact_information);
+
+                                    if( is_email($contact_information) )
+
+                                        $html_string .= '<p><span class="subheading">' . __( 'Contact Email', 'usc-jobs' ) . '</span> <a href="mailto:'
+                                            . antispambot( sanitize_email( $contact_information ) , 1 ). '" title="Click to get in contact with us!">' .  antispambot( sanitize_email( $contact_information ) ) . '</a></p>';
+
+                                    else
+                                        $html_string .= '<p><span class="subheading">' . __( 'Contact Information', 'usc-jobs' ) . '</span>  '
+                                            .  esc_html( $contact_information )  . '</p>';
+
+                                }
 
                                 $html_string .= '<br>';
 
