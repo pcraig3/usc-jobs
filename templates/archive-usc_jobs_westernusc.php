@@ -12,7 +12,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
 
 
-                <section id="fake_usc_jobs" class="et_pb_fullwidth_header et_pb_bg_layout_dark et_pb_text_align_left">
+                <section class="et_pb_fullwidth_header et_pb_bg_layout_dark et_pb_text_align_left">
                     <div class="et_pb_row">
                         <h1>
                             <?php
@@ -99,12 +99,12 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                             <div class="filterjs hidden">
                                 <div class="filterjs__filter">
-                                    <div class="filterjs__filter__search__wrapper">
-                                        <h4>Search with filter.js</h4>
+                                    <aside  id="nav_menu-search-1000" class="filterjs__filter__search__wrapper et_pb_widget widget_nav_menu">
+                                        <h4 class="widgettitle">Search with filter.js</h4>
                                         <input type="text" id="search_box" class="searchbox" placeholder="Type here...."/>
-                                    </div>
-                                    <div class="filterjs__filter__checkbox__wrapper" <?php echo ( $is_remuneration ) ? 'style="display:none"' : ''; ?> >
-                                        <h4>Filter by Money</h4>
+                                    </aside>
+                                    <aside id="nav_menu-remuneration-1000" class="filterjs__filter__checkbox__wrapper et_pb_widget widget_nav_menu" <?php echo ( $is_remuneration ) ? 'style="display:none"' : ''; ?> >
+                                        <h4 class="widgettitle">Filter by Money</h4>
                                         <ul id="remuneration">
                                             <?php
 
@@ -128,9 +128,9 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                             ?>
 
                                         </ul>
-                                    </div>
-                                    <div class="filterjs__filter__checkbox__wrapper" <?php echo ( $is_departments ) ? 'style="display:none"' : ''; ?> >
-                                        <h4>Filter by Dept</h4>
+                                    </aside>
+                                    <aside id="nav_menu-departments-1000" class="filterjs__filter__checkbox__wrapper et_pb_widget widget_nav_menu" <?php echo ( $is_departments ) ? 'style="display:none"' : ''; ?> >
+                                        <h4 class="widgettitle">Filter by Dept</h4>
                                         <ul id="taxonomy_departments">
                                             <?php
 
@@ -154,7 +154,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                                             ?>
                                         </ul>
-                                    </div>
+                                    </aside>
                                 </div>
                                 <br>
                                 <div class="filterjs__list__wrapper">

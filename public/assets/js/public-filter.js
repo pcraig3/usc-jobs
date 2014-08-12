@@ -7,13 +7,69 @@ jQuery(function ($) {
     var AjaxUSCJobs = {
 
         /** Remove something that's supposed to be there an put in something that's not. */
-        remove_vanilla_wordpress_element_for_a_filterjs_one: function( $container, to_find_and_remove, $to_detatch_and_replace, insert_after ) {
+        remove_wordpress_jobs_for_filterjs_jobs: function() {
 
-        //$container.find(to_find_and_remove).remove();
-        $to_detatch_and_replace.detach().insertAfter( $container.find( insert_after ) );
+            var $jobs_column = $('.post-type-archive-usc_jobs .et_pb_text, .tax-departments #main');
+            var $to_detach = $jobs_column.find('.filterjs__list__wrapper');
+
+            //http://bugs.jquery.com/ticket/13400
+
+            //old.replaceWith( new ); //can be changed to:
+            //old.before( new ).detach();
+
+            $articles = $jobs_column.find('article');
+
+            $articles.first().before( $to_detach );
+            $articles.remove();
 
         },
 
+        remove_wordpress_widgets_for_filterjs_imposter_widgets : function() {
+
+            var $widgets_column = $('.post-type-archive-usc_jobs .et_pb_widget_area, .tax-departments #main');
+            var $filterjs       = $('.filterjs.hidden');
+
+
+            //old.before( new ).detach();
+
+            $widgets_column.find('aside').each(function( index ) {
+
+
+                var found = (  $( this ).find( '[class*=remuneration]' ).length > 0 );
+
+                if( found )
+                    $( this ).replaceWith( $filterjs.find( '#nav_menu-remuneration-1000' ) );
+
+                /*else {
+                    found = ( $( this ).find( '[class*=departments]' ).length > 0 );
+
+                    if( found )
+                        $( this ).replaceWith( $filterjs.find( '#nav_menu-departments-1000' ) );
+
+                }*/
+
+                if( !found )
+                    $( this ).remove();
+
+            });
+
+            //now, put in the search bar.
+            $widgets_column.prepend( $filterjs.find('#nav_menu-search-1000').detach() );
+
+            //if there are more asides in the filter colunm, add them.
+            if( $filterjs.find('aside').length > 0 ) {
+
+                $filterjs.find('aside').each(function( index ) {
+
+                    $widgets_column.append( $(this) );
+
+                });
+
+            }
+
+            console.log('ramen 8');
+
+        },
 
         jobs_gotten: function( jobs ) {
 
@@ -127,10 +183,12 @@ jQuery(function ($) {
 
     });
 
-    $article_column = $('.post-type-archive-usc_jobs .et_pb_text, .tax-departments #main');
-    $to_detatch = $article_column.find('.filterjs__list__wrapper');
-
     //call this right away.  don't wait for $(document).ready
-    AjaxUSCJobs.remove_vanilla_wordpress_element_for_a_filterjs_one($article_column, 'article', $to_detatch, '.usc_jobs--count');
+    //this one removes the jobs and puts in my new jobs.
+    AjaxUSCJobs.remove_wordpress_jobs_for_filterjs_jobs();
+
+    //this one removes the widgets and puts in my widgets
+    AjaxUSCJobs.remove_wordpress_widgets_for_filterjs_imposter_widgets();
+
 
 });
