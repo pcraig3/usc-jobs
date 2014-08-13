@@ -219,17 +219,21 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     position: relative;
   }
 
+  :before {
+    font-weight: normal;
+  }
+
   .job_description_file:before {
 
-    content: '';
+    content: "\e092";
   }
   .job_posting_file:before {
 
-    content: '';
+    content: "\e092";
   }
   .application_link:before {
 
-    content: '';
+    content: "\e02b";
   }
 }
 

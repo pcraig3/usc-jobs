@@ -1,4 +1,3 @@
-@charset "CP850";
 /* This stylesheet is used to style the public-facing components of the plugin. */
 .single-usc_jobs .et_pb_fullwidth_header,
 .post-type-archive-usc_jobs .et_pb_fullwidth_header,
@@ -133,12 +132,14 @@
 
 .btn-menu ul li a {
   position: relative; }
+.btn-menu :before {
+  font-weight: normal; }
 .btn-menu .job_description_file:before {
-  content: ''; }
+  content: "\e092"; }
 .btn-menu .job_posting_file:before {
-  content: ''; }
+  content: "\e092"; }
 .btn-menu .application_link:before {
-  content: ''; }
+  content: "\e02b"; }
 
 @media screen and (min-width: 981px) and (max-width: 1100px) {
   .btn-menu.button_area_at_the_bottom_of_a_single_usc_job ul li {

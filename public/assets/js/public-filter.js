@@ -41,12 +41,12 @@ jQuery(function ($) {
                     $( this ).replaceWith( $filterjs.find( '#nav_menu-remuneration-1000' ) );
 
                 /*else {
-                    found = ( $( this ).find( '[class*=departments]' ).length > 0 );
+                 found = ( $( this ).find( '[class*=departments]' ).length > 0 );
 
-                    if( found )
-                        $( this ).replaceWith( $filterjs.find( '#nav_menu-departments-1000' ) );
+                 if( found )
+                 $( this ).replaceWith( $filterjs.find( '#nav_menu-departments-1000' ) );
 
-                }*/
+                 }*/
 
                 if( !found )
                     $( this ).remove();
@@ -93,13 +93,16 @@ jQuery(function ($) {
 
         jobs_gotten: function( jobs ) {
 
-        $('.filterjs__loading').addClass('hidden');
+            $('.filterjs__loading').addClass('hidden');
 
-        $('#remuneration :checkbox.check_me, #taxonomy_departments :checkbox.check_me').prop('checked', true);
+            $('#remuneration :checkbox.check_me, #taxonomy_departments :checkbox.check_me').prop('checked', true);
 
-        fJS = filterInit( jobs );
+            fJS = filterInit( jobs );
 
-        $('#usc_jobs_list').trigger( "change" );
+            $('#usc_jobs_list').trigger( "change" );
+
+            AjaxUSCJobs.update_visible_jobs();
+
         },
 
         date_format: function( date_string ) {
@@ -166,7 +169,7 @@ jQuery(function ($) {
             for (var i = 0; i < total; i++) {
 
                 html_string +=       '<a title="Find more ' + departments[i].title + ' jobs!" '
-                                        + 'href="http://westernusc.org/departments/' + departments[i].slug + '/">' + departments[i].title + '</a>, ';
+                    + 'href="http://westernusc.org/departments/' + departments[i].slug + '/">' + departments[i].title + '</a>, ';
 
             }
 
@@ -189,9 +192,9 @@ jQuery(function ($) {
 
         var settings = {
             filter_criteria: {
-             remuneration: ['#remuneration input:checkbox', 'custom_fields.remuneration'],
-             taxonomy_departments: ['#taxonomy_departments input:checkbox', 'taxonomy_departments.ARRAY.slug']
-             },
+                remuneration: ['#remuneration input:checkbox', 'custom_fields.remuneration'],
+                taxonomy_departments: ['#taxonomy_departments input:checkbox', 'taxonomy_departments.ARRAY.slug']
+            },
             search: {input: '#search_box' },
             and_filter_on: true,
             id_field: 'id' //Default is id. This is only for usecase

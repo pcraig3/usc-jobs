@@ -23,11 +23,11 @@ class USC_Jobs {
     /**
      * Plugin version, used for cache-busting of style and script file references.
      *
-     * @since   0.3.0
+     * @since   0.8.1
      *
      * @var     string
      */
-    const VERSION = '0.3.0';
+    const VERSION = '0.8.1';
 
     /**
      *
@@ -55,17 +55,58 @@ class USC_Jobs {
 
     protected $usc_jobs_dir =  '';
 
+    /**
+     * How many jobs to return.  I've set this absurdly high so that there's never a chance of needing to paginate.
+     *
+     * @since    0.8.1
+     *
+     * @var int
+     */
+    protected $number_of_usc_jobs_to_return_at_once = null;
+
+    /**
+     *  Customize the order by which for both the query and the JSON request return jobs.
+     *  Default is to return by soonest 'apply_by_date'
+     *
+     * @since    0.8.1
+     *
+     * @var int
+     */
+    protected $order_by_usc_jobs = array();
+
 
     /**
      * Initialize the plugin by setting localization and loading public scripts
      * and styles.
      *
-     * @since     0.5.0
+     * @since    0.8.1
      */
     private function __construct() {
 
         //exactly one up from this directory is the home directory of the plugin
         $this->usc_jobs_dir = trailingslashit( dirname( __DIR__ ) );
+
+        //I've set this absurdly high so that there's never a chance of needing to paginate.
+        $this->number_of_usc_jobs_to_return_at_once = 150;
+
+        //we're returning by the earliest date by default
+        $this->order_by_usc_jobs = array(
+            'query' => array(
+                'orderby',
+                'meta_key',
+                'order',
+            ),
+            'JSON' => array(
+                'order_by',
+                'meta_key',
+                'order'
+            ),
+            'values' => array(
+                'meta_value',
+                'apply_by_date',
+                'ASC',
+            )
+        );
 
         // Load plugin text domain
         add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
@@ -101,7 +142,7 @@ class USC_Jobs {
         add_action( 'pre_get_posts', array( $this, 'usc_jobs_get_meta_remuneration' ) );
 
         //call it LATER than the other one so that you overwrite its value
-        add_action( 'pre_get_posts', array( $this, 'usc_jobs_return_20_posts_per_page' ), 24);
+        add_action( 'pre_get_posts', array( $this, 'usc_jobs_increase_posts_per_page_order_by_apply_date' ), 24);
 
         //add filter_js scripts if post_archive of usc jobs.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
@@ -112,12 +153,37 @@ class USC_Jobs {
      * http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-practical-example-of-wp_remote_get--wp-32109
      * Tom McFarlin
      *
-     * @since     0.6.2
+     * @since    0.8.1
      *
      */
     private function HTTP_GET_usc_jobs() {
 
-        $response = wp_remote_get( trailingslashit( get_bloginfo( 'url' ) ) . 'api/get_posts/?post_type=usc_jobs');
+        //Quick intro to headers: http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
+        $no_cache_headers = array(
+
+            'Cache-Control' => 'max-age=0, no-cache, no-store',
+            'Pragma'        => 'no-cache',
+        );
+
+        /*
+        $cache_for_3_minutes_headers = array(
+
+            'Cache-Control' => 'no-transform,public,max-age=300,s-maxage=900',
+        );
+        */
+
+        $order_by_string = '';
+
+        foreach($this->order_by_usc_jobs['JSON'] as $key => $value) {
+
+            $order_by_string .= '&' . $value . '=' . $this->order_by_usc_jobs['values'][$key];
+        }
+
+            $response = wp_remote_get( trailingslashit( get_bloginfo( 'url' ) )
+                . 'api/get_posts/?post_type=usc_jobs'
+                . '&count=' . $this->number_of_usc_jobs_to_return_at_once
+                . $order_by_string,
+                array( 'headers' => $no_cache_headers ) );
 
         try {
 
@@ -141,17 +207,17 @@ class USC_Jobs {
      * @return array|null
      */
     private function filter_js_format_API_response( $json_response = null, array $fields_to_keep = array(
-                'type',
-                'slug',
-                'url',
-                'title',
-                'title_plain',
-                'date',
-                'modified',
-                'author',
-                'custom_fields',
-                'taxonomy_departments')
-            ) {
+                                                                             'type',
+                                                                             'slug',
+                                                                             'url',
+                                                                             'title',
+                                                                             'title_plain',
+                                                                             'date',
+                                                                             'modified',
+                                                                             'author',
+                                                                             'custom_fields',
+                                                                             'taxonomy_departments')
+    ) {
 
         $json_response_modified = null;
 
@@ -168,31 +234,31 @@ class USC_Jobs {
              *
              * Anyway, here's the simplified version.
             posts   //array
-                id -> wp_id (because filter_js needs an id to work properly).
-                type
-                slug
-                url
-                //limit by status = "publish"
-                title
-                title_plain
-                date
-                modified
-                author  //array
-                custom_fields //array
-                    apply_by_date  	    	//array (w/string)
-                    remuneration     		//array (w/string)
-                    position    			//array (w/string)
-                    application_link    	//array (w/link)
-                    job_posting_file	    //array (w/link)
-                    job_description_file	//array (w/link)
-                    contact_information	    //array (w/string)
-                taxonomy_departments	//array (w/arrays)
-                    id
-                    slug
-                    title
-                    description
-                    parent
-                    post_count
+            id -> wp_id (because filter_js needs an id to work properly).
+            type
+            slug
+            url
+            //limit by status = "publish"
+            title
+            title_plain
+            date
+            modified
+            author  //array
+            custom_fields //array
+            apply_by_date  	    	//array (w/string)
+            remuneration     		//array (w/string)
+            position    			//array (w/string)
+            application_link    	//array (w/link)
+            job_posting_file	    //array (w/link)
+            job_description_file	//array (w/link)
+            contact_information	    //array (w/string)
+            taxonomy_departments	//array (w/arrays)
+            id
+            slug
+            title
+            description
+            parent
+            post_count
              */
 
             $posts = $json_response['posts'];
@@ -238,22 +304,27 @@ class USC_Jobs {
     }
 
     /**
-     * Change Posts Per Page for USC Job Archive
+     * Change Posts Per Page for USC Job Archive, and order by whatever meta value.
+     * I mean, we're assuming the apply_by_date.
      *
      * @author Bill Erickson
      * @link http://www.billerickson.net/customize-the-wordpress-query/
      *
-     * @since    0.7.1
+     * @since    0.8.1
      *
      * @param object $query data
      */
-    public function usc_jobs_return_20_posts_per_page( $query ) {
+    public function usc_jobs_increase_posts_per_page_order_by_apply_date( $query ) {
 
         if( $query->is_main_query() && !$query->is_feed() && !is_admin()
             && ( is_post_type_archive( 'usc_jobs' )  || ( is_tax('departments') ) ) ) {
 
-            $query->set( 'posts_per_page', 20 );
+            $query->set( 'posts_per_page', $this->number_of_usc_jobs_to_return_at_once );
 
+            foreach($this->order_by_usc_jobs['query'] as $key => $value) {
+
+                $query->set($value, $this->order_by_usc_jobs['values'][$key]);
+            }
         }
     }
 
@@ -377,7 +448,7 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L153
      * @author  Stephen Harris
      *
-     * @since 0.4.2
+     * @since    0.8.1
      *
      * @param string    $templatePath absolute path to template or filename (with .php extension)
      * @param string    $context What the template is for ('usc_jobs','archive-usc_jobs', etc).
@@ -394,6 +465,9 @@ class USC_Jobs {
             case 'archive':
                 return $template === 'archive-usc_jobs.php';
 
+            case 'departments':
+                return $template === 'taxonomy-departments.php';
+
         endswitch;
 
         return false;
@@ -407,7 +481,7 @@ class USC_Jobs {
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
      *
-     * @since 0.7.1
+     * @since    0.8.1
      *
      * @param string $template Absolute path to template
      * @return string Absolute path to template
@@ -419,7 +493,7 @@ class USC_Jobs {
         if( is_post_type_archive( 'usc_jobs' ) && ! $this->usc_jobs_is_job_template( $template, 'archive' ) )
             $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
 
-        if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template($template,'departments'))
+        if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template( $template,'departments' ) )
             $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
 
         /*
@@ -776,7 +850,7 @@ class USC_Jobs {
             echo '<pre>';
             var_dump( $usc_jobs_as_json_array );
             echo '</pre>';
-            **/
+             **/
 
             wp_enqueue_script( 'tinysort', plugins_url( '/bower_components/tinysort/dist/jquery.tinysort.min.js', __DIR__ ), array( 'jquery' ), self::VERSION );
 

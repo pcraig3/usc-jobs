@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.8.0
+Stable tag: 0.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,13 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.8.1 =
+* Bunch of small fixes -- merits a .1 update
+* Icon font on single post types has been fixed (didn't work before in IE or Safari)
+* JSON request headers now (hopefully) disable caching.  Modifications to Jobs should be instantly reflected on the pulled-in-by-JSON Jobs Archive
+* Small JS fix reflects current number of jobs returned in some weird scenario where it might have been inaccurate.
+* Both the query and the JSON url are identical now, same post_per_page limits and both return by soonest apply_by_date
 
 = 0.8.0 =
 * Took bloody ages, but I think it's paid off.
