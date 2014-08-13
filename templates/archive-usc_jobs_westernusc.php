@@ -15,9 +15,12 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                 <section class="et_pb_fullwidth_header et_pb_bg_layout_dark et_pb_text_align_left">
                     <div class="et_pb_row">
                         <h1>
+                            Jobs
+                        </h1>
+                        <p class="et_pb_fullwidth_header_subhead">
                             <?php
 
-                            $html_string = '';
+                            $html_string = 'The best ';
 
                             $is_departments     = is_tax( 'departments' );
                             $is_usc_jobs        = is_post_type_archive( 'usc_jobs' );
@@ -29,32 +32,30 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                 $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 
                                 //get the taxonomy object
-                                $taxonomy = get_taxonomy( $term->taxonomy );
+                                //$taxonomy = get_taxonomy( $term->taxonomy );
 
-                                $html_string .= $taxonomy->labels->singular_name . ': ' . $term->name;
+                                $html_string .= $term->name;
                             }
                             if( $is_usc_jobs ) {
 
                                 //prints the archive title.  This isn't echoed, this is returned.
-                                ob_start();
-                                post_type_archive_title();
-
-                                $html_string .= ob_get_clean();
+                                //ob_start();
+                                //post_type_archive_title();
+                                //$html_string .= ob_get_clean();
 
                                 $remuneration = get_query_var( 'usc_jobs_remuneration' );
 
                                 if( ! empty( $remuneration ) ) {
 
                                     $is_remuneration = true;
-                                    $html_string .= ': ' . ucfirst( $remuneration );
+                                    $html_string .= $remuneration;
                                 }
                             }
 
-                            echo $html_string;
+                            echo $html_string . ' opportunities on campus.';
 
                             ?>
-                        </h1>
-
+                        </p>
                     </div>
                 </section>
 
@@ -115,11 +116,11 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                                             foreach( $remuneration_values as &$remuneration_value ) {
 
-                                                $checked_by_default = ( ! $is_remuneration ) ? "check_me" : ( $remuneration === $remuneration_value ) ? "check_me" : "" ;
+                                                $checked_by_default = ( ! $is_remuneration ) ? "checked" : ( $remuneration === $remuneration_value ) ? "checked" : "" ;
 
-                                                echo '<li><input class="' . $checked_by_default
-                                                    . '" id="' . $remuneration_value . '" value="' . $remuneration_value . '" type="checkbox">';
-                                                echo    ' <span>' . ucfirst($remuneration_value) . '</span>';
+                                                echo '<li><label class="' . $checked_by_default . '">'
+                                                        .   '<input id="' . $remuneration_value . '" value="' . $remuneration_value . '" type="checkbox">';
+                                                echo ucfirst($remuneration_value) . '</label>';
                                                 echo '</li>';
 
                                             }
@@ -138,14 +139,14 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                                             foreach( $departments as &$department ) {
 
-                                                $checked_by_default = ( ! $is_departments ) ? "check_me" : ( $term->slug === $department->slug ) ? "check_me" : "" ;
+                                                $checked_by_default = ( ! $is_departments ) ? "checked" : ( $term->slug === $department->slug ) ? "checked" : "" ;
 
                                                 /** @TODO: I mean, really we just want the departments of the current jobs */
                                                 if( $department->count > 0 ) {
 
-                                                    echo '<li><input class="' . $checked_by_default
-                                                        . '" id="' . $department->slug . '" value="' . $department->slug . '" type="checkbox">';
-                                                    echo    ' <span>' . $department->name . '</span>';
+                                                    echo '<li><label class="' . $checked_by_default . '">'
+                                                            .'<input id="' . $department->slug . '" value="' . $department->slug . '" type="checkbox">';
+                                                    echo    $department->name . '</label>';
                                                     echo '</li>';
                                                 }
 

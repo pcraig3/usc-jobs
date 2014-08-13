@@ -491,10 +491,10 @@ class USC_Jobs {
         //If WordPress couldn't find a 'usc_jobs' archive template use plug-in instead:
 
         if( is_post_type_archive( 'usc_jobs' ) && ! $this->usc_jobs_is_job_template( $template, 'archive' ) )
-            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
+            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs_westernusc.php';
 
         if( ( is_tax('departments') ) && ! $this->usc_jobs_is_job_template( $template,'departments' ) )
-            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs.php';
+            $template = $this->usc_jobs_dir . 'templates/archive-usc_jobs_westernusc.php';
 
         /*
         * In view of theme compatibility, if an event template isn't found

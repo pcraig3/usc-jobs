@@ -3,6 +3,22 @@
 $usc-jobs-blue: rgb(31, 178, 232);
 $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
+@mixin sidebar-btn-colors($transparent_decimal: 1) {
+
+  border-color:     #CCC;
+
+  color:            rgb(102, 102, 102);
+  color:            rgba(102, 102, 102, $transparent_decimal);
+
+  background-color: rgb(239, 239, 239);
+  background-color: rgba(239, 239, 239, $transparent_decimal);
+
+  input {
+    opacity: $transparent_decimal;
+    filter: alpha(opacity= ($transparent_decimal * 100)); /* For IE8 and earlier */
+  }
+}
+
 @mixin btn-style($border-color: #CCC, $margin: 15px 0 10px, $background-color: #EFEFEF) {
 
   border:       1px solid $border-color;
@@ -28,7 +44,7 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
   #content-area {
 
-  padding: 0;
+    padding: 0;
   }
 
   .news-article-info {
@@ -90,21 +106,44 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
       ul li {
 
-        @include btn-style( #CCC, 0 );
-        border-bottom: none;
+        margin: 0;
 
         &:first-of-type {
+
           margin-top: 15px;
         }
 
         &:last-of-type {
+
           margin-bottom: 10px;
-          border-bottom: 1px solid #CCC;
+
+          label {
+
+            border-bottom: 1px solid #CCC;
+          }
         }
 
-        input {
+        label {
 
-          margin: 3px 18px 3px 3px;
+          @include btn-style( #CCC, 0 );
+          @include sidebar-btn-colors(.5);
+          border-bottom:  none;
+          cursor:         pointer;
+
+          &:hover {
+
+              color: #666666;
+          }
+
+          &.checked {
+
+            @include sidebar-btn-colors(1);
+          }
+
+          input {
+
+            margin: 3px 18px 3px 3px;
+          }
         }
 
       }
@@ -257,7 +296,7 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
   }
 
   /* Hide 'Remuneration' and 'Departments' checkboxes on mobile */
-  .filterjs__filter__checkbox__wrapper {
+  .filterjs__filter__checkbox__wrapper:last-of-type {
 
     display: none;
   }

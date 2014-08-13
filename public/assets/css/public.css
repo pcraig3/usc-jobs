@@ -37,23 +37,54 @@
     border-bottom: 1px solid #1fb2e8; }
 .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li,
 .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li {
-  border: 1px solid #cccccc;
-  padding: 15px 15px;
-  display: block;
-  position: relative;
-  margin: 0;
-  background: none repeat scroll 0% 0% #efefef;
-  border-bottom: none; }
+  margin: 0; }
   .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:first-of-type,
   .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:first-of-type {
     margin-top: 15px; }
   .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type,
   .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #CCC; }
-  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li input,
-  .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li input {
-    margin: 3px 18px 3px 3px; }
+    margin-bottom: 10px; } 
+    .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type label,
+    .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li:last-of-type label {
+      border-bottom: 1px solid #CCC; }
+  .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label,
+  .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label {
+    border: 1px solid #cccccc;
+    padding: 15px 15px;
+    display: block;
+    position: relative;
+    margin: 0;
+    background: none repeat scroll 0% 0% #efefef;
+    border-color: #CCC;
+    color: #666666;
+    color: rgba(102, 102, 102, 0.5);
+    background-color: #efefef;
+    background-color: rgba(239, 239, 239, 0.5);
+    border-bottom: none;
+    cursor: pointer; }
+    .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label input,
+    .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label input {
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+      /* For IE8 and earlier */ }
+    .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label:hover,
+    .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label:hover {
+      color: #666666; }
+    .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label.checked,
+    .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label.checked {
+      border-color: #CCC;
+      color: #666666;
+      color: #666666;
+      background-color: #efefef;
+      background-color: #efefef; }
+      .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label.checked input,
+      .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label.checked input {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        /* For IE8 and earlier */ }
+    .post-type-archive-usc_jobs .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label input,
+    .tax-departments .et_pb_widget_area .filterjs__filter__checkbox__wrapper ul li label input {
+      margin: 3px 18px 3px 3px; }
 .post-type-archive-usc_jobs .usc_jobs--count,
 .tax-departments .usc_jobs--count {
   box-sizing: border-box;
@@ -154,5 +185,5 @@
     padding: 0; }
 
   /* Hide 'Remuneration' and 'Departments' checkboxes on mobile */
-  .filterjs__filter__checkbox__wrapper {
+  .filterjs__filter__checkbox__wrapper:last-of-type {
     display: none; } }

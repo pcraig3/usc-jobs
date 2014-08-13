@@ -75,10 +75,14 @@ jQuery(function ($) {
 
             });
 
-            $widgets_column.find('#taxonomy_departments, #remuneration').delegate('input', 'click', function() {
+            $widgets_column.find('#taxonomy_departments, #remuneration').delegate('label', 'click', function() {
+
+                if($( this ).find( 'input:checkbox' ).is( ':checked' ))
+                    $( this ).addClass('checked');
+                else
+                    $( this ).removeClass('checked');
 
                 AjaxUSCJobs.update_visible_jobs();
-                console.log( $('#usc_jobs_list').find('article:visible').length );
             });
 
         },
@@ -95,7 +99,7 @@ jQuery(function ($) {
 
             $('.filterjs__loading').addClass('hidden');
 
-            $('#remuneration :checkbox.check_me, #taxonomy_departments :checkbox.check_me').prop('checked', true);
+            $('#remuneration label.checked, #taxonomy_departments label.checked').find('input:checkbox').prop('checked', true);
 
             fJS = filterInit( jobs );
 
