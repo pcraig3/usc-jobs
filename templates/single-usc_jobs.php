@@ -99,8 +99,10 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                                 $array_of_meta_values =  get_post_meta( get_the_ID() );
 
+                                //["position"]=> array(1) { [0]=> string(19) "part-time_permanent" }
                                 //var_dump($array_of_meta_values);
                                 $remuneration           = ( isset( $array_of_meta_values['remuneration'] ) ) ? array_shift($array_of_meta_values['remuneration']) : '';
+                                $position               = ( isset( $array_of_meta_values['position'] ) ) ? array_shift($array_of_meta_values['position']) : '';
                                 $apply_by_date          = ( isset( $array_of_meta_values['apply_by_date'] ) ) ? array_shift($array_of_meta_values['apply_by_date']) : '';
                                 $contact_information    = ( isset( $array_of_meta_values['contact_information'] ) ) ? array_shift($array_of_meta_values['contact_information']) : '';
 
@@ -108,6 +110,10 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                 if( !empty( $remuneration ) )
                                     $html_string .= '<p><span class="subheading">' . __( 'Remuneration', 'usc-jobs' ) . '</span>  '
                                                     . ucfirst( $remuneration ) . "</p>";
+
+                                if( !empty( $position ) )
+                                    $html_string .= '<p><span class="subheading">' . __( 'Position', 'usc-jobs' ) . '</span>  '
+                                        . ucwords( str_replace('_', ' ', $position ) ) . "</p>";
 
                                 if( !empty( $apply_by_date ) )
                                     $html_string .= '<p><span class="subheading">' . __( 'Apply By Date', 'usc-jobs' ) . '</span>  '

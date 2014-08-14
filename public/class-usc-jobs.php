@@ -435,7 +435,6 @@ class USC_Jobs {
 
         include_once('USC_Job_PostType.php');
         new USCJob_PostType( 'usc_jobs' );
-
         /* Look in admin-usc-jobs for the rest of the USC_Jobs stuff */
 
     }
@@ -510,7 +509,6 @@ class USC_Jobs {
 
             //Prepend our event details
             add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );
-
             //$template = $this->usc_jobs_dir . 'templates/single-usc_jobs.php';
         }
 
