@@ -135,6 +135,9 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                         <ul id="taxonomy_departments">
                                             <?php
 
+                                            echo '<li><label class="' .  (( ! $is_departments ) ? "checked" : '') . '">'
+                                                .'<input id="departments_all" value="all" type="checkbox">All</label></li>';
+
                                             $departments = get_terms( 'departments' );
 
                                             foreach( $departments as &$department ) {

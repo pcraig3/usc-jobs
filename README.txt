@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,10 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.8.2 =
+* Added Tyler's stupid 'All' checkbox
+* Cleaned up + commented public-filter.js (does all of the Javascript, basically)
 
 = 0.8.1 =
 * Bunch of small fixes -- merits a .1 update
