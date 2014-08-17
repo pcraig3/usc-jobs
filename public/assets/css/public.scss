@@ -39,9 +39,14 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     background-color: $usc-jobs-blue;
   }
 
-  .breadcrumbs a:hover, h4 {
+  .breadcrumbs a:hover {
 
-    color: $usc-jobs-blue--transparent;
+    color: $usc-jobs-blue--transparent !important;
+  }
+
+  h4 {
+
+    color: $usc-jobs-blue;
   }
 }
 

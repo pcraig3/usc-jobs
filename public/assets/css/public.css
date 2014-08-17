@@ -3,12 +3,14 @@
 .post-type-archive-usc_jobs .et_pb_fullwidth_header,
 .tax-departments .et_pb_fullwidth_header {
   background-color: #1fb2e8; }
-.single-usc_jobs .breadcrumbs a:hover, .single-usc_jobs h4,
+.single-usc_jobs .breadcrumbs a:hover,
 .post-type-archive-usc_jobs .breadcrumbs a:hover,
+.tax-departments .breadcrumbs a:hover {
+  color: rgba(31, 178, 232, 0.5) !important; }
+.single-usc_jobs h4,
 .post-type-archive-usc_jobs h4,
-.tax-departments .breadcrumbs a:hover,
 .tax-departments h4 {
-  color: rgba(31, 178, 232, 0.5); }
+  color: #1fb2e8; }
 
 .single-usc_jobs #usc_jobs-post {
   padding-top: 0 !important; }
