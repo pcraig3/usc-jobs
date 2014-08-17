@@ -221,10 +221,11 @@ class USC_Jobs {
 
         $json_response_modified = null;
 
-        if ( null == ( $json_response ) ) {
+        if ( null === ( $json_response ) ) {
 
-            /** @TODO: This is a bad error message */
-            wp_die('Sorry, your USC Jobs request failed.  Please reload the page.');
+            return new WP_Error( 'api_error', __( 'Sorry, but we\'ve got nothing back from the API. '
+                . 'Muck about with the JSON API plugin and see if that\'s still working, and if that\'s working fine, '
+                . ' work backwards from line 227 in the "class-usc-jobs.php" file under /wp-content/plugins/usc-jobs/public', 'usc-jobs' ) );
 
         } elseif ( ! empty( $fields_to_keep ) ) {
 

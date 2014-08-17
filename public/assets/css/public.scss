@@ -38,27 +38,46 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
     background-color: $usc-jobs-blue;
   }
+
+  .breadcrumbs a:hover, h4 {
+
+    color: $usc-jobs-blue--transparent;
+  }
 }
 
 .single-usc_jobs {
 
+  #usc_jobs-post {
+
+    padding-top: 0 !important;
+  }
+
   #content-area {
 
     padding: 0;
+
+      .et_pb_widget_area {
+
+        padding-top: 30px;
+      }
   }
 
-  .news-article-info {
+  .usc_jobs-article-info {
 
     margin-bottom: 0;
   }
 }
 
-.news-entry-content.news-entry-content__usc_jobs {
+.usc_jobs-entry-content {
 
   p {
 
     margin-left:    0;
     padding-bottom: .35em;
+
+    /* Got both of these from Tyler's style.css */
+    font-size: 1.25em;
+    line-height: 1.85;
   }
 
   span.subheading {
@@ -163,7 +182,7 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
   .type-usc_jobs {
 
-    @extend .news-entry-content.news-entry-content__usc_jobs;
+    @extend .usc_jobs-entry-content;
 
 
     /* border color, margin, background color */
