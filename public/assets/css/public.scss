@@ -39,6 +39,11 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     background-color: $usc-jobs-blue;
   }
 
+  .post-meta a:hover {
+
+    color:  $usc-jobs-blue--transparent !important;
+  }
+
   .breadcrumbs a:hover {
 
     color: $usc-jobs-blue--transparent !important;
@@ -64,7 +69,19 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
       .et_pb_widget_area {
 
         padding-top: 30px;
+
+        li a:hover {
+
+          color: $usc-jobs-blue--transparent !important;
+        }
       }
+
+    .usc_jobs-entry-content p {
+
+      /* Got both of these from Tyler's style.css */
+      font-size: 1.25em;
+      line-height: 1.85;
+    }
   }
 
   .usc_jobs-article-info {
@@ -79,10 +96,6 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
     margin-left:    0;
     padding-bottom: .35em;
-
-    /* Got both of these from Tyler's style.css */
-    font-size: 1.25em;
-    line-height: 1.85;
   }
 
   span.subheading {
@@ -90,6 +103,14 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     display:        inline-block;
     font-weight:    600;
     padding-right:  5px;
+  }
+
+  a {
+    color: $usc-jobs-blue;
+
+    &:hover {
+      color: $usc-jobs-blue--transparent;
+    }
   }
 }
 
@@ -189,7 +210,6 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
     @extend .usc_jobs-entry-content;
 
-
     /* border color, margin, background color */
     @include btn-style(#efefef, 15px 0 25px, #FFF );
 
@@ -243,6 +263,7 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     .post-meta {
 
       padding: 0;
+
     }
 
   }
@@ -269,7 +290,12 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 
         &:hover {
 
-          color: $usc-jobs-blue;
+          color: $usc-jobs-blue--transparent;
+
+          &:before {
+
+            right: 15px;
+          }
         }
       }
     }

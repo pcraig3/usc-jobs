@@ -3,6 +3,10 @@
 .post-type-archive-usc_jobs .et_pb_fullwidth_header,
 .tax-departments .et_pb_fullwidth_header {
   background-color: #1fb2e8; }
+.single-usc_jobs .post-meta a:hover,
+.post-type-archive-usc_jobs .post-meta a:hover,
+.tax-departments .post-meta a:hover {
+  color: rgba(31, 178, 232, 0.5) !important; }
 .single-usc_jobs .breadcrumbs a:hover,
 .post-type-archive-usc_jobs .breadcrumbs a:hover,
 .tax-departments .breadcrumbs a:hover {
@@ -18,21 +22,32 @@
   padding: 0; }
   .single-usc_jobs #content-area .et_pb_widget_area {
     padding-top: 30px; }
+    .single-usc_jobs #content-area .et_pb_widget_area li a:hover {
+      color: rgba(31, 178, 232, 0.5) !important; }
+  .single-usc_jobs #content-area .usc_jobs-entry-content p, .single-usc_jobs #content-area .post-type-archive-usc_jobs .type-usc_jobs p, .post-type-archive-usc_jobs .single-usc_jobs #content-area .type-usc_jobs p,
+  .single-usc_jobs #content-area .tax-departments .type-usc_jobs p,
+  .tax-departments .single-usc_jobs #content-area .type-usc_jobs p {
+    /* Got both of these from Tyler's style.css */
+    font-size: 1.25em;
+    line-height: 1.85; }
 .single-usc_jobs .usc_jobs-article-info {
   margin-bottom: 0; }
 
 .usc_jobs-entry-content p, .post-type-archive-usc_jobs .type-usc_jobs p,
 .tax-departments .type-usc_jobs p {
   margin-left: 0;
-  padding-bottom: .35em;
-  /* Got both of these from Tyler's style.css */
-  font-size: 1.25em;
-  line-height: 1.85; }
+  padding-bottom: .35em; }
 .usc_jobs-entry-content span.subheading, .post-type-archive-usc_jobs .type-usc_jobs span.subheading,
 .tax-departments .type-usc_jobs span.subheading {
   display: inline-block;
   font-weight: 600;
   padding-right: 5px; }
+.usc_jobs-entry-content a, .post-type-archive-usc_jobs .type-usc_jobs a,
+.tax-departments .type-usc_jobs a {
+  color: #1fb2e8; } 
+  .usc_jobs-entry-content a:hover, .post-type-archive-usc_jobs .type-usc_jobs a:hover,
+  .tax-departments .type-usc_jobs a:hover {
+    color: rgba(31, 178, 232, 0.5); }
 
 .post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget,
 .tax-departments .et_pb_widget_area .et_pb_widget {
@@ -174,7 +189,9 @@
       color: #666;
       position: relative; }
       .button_area_at_the_bottom_of_a_single_usc_job ul li a:hover {
-        color: #1fb2e8; }
+        color: rgba(31, 178, 232, 0.5); }
+        .button_area_at_the_bottom_of_a_single_usc_job ul li a:hover:before {
+          right: 15px; }
 
 .btn-menu ul li a {
   position: relative; }
