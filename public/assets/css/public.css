@@ -4,11 +4,13 @@
 .tax-departments .et_pb_fullwidth_header {
   background-color: #1fb2e8; }
 .single-usc_jobs .post-meta a:hover,
-.post-type-archive-usc_jobs .post-meta a:hover,
-.tax-departments .post-meta a:hover {
-  color: rgba(31, 178, 232, 0.5) !important; }
+.single-usc_jobs #content-area .et_pb_widget_area li a:hover,
 .single-usc_jobs .breadcrumbs a:hover,
+.post-type-archive-usc_jobs .post-meta a:hover,
+.post-type-archive-usc_jobs #content-area .et_pb_widget_area li a:hover,
 .post-type-archive-usc_jobs .breadcrumbs a:hover,
+.tax-departments .post-meta a:hover,
+.tax-departments #content-area .et_pb_widget_area li a:hover,
 .tax-departments .breadcrumbs a:hover {
   color: rgba(31, 178, 232, 0.5) !important; }
 .single-usc_jobs h4,
@@ -22,8 +24,6 @@
   padding: 0; }
   .single-usc_jobs #content-area .et_pb_widget_area {
     padding-top: 30px; }
-    .single-usc_jobs #content-area .et_pb_widget_area li a:hover {
-      color: rgba(31, 178, 232, 0.5) !important; }
   .single-usc_jobs #content-area .usc_jobs-entry-content p, .single-usc_jobs #content-area .post-type-archive-usc_jobs .type-usc_jobs p, .post-type-archive-usc_jobs .single-usc_jobs #content-area .type-usc_jobs p,
   .single-usc_jobs #content-area .tax-departments .type-usc_jobs p,
   .tax-departments .single-usc_jobs #content-area .type-usc_jobs p {
@@ -44,7 +44,7 @@
   padding-right: 5px; }
 .usc_jobs-entry-content a, .post-type-archive-usc_jobs .type-usc_jobs a,
 .tax-departments .type-usc_jobs a {
-  color: #1fb2e8; } 
+  color: #1fb2e8; }
   .usc_jobs-entry-content a:hover, .post-type-archive-usc_jobs .type-usc_jobs a:hover,
   .tax-departments .type-usc_jobs a:hover {
     color: rgba(31, 178, 232, 0.5); }
