@@ -214,8 +214,4 @@
   .button_area_at_the_bottom_of_a_single_usc_job ul li {
     width: 100%;
     display: block;
-    padding: 0; }
-
-  /* Hide 'Remuneration' and 'Departments' checkboxes on mobile */
-  .filterjs__filter__checkbox__wrapper:last-of-type {
-    display: none; } }
+    padding: 0; } }

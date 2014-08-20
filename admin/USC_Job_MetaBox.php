@@ -141,10 +141,10 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         */
         );
 
-        http://testwestern.com//js/debug-bar.js?ver=20111209'
+        //http://testwestern.com//js/debug-bar.js?ver=20111209'
 
         $this->enqueueScript(
-            plugins_url('assets/js/reveal_job_pane.js', __FILE__ ),   // source url or path
+            plugins_url('assets/js/reveal-job-pane.js', __FILE__ ),   // source url or path
             array( 'usc_jobs' ),
             array(
                 'handle_id' => 'reveal_job_pane',     // this handle ID also is used as the object name for the translation array below.
@@ -179,6 +179,8 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             }
         }
 
+        /*
+
         if( ! isset( $_aErrors['job_description_file'] ) ) {
 
             //get only the file extension
@@ -210,6 +212,7 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             $_fIsValid = false;
 
         }
+        */
 
         if ( ! $_fIsValid ) {
 
