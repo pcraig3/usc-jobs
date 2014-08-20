@@ -6,12 +6,15 @@
 .single-usc_jobs .post-meta a:hover,
 .single-usc_jobs #content-area .et_pb_widget_area li a:hover,
 .single-usc_jobs .breadcrumbs a:hover,
+.single-usc_jobs .collapseomatic:hover,
 .post-type-archive-usc_jobs .post-meta a:hover,
 .post-type-archive-usc_jobs #content-area .et_pb_widget_area li a:hover,
 .post-type-archive-usc_jobs .breadcrumbs a:hover,
+.post-type-archive-usc_jobs .collapseomatic:hover,
 .tax-departments .post-meta a:hover,
 .tax-departments #content-area .et_pb_widget_area li a:hover,
-.tax-departments .breadcrumbs a:hover {
+.tax-departments .breadcrumbs a:hover,
+.tax-departments .collapseomatic:hover {
   color: rgba(31, 178, 232, 0.5) !important; }
 .single-usc_jobs h4,
 .post-type-archive-usc_jobs h4,
@@ -49,6 +52,16 @@
   .tax-departments .type-usc_jobs a:hover {
     color: rgba(31, 178, 232, 0.5); }
 
+.post-type-archive-usc_jobs .collapseomatic,
+.tax-departments .collapseomatic {
+  display: none; }
+.post-type-archive-usc_jobs .et_pb_widget_area.collapseomatic_excerpt, .post-type-archive-usc_jobs .et_pb_widget_area.collapseomatic_content,
+.tax-departments .et_pb_widget_area.collapseomatic_excerpt,
+.tax-departments .et_pb_widget_area.collapseomatic_content {
+  margin-left: 0px;
+  padding: 0;
+  background: none;
+  border: none; }
 .post-type-archive-usc_jobs .et_pb_widget_area .et_pb_widget,
 .tax-departments .et_pb_widget_area .et_pb_widget {
   margin: 15px 0px 25px; }
@@ -210,8 +223,32 @@
     width: 50%;
     padding-left: 0;
     padding-right: 20px; } }
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 979px) {
   .button_area_at_the_bottom_of_a_single_usc_job ul li {
     width: 100%;
     display: block;
-    padding: 0; } }
+    padding: 0; }
+
+  .post-type-archive-usc_jobs .collapseomatic,
+  .tax-departments .collapseomatic {
+    display: block;
+    padding: 15px;
+    color: #666;
+    margin-top: 15px;
+    border: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  .post-type-archive-usc_jobs .et_pb_widget_area.collapseomatic_excerpt, .post-type-archive-usc_jobs .et_pb_widget_area.collapseomatic_content,
+  .tax-departments .et_pb_widget_area.collapseomatic_excerpt,
+  .tax-departments .et_pb_widget_area.collapseomatic_content {
+    display: none;
+    padding: 15px;
+    background-color: #f9f9f9; }
+    .post-type-archive-usc_jobs .et_pb_widget_area.collapseomatic_excerpt .searchbox, .post-type-archive-usc_jobs .et_pb_widget_area.collapseomatic_content .searchbox,
+    .tax-departments .et_pb_widget_area.collapseomatic_excerpt .searchbox,
+    .tax-departments .et_pb_widget_area.collapseomatic_content .searchbox {
+      background-color: #f9f9f9; } }

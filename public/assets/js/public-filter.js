@@ -77,6 +77,17 @@ jQuery(function ($) {
 
             });
 
+            $widgets_column.before('<h3 id="id1236" class="collapseomatic">Filter Job List</h3>');
+            $widgets_column.prop('id', "target-id1236" ).addClass('collapseomatic_content');
+
+            $(window).resize(function () {
+                $collapseomatic_button = $('.collapseomatic');
+                $collapseomatic_content = $collapseomatic_button.next();
+
+                if( $(window).width() > 980 && ! $collapseomatic_content.is(':visible') )
+                    $collapseomatic_content.show();
+            });
+
             //click event listener on '#all' checkbox turns on and off the entire row.
             $('#departments_all').on('click',function(){
                 $(this).closest('ul').children().find(':checkbox').prop('checked', $(this).is(':checked'));
@@ -97,6 +108,10 @@ jQuery(function ($) {
 
                 AjaxUSCJobs.update_visible_jobs();
             });
+
+            AjaxUSCJobs.typewatch(function () {
+                $widgets_column.show();
+            }, 50);
         },
 
         /** Wait a bit after a jquery event to do your action, basically.

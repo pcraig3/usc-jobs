@@ -74,6 +74,8 @@ class USC_Jobs {
      */
     protected $order_by_usc_jobs = array();
 
+    private $wp_using_ext_object_cache_status;
+
 
     /**
      * Initialize the plugin by setting localization and loading public scripts
@@ -147,6 +149,26 @@ class USC_Jobs {
         //add filter_js scripts if post_archive of usc jobs.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
 
+    }
+
+    /**
+     * @since 2.1.0
+     */
+    public static function turn_off_object_cache_so_our_bloody_plugin_works() {
+        global $_wp_using_ext_object_cache;
+        global $temp_wp_using_ext_object_cache;
+
+        $temp_wp_using_ext_object_cache = $_wp_using_ext_object_cache;
+        $_wp_using_ext_object_cache = false;
+    }
+    /**
+     * @since 2.1.0
+     */
+    public static function turn_object_caching_back_on_for_the_next_poor_sod() {
+        global $_wp_using_ext_object_cache;
+        global $temp_wp_using_ext_object_cache;
+
+        $_wp_using_ext_object_cache = $temp_wp_using_ext_object_cache;
     }
 
     /**

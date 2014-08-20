@@ -152,10 +152,14 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                 'in_footer' => true
             )
         );
+
+        USC_Jobs::turn_object_caching_back_on_for_the_next_poor_sod();
     }
 
     /** Draft if errors found in validation: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish */
     public function validation_USC_Job_MetaBox( $aInput, $aOldInput ) {	// validation_{instantiated class name}
+
+        USC_Jobs::turn_off_object_cache_so_our_bloody_plugin_works();
 
         $_fIsValid = true;
         $_aErrors = array();
@@ -217,7 +221,11 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         if ( ! $_fIsValid ) {
 
             $this->setFieldErrors( $_aErrors );
-            $this->setSettingNotice( __( '<pre>' . print_r($aInput, true) . '</pre>', 'usc-jobs' ) );
+
+            $admin_error_message = implode("<br>", array_values($_aErrors))
+                . "<br><br><em>Job marked as <strong>Pending Review</strong> until errors have been resolved.</em>";
+
+            $this->setSettingNotice( __( $admin_error_message, 'usc-jobs' ) );
 
             //hacky, but fun!
             add_filter( 'wp_insert_post_data', function( $data ) { //use ( $status ) {
