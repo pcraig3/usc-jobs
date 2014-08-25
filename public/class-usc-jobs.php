@@ -23,11 +23,11 @@ class USC_Jobs {
     /**
      * Plugin version, used for cache-busting of style and script file references.
      *
-     * @since   0.8.2
+     * @since   0.8.3
      *
      * @var     string
      */
-    const VERSION = '0.8.2';
+    const VERSION = '0.8.3';
 
     /**
      *
@@ -74,7 +74,18 @@ class USC_Jobs {
      */
     protected $order_by_usc_jobs = array();
 
+    /**
+     * @var  used for saving the default $wp_using_ext_object_cache so as not to bugger up our plugin
+     *
+     * @since    0.8.3
+     */
     private $wp_using_ext_object_cache_status;
+
+    /**
+     * @var used for saving the default server timezone so that nothing odd happens with our time calculations
+     *
+     * @since    0.8.3
+     */
     private $date_default_timezone_get_status;
 
 
@@ -153,7 +164,7 @@ class USC_Jobs {
     }
 
     /**
-     * @since 2.1.0
+     * @since   0.8.3
      */
     public function turn_off_object_cache_so_our_bloody_plugin_works() {
         global $_wp_using_ext_object_cache;
@@ -162,7 +173,7 @@ class USC_Jobs {
         $_wp_using_ext_object_cache = false;
     }
     /**
-     * @since 2.1.0
+     * @since   0.8.3
      */
     public function turn_object_caching_back_on_for_the_next_poor_sod() {
         global $_wp_using_ext_object_cache;
@@ -170,12 +181,18 @@ class USC_Jobs {
         $_wp_using_ext_object_cache = $this->wp_using_ext_object_cache_status;
     }
 
+    /**
+     * @since    0.8.3
+     */
     public function set_server_to_local_time() {
 
         $this->date_default_timezone_get_status = date_default_timezone_get();
         date_default_timezone_set("America/Toronto");
     }
 
+    /**
+     * @since    0.8.3
+     */
     public function set_server_back_to_default_time() {
 
         date_default_timezone_set($this->date_default_timezone_get_status);
@@ -334,13 +351,147 @@ class USC_Jobs {
     }
 
     /**
+     *
+     * @since   0.8.3
+     *
+     * @param null $posts               the usc_jobs posts returned by the main query.
+     * @return array|null
+     */
+    private function filter_js_format_query_response( $posts = null ) {
+
+        $posts_for_filterjs = array();
+
+        if ( null === ( $posts ) || empty( $posts ) ) {
+
+            return $posts;
+
+        } else {
+
+            /**
+             * Here's the simplified version of a post
+            ID=>                int
+            post_author=>       string
+            post_date=>         string
+            post_date_gmt=>     string
+            post_content=>      string
+            post_title=>        string
+            post_excerpt=>      string
+            post_status=>       string
+            comment_status=>    string
+            ping_status=>       string
+            post_password=>     string
+            post_name=>         string
+            to_ping=>           string
+            pinged=>            string
+            post_modified=>     string
+            post_modified_gmt=> string
+            post_content_filtered=> string
+            post_parent=>       int
+            guid=>              string
+            menu_order=>        int
+            post_type=>         string
+            post_mime_type=>    string
+            comment_count=>     string
+            filter=>            string
+             */
+
+            $temp_post = array();
+
+            $author_fields = array(
+                'id' => 'ID',
+                'slug' => 'user_nicename',
+                'name' => 'user_login',
+                'first_name' => 'first_name',
+                'last_name' => 'last_name',
+                'nickname' => 'nickname',
+                'url' => 'user_url',
+                'description' => 'description'
+            );
+
+            $custom_fields = array(
+                'apply_by_date',
+                'remuneration',
+                'position',
+                'application_link',
+                'job_posting_file',
+                'job_description_file',
+                'contact_information'
+            );
+
+            foreach( $posts as $num => $post ) {
+
+                if('publish' === $post->post_status) {
+
+                    $temp_post['id'] = $num + 1; //filter_js needs sequential id numbers
+                    $temp_post['wp_id'] = $post->ID;
+
+                    //type
+                    $temp_post['type'] = $post->post_type;
+                    //slug
+                    $temp_post['slug'] = $post->post_name;
+                    //url
+                    $temp_post['url'] = $post->guid;
+                    //title
+                    $temp_post['title'] = $post->post_title;
+                    //title plain
+                    $temp_post['title_plain'] = $post->post_title;
+                    //date
+                    $temp_post['date'] = $post->post_date;
+                    //modified
+                    $temp_post['modified'] = $post->post_modified;
+                    //author
+                    $author  = $post->post_author;
+
+                    foreach($author_fields as $author_field_for_filter_js => $wp_query_author_field)
+                        $temp_post['author'][$author_field_for_filter_js] = get_the_author_meta( $wp_query_author_field, $author );
+
+
+                    //custom_fields
+                    $custom_fields = get_post_meta($post->ID);
+
+                    foreach( $custom_fields as $key => $value ) {
+
+                        if( substr( $key, 0, 1 ) !== '_'){
+
+                            $temp_post['custom_fields'][$key] = array_shift($value);
+                        }
+                    }
+
+                    //now the taxonomies.
+                    $temp_post['taxonomy_departments'] =  json_decode(json_encode(wp_get_post_terms($post->ID, 'departments')), true);
+
+                    foreach($temp_post['taxonomy_departments'] as &$taxonomy_department) {
+
+                        $taxonomy_department['title'] = $taxonomy_department['name'];
+                        $taxonomy_department['id'] = $taxonomy_department['term_id'];
+                    }
+
+                    $posts[$num] = $temp_post;
+
+                }
+                else
+                    //if not published, remove the post
+                    unset($posts[$num]);
+            }
+
+            //array_values in case any posts were removed.
+            $posts_for_filterjs = array_values($posts);
+
+        } // end if/else
+
+        return ( is_null($posts_for_filterjs) ) ? $posts : $posts_for_filterjs;
+    }
+
+
+    /**
      * Change Posts Per Page for USC Job Archive, and order by whatever meta value.
      * I mean, we're assuming the apply_by_date.
+     * Also, only return posts whose apply-by dates are before today at 11 pm.
      *
      * @author Bill Erickson
      * @link http://www.billerickson.net/customize-the-wordpress-query/
      *
-     * @since    0.8.1
+     * @since   0.8.3
      *
      * @param object $query data
      */
@@ -883,9 +1034,9 @@ class USC_Jobs {
 
     /**
      * Register and enqueues public-facing JavaScript files relating to filter_js
-     * @TODO: Call for DEPARTMENTS as well
+     * Also, get the usc_jobs data from the main query and feed it to filter_js
      *
-     * @since    0.5.1
+     * @since   0.8.3
      */
     public function enqueue_filter_js_scripts() {
 
@@ -893,12 +1044,13 @@ class USC_Jobs {
 
         if( $wp_query->is_main_query() && ( is_post_type_archive( 'usc_jobs' ) || is_tax( 'departments' ) ) ) {
 
-            $usc_jobs_as_json_array = $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() );
-            /**
-            echo '<pre>';
-            var_dump( $usc_jobs_as_json_array );
-            echo '</pre>';
-             **/
+            /* This would get an arry of usc_jobs from our backend JSON API.
+            However, it's quicker and more up-to-date (though significantly less elegant), to get jobs from the wp_query object,
+            so unfortunately this clever little programming construct was abandoned */
+            //$usc_jobs_as_json_array = $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() );
+
+            $posts = $wp_query->posts;
+            $usc_jobs_as_json_array = $this->filter_js_format_query_response($posts);
 
             wp_enqueue_script( 'tinysort', plugins_url( '/bower_components/tinysort/dist/jquery.tinysort.min.js', __DIR__ ), array( 'jquery' ), self::VERSION );
 

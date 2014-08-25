@@ -263,16 +263,16 @@ jQuery(function ($) {
 
         console.log( usc_jobs_as_json[0] );
 
-        //AjaxUSCJobs.jobs_gotten( usc_jobs_as_json );
+        AjaxUSCJobs.jobs_gotten( usc_jobs_as_json );
 
     });
 
     //call this right away.  don't wait for $(document).ready
     //this one removes the jobs and puts in my new jobs.
-    //AjaxUSCJobs.remove_wordpress_jobs_for_filterjs_jobs();
+    AjaxUSCJobs.remove_wordpress_jobs_for_filterjs_jobs();
 
     //this one removes the widgets and puts in my widgets
-    //AjaxUSCJobs.remove_wordpress_widgets_for_filterjs_imposter_widgets();
+    AjaxUSCJobs.remove_wordpress_widgets_for_filterjs_imposter_widgets();
 
 
 });

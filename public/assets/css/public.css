@@ -20,6 +20,10 @@
 .post-type-archive-usc_jobs h4,
 .tax-departments h4 {
   color: #1fb2e8; }
+.single-usc_jobs blockquote,
+.post-type-archive-usc_jobs blockquote,
+.tax-departments blockquote {
+  border-color: #1fb2e8; }
 
 .single-usc_jobs #usc_jobs-post {
   padding-top: 0 !important; }

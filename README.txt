@@ -4,7 +4,7 @@ Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,15 @@ No.  Maybe once we're at 0.9.0
 
 
 == Changelog ==
+
+= 0.8.3 =
+* Added an accordion for Jobs filters when on mobile
+* Took Tyler's suggestion and am now feeding usc_jobs from the $wp_query rather than the JSON API backend.
+* * It's nowhere near as nice code, but it's WAY faster
+* Only display posts whose apply_by_dates are before 11pm on a given day
+* Added "position" field for paid positions
+* Backend error messages work (as well as skirting around the APC cache thing)
+* Cleaned up CSS.  Everything is blue that should be.
 
 = 0.8.2 =
 * Added Tyler's stupid 'All' checkbox
