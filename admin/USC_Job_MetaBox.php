@@ -153,13 +153,13 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
             )
         );
 
-        USC_Jobs::turn_object_caching_back_on_for_the_next_poor_sod();
+        USC_Jobs::get_instance()->turn_object_caching_back_on_for_the_next_poor_sod();
     }
 
     /** Draft if errors found in validation: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish */
     public function validation_USC_Job_MetaBox( $aInput, $aOldInput ) {	// validation_{instantiated class name}
 
-        USC_Jobs::turn_off_object_cache_so_our_bloody_plugin_works();
+        USC_Jobs::get_instance()->turn_off_object_cache_so_our_bloody_plugin_works();
 
         $_fIsValid = true;
         $_aErrors = array();

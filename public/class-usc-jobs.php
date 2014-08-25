@@ -75,6 +75,7 @@ class USC_Jobs {
     protected $order_by_usc_jobs = array();
 
     private $wp_using_ext_object_cache_status;
+    private $date_default_timezone_get_status;
 
 
     /**
@@ -154,21 +155,30 @@ class USC_Jobs {
     /**
      * @since 2.1.0
      */
-    public static function turn_off_object_cache_so_our_bloody_plugin_works() {
+    public function turn_off_object_cache_so_our_bloody_plugin_works() {
         global $_wp_using_ext_object_cache;
-        global $temp_wp_using_ext_object_cache;
 
-        $temp_wp_using_ext_object_cache = $_wp_using_ext_object_cache;
+        $this->wp_using_ext_object_cache_status = $_wp_using_ext_object_cache;
         $_wp_using_ext_object_cache = false;
     }
     /**
      * @since 2.1.0
      */
-    public static function turn_object_caching_back_on_for_the_next_poor_sod() {
+    public function turn_object_caching_back_on_for_the_next_poor_sod() {
         global $_wp_using_ext_object_cache;
-        global $temp_wp_using_ext_object_cache;
 
-        $_wp_using_ext_object_cache = $temp_wp_using_ext_object_cache;
+        $_wp_using_ext_object_cache = $this->wp_using_ext_object_cache_status;
+    }
+
+    public function set_server_to_local_time() {
+
+        $this->date_default_timezone_get_status = date_default_timezone_get();
+        date_default_timezone_set("America/Toronto");
+    }
+
+    public function set_server_back_to_default_time() {
+
+        date_default_timezone_set($this->date_default_timezone_get_status);
     }
 
     /**
@@ -251,11 +261,8 @@ class USC_Jobs {
 
         } elseif ( ! empty( $fields_to_keep ) ) {
 
-            /** We JUST WANT POSTS.
-             * @TODO: This might mean problems paging in the future.  I guess we'll see.
-             * maybe check if json_response['count'] == json_response['count_total']
-             *
-             * Anyway, here's the simplified version.
+            /**
+             * Here's the simplified version.
             posts   //array
             id -> wp_id (because filter_js needs an id to work properly).
             type
@@ -344,10 +351,30 @@ class USC_Jobs {
 
             $query->set( 'posts_per_page', $this->number_of_usc_jobs_to_return_at_once );
 
+            /* order by apply_by_date */
             foreach($this->order_by_usc_jobs['query'] as $key => $value) {
 
                 $query->set($value, $this->order_by_usc_jobs['values'][$key]);
             }
+
+            //first, get 11:00pm today
+            $this->set_server_to_local_time();
+            //this is what these strings look like : "2014-08-22 05:00"
+
+            $eleven_pm_today = date( 'Y-m-d' ) . ' 23:00';
+
+            $this->set_server_back_to_default_time();
+
+            /* remove jobs whose apply_by_dates are already past 11pm today */
+            $query->set('meta_query', array(
+                array(
+                    'key'     => 'apply_by_date',
+                    'value'   => $eleven_pm_today, // A value must exist due to https://core.trac.wordpress.org/ticket/23268
+                    'compare' => '>',
+                    )
+                )
+            );
+
         }
     }
 
