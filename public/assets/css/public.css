@@ -27,18 +27,12 @@
 
 .single-usc_jobs #usc_jobs-post {
   padding-top: 0 !important; }
-.single-usc_jobs #content-area {
-  padding: 0; }
-  .single-usc_jobs #content-area .et_pb_widget_area {
-    padding-top: 30px; }
-  .single-usc_jobs #content-area .usc_jobs-entry-content p, .single-usc_jobs #content-area .post-type-archive-usc_jobs .type-usc_jobs p, .post-type-archive-usc_jobs .single-usc_jobs #content-area .type-usc_jobs p,
-  .single-usc_jobs #content-area .tax-departments .type-usc_jobs p,
-  .tax-departments .single-usc_jobs #content-area .type-usc_jobs p {
-    /* Got both of these from Tyler's style.css */
-    font-size: 1.25em;
-    line-height: 1.85; }
-.single-usc_jobs .usc_jobs-article-info {
-  margin-bottom: 0; }
+.single-usc_jobs .usc_jobs-entry-content p, .single-usc_jobs .post-type-archive-usc_jobs .type-usc_jobs p, .post-type-archive-usc_jobs .single-usc_jobs .type-usc_jobs p,
+.single-usc_jobs .tax-departments .type-usc_jobs p,
+.tax-departments .single-usc_jobs .type-usc_jobs p {
+  /* Got both of these from Tyler's style.css */
+  font-size: 1.25em;
+  line-height: 1.85; }
 
 .usc_jobs-entry-content p, .post-type-archive-usc_jobs .type-usc_jobs p,
 .tax-departments .type-usc_jobs p {
@@ -256,3 +250,8 @@
     .tax-departments .et_pb_widget_area.collapseomatic_excerpt .searchbox,
     .tax-departments .et_pb_widget_area.collapseomatic_content .searchbox {
       background-color: #f9f9f9; } }
+@media screen and (max-width: 480px) {
+  .usc_jobs-entry-content span.subheading, .post-type-archive-usc_jobs .type-usc_jobs span.subheading,
+  .tax-departments .type-usc_jobs span.subheading {
+    width: 100%;
+    padding-top: 10px; } }

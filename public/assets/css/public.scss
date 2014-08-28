@@ -67,27 +67,13 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     padding-top: 0 !important;
   }
 
-  #content-area {
+  .usc_jobs-entry-content p {
 
-    padding: 0;
-
-    .et_pb_widget_area {
-
-      padding-top: 30px;
-    }
-
-    .usc_jobs-entry-content p {
-
-      /* Got both of these from Tyler's style.css */
-      font-size: 1.25em;
-      line-height: 1.85;
-    }
+    /* Got both of these from Tyler's style.css */
+    font-size: 1.25em;
+    line-height: 1.85;
   }
 
-  .usc_jobs-article-info {
-
-    margin-bottom: 0;
-  }
 }
 
 .usc_jobs-entry-content {
@@ -396,7 +382,16 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
       }
     }
   }
+}
 
+@media screen and (max-width: 480px) {
 
+  .usc_jobs-entry-content {
 
+    span.subheading {
+
+      width:        100%;
+      padding-top:  10px;
+    }
+  }
 }
