@@ -161,6 +161,15 @@ class USC_Jobs {
         //add filter_js scripts if post_archive of usc jobs.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
 
+
+        /*
+         * set an initial value to this variable, in case we call the method to overwrite the global value before we
+         * call the method to store it
+         */
+        global $_wp_using_ext_object_cache;
+
+        $this->wp_using_ext_object_cache_status = $_wp_using_ext_object_cache;
+
     }
 
     /**
