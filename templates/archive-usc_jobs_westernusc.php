@@ -175,6 +175,10 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
                                     <!--/div-->
                                 </div>
                                 <div class="clearfix cf"></div>
+                                <?php /* we're putting this in to ensure that the collapseomatic js file is included on the page */
+                                /* the collapseomatic rules are set on the filter fields using JS in public-filer.js */
+                                /* It's just two lines of JS. */
+                                do_shortcode('[expand title="placeholder"][\expand]'); ?>
                             </div>
 
 
