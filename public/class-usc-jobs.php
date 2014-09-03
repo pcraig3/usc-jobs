@@ -170,6 +170,8 @@ class USC_Jobs {
 
         $this->wp_using_ext_object_cache_status = $_wp_using_ext_object_cache;
 
+        //set a default timezone so that we don't accidentally call the wrong method first and overwrite anything
+        $this->date_default_timezone_get_status = date_default_timezone_get();
     }
 
     /**
