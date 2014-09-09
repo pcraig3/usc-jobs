@@ -110,7 +110,7 @@ jQuery(function ($) {
             });
 
             AjaxUSCJobs.typewatch(function () {
-                if( $(window).width() > 980 && ! $collapseomatic_content.is(':visible') )
+                if( $(window).width() > 980 && ! $widgets_column.is(':visible') )
                     $widgets_column.show();
             }, 50);
         },
