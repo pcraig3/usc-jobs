@@ -103,6 +103,11 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
 .post-type-archive-usc_jobs,
 .tax-departments {
 
+  .entry {
+
+    margin-top: 25px; /* For 'No Results Found' text */
+  }
+
   .collapseomatic {
 
     display:  none;
@@ -115,6 +120,7 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
     &.collapseomatic_content {
 
       margin-left: 0px;
+      margin-top: 0px;
       padding: 0;
       background: none;
       border: none;
@@ -222,6 +228,7 @@ $usc-jobs-blue--transparent: rgba(31, 178, 232, .5);
       border-bottom:  1px dashed #efefef;
       color:          $usc-jobs-blue;
       position:       relative;
+      padding-right:  15px;
 
       &:hover {
 

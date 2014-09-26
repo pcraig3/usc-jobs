@@ -80,7 +80,6 @@
 
                             $checked_by_default = ( ! $is_departments ) ? "check_me" : ( $term->slug === $department->slug ) ? "check_me" : "" ;
 
-                            /** @TODO: I mean, really we just want the departments of the current jobs */
                             if( $department->count > 0 ) {
 
                                 echo '<li><input class="' . $checked_by_default

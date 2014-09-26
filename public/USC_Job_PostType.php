@@ -166,8 +166,6 @@ class USCJob_PostType extends AdminPageFramework_PostType {
 
         $html_string = "";
 
-        /** @TODO: get the departments */
-
         $subhead = "";
 
         foreach( $aPostData as $key => $value ) {

@@ -17,7 +17,6 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         /* 1. Include the file that defines the custom field type. */
         $aFiles = array(
 
-            /*dirname( __FILE__ ) . '/custom-fields/event-modify-custom-field-type/EventModifyCustomFieldType.php', @TODO: Don't think we need this */
             dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/DateCustomFieldType.php',
             dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/TimeCustomFieldType.php',
             dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/third-party/date-time-custom-field-types/DateTimeCustomFieldType.php',
@@ -28,7 +27,6 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
         /* 2. Instantiate the classes  */
         $sClassName = get_class( $this );
-        //new EventModifyCustomFieldType( $sClassName ); @TODO: Don't think we need this
         new DateCustomFieldType( $sClassName );
         new TimeCustomFieldType( $sClassName );
         new DateTimeCustomFieldType( $sClassName );

@@ -136,7 +136,6 @@ jQuery(function ($) {
          * * Hide the loading gif
          * * Check all checkboxes (otherwise results would be hidden)
          * * filterInit builds the page
-         * * change -- not sure what this does.  Maybe nothing.  @TODO: Whoops
          * * Update the 'x Jobs Available string
          *
          * @since  8.0.1
@@ -148,8 +147,6 @@ jQuery(function ($) {
             $('#remuneration label.checked, #taxonomy_departments label.checked').find('input:checkbox').prop('checked', true);
 
             fJS = filterInit( jobs );
-
-            $('#usc_jobs_list').trigger( "change" );
 
             AjaxUSCJobs.update_visible_jobs();
 
