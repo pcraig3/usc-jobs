@@ -3,16 +3,16 @@ Contributors: pcraig3
 Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 3.5.1
-Tested up to: 3.6
-Stable tag: 0.8.3
+Tested up to: 4.0
+Stable tag: 0.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Plugin creates a new 'Jobs' Custom Post Type -- expects the Admin Page Framework to be included.
+Plugin creates a new 'Jobs' Custom Post Type -- expects the Admin Page Framework (and Collapseomatic) to be included.
 
 == Description ==
 
-Plugin creates a new 'Jobs' Custom Post Type -- expects the Admin Page Framework to be included.
+Plugin creates a new 'Jobs' Custom Post Type -- expects the Admin Page Framework (and Collapseomatic) to be included.
 
 List of features we want:
 
@@ -28,10 +28,19 @@ This section describes how to install the plugin and get it working.
 
 = Give me a job. =
 
-No.  Maybe once we're at 0.9.0
+No.  Maybe once we're at 0.9.1
 
 
 == Changelog ==
+
+= 0.9.0 =
+* Almost DONE!!
+* * Updated media queries to match the Divi Theme's
+* * Mock collapseomatic element for mobile devices
+* * Global cache object and global timezone object initiated on plugin start.
+* * Patched up CSS for single USC Job
+* * Removed a couple of the TODOs.
+* * Not strictly to do with this plugin, but it's using theme templates now instead of internal ones.
 
 = 0.8.3 =
 * Added an accordion for Jobs filters when on mobile
@@ -40,7 +49,7 @@ No.  Maybe once we're at 0.9.0
 * Only display posts whose apply_by_dates are before 11pm on a given day
 * Added "position" field for paid positions
 * Backend error messages work (as well as skirting around the APC cache thing)
-* Cleaned up CSS.  Everything is blue that should be.
+* Cleaned up CSS.  Everything is blue what should be.
 
 = 0.8.2 =
 * Added Tyler's stupid 'All' checkbox

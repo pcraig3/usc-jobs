@@ -23,11 +23,11 @@ class USC_Jobs {
     /**
      * Plugin version, used for cache-busting of style and script file references.
      *
-     * @since   0.8.3
+     * @since   0.9.0
      *
      * @var     string
      */
-    const VERSION = '0.8.3';
+    const VERSION = '0.9.0';
 
     /**
      *
@@ -93,7 +93,7 @@ class USC_Jobs {
      * Initialize the plugin by setting localization and loading public scripts
      * and styles.
      *
-     * @since    0.8.1
+     * @since    0.9.0
      */
     private function __construct() {
 
@@ -131,12 +131,6 @@ class USC_Jobs {
         // Load public-facing style sheet and JavaScript.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-        /* Define custom functionality.
-         * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-         */
-        //add_action( '@TODO', array( $this, 'action_method_name' ) );
-        //add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
         //department taxonomy doesn't load on 'init'
         //add_action( 'init', array( $this, 'add_jobs_post_type' ) );

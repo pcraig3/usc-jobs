@@ -8,7 +8,7 @@ jQuery(function ($) {
 
         /** Remove the job listings created by wordpress for the job listings returned by filterJS
          *
-         * @since  8.0.0
+         * @since  0.8.0
          */
         remove_wordpress_jobs_for_filterjs_jobs: function() {
 
@@ -26,7 +26,7 @@ jQuery(function ($) {
 
         /** Remove the widgets created by Wordpress and sub in the filter checkboxes and searchbar created by filterJS
          *
-         * @since  8.0.2
+         * @since  0.9.0
          */
         remove_wordpress_widgets_for_filterjs_imposter_widgets : function() {
 
@@ -121,7 +121,7 @@ jQuery(function ($) {
          *  @see http://stackoverflow.com/questions/2219924/idiomatic-jquery-delayed-event-only-after-a-short-pause-in-typing-e-g-timew
          *  @author CMS
          *
-         * @since  8.0.0
+         * @since  0.8.0
          */
         typewatch: (function(){
             var timer = 0;
@@ -138,7 +138,7 @@ jQuery(function ($) {
          * * filterInit builds the page
          * * Update the 'x Jobs Available string
          *
-         * @since  8.0.1
+         * @since  0.9.0
          */
         jobs_gotten: function( jobs ) {
 
@@ -158,7 +158,7 @@ jQuery(function ($) {
          *  Basically, use the string (a standardized one we can hardcode) to create a date, and then format it so that
          *  it looks like WordPress' default dates and not something dumb like "2014-08-10"
          *
-         * @since  8.0.0
+         * @since  0.8.0
          */
         date_format: function( date_string ) {
 
@@ -182,7 +182,7 @@ jQuery(function ($) {
         /**
          *  Simple.  Find how many jobs are visible and change the number in the 'X Jobs Available string.
          *
-         * @since  8.0.0
+         * @since  0.8.0
          */
         update_visible_jobs: function() {
 
