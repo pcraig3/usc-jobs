@@ -188,7 +188,11 @@ jQuery(function ($) {
 
             var $jobs_column = $('.et_pb_text');
 
-            $jobs_column.find('#counter').text( $jobs_column.find('article:visible').length );
+            var num_jobs = $jobs_column.find('article:visible').length;
+
+            num_jobs = ( num_jobs === 0 ) ? 'No Jobs' : ( num_jobs === 1 ) ? '1 Job' : num_jobs + ' Jobs' ;
+
+            $jobs_column.find('#counter').text( num_jobs );
         }
 
     };

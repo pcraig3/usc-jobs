@@ -186,9 +186,13 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
 
                             global $wp_query;
 
+                            $jobs_string = ( $wp_query->found_posts === 0 )
+                                ? 'No Jobs' :
+                                ( $wp_query->found_posts === 1 )
+                                    ? '1 Job':
+                                    $wp_query->found_posts . ' Jobs';
                             ?>
-
-                            <h4 class="usc_jobs--count"><span id="counter"><?php echo $wp_query->found_posts; ?></span> Jobs Available</h4>
+                            <h4 class="usc_jobs--count"><span id="counter"><?php echo $jobs_string; ?></span> Available</h4>
 
                             <?php
 
