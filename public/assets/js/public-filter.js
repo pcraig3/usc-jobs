@@ -1,12 +1,24 @@
+/**
+ * public-filter.js contains the AjaxUSCJobs module which defines the HTML structure for a the jobs archive
+ * and its filters as well.
+ *
+ * Basically, if you don't have Javascript, you'll get a static job listing, but if you have it (which almost everyone does)
+ * then the original jobs and widgets are stripped from the page and new, better, dynamic ones are implemented.
+ *
+ * There's almost no loading delay on account of we're using a WP_Query call and not getting the data from an external API
+ */
+
 jQuery(function ($) {
     /* You can safely use $ in this code block to reference jQuery */
 
+    //fJS variable used by filterJS to create the searchable/filterable jobs listing.
     var fJS;
-
 
     var AjaxUSCJobs = {
 
-        /** Remove the job listings created by wordpress for the job listings returned by filterJS
+        /**
+         * Remove the jobs listing originally on the page before the JS is loaded and replace them instead with the
+         * filterJS jobs that we can manipulate.
          *
          * @since  0.8.0
          */
@@ -25,6 +37,15 @@ jQuery(function ($) {
         },
 
         /** Remove the widgets created by Wordpress and sub in the filter checkboxes and searchbar created by filterJS
+         * 1. Initially looks for widgets similar to the search filters we have so that it changes the order of them
+         * if they're changed (not too important).
+         * 2. Search bar goes on top.
+         * 3. Add event listener to search bar to update clubs counter slightly after 'keyup' event
+         * 4. Add collapseomatic class to event filter widgets. Hacky solution for mobile filters. Works though.
+         * 5. Add window.resize event that makes sure filters are always revealed on a large screen and hidden on a small one.
+         * 6. Sets up event listener for 'All' category checkbox.
+         * 7. Sets up event listener for single category checkboxes.
+         * 8. If window is on a larger screen, show filters (they are hidden by default)
          *
          * @since  0.9.0
          */
@@ -132,11 +153,11 @@ jQuery(function ($) {
         })(),
 
         /**
-         * Run through a bunch of setup stuff once the jobs (as a JSON string) has been received from our PHP API call
-         * * Hide the loading gif
-         * * Check all checkboxes (otherwise results would be hidden)
-         * * filterInit builds the page
-         * * Update the 'x Jobs Available string
+         * Run through a bunch of setup stuff once the jobs (as a JSON string) have/has been received
+         * 1. Hide the loading gif
+         * 2. Check all checkboxes (otherwise results would be hidden)
+         * 3. filterInit builds the page
+         * 4. Update the 'x Jobs Available' string
          *
          * @since  0.9.0
          */
@@ -180,7 +201,9 @@ jQuery(function ($) {
         },
 
         /**
-         *  Simple.  Find how many jobs are visible and change the number in the 'X Jobs Available string.
+         *  Simple.  Find how many jobs are visible and change the number in the 'X Jobs Available' string.
+         *
+         *  Says '1 Job' or '2 Jobs,' which, if Steve Jobs were alive today, the excitement might kill him.
          *
          * @since  0.8.0
          */
@@ -198,8 +221,11 @@ jQuery(function ($) {
     };
 
     /**
-     * Function sets up all of our filtering.
-     * Works now, but seems a bit brittle.
+     * function pretty much a straightforward copy of the samples given in the filter.js github page
+     * 'view' defines the HTML job list item template, and 'settings' defines the filtering options, which for the
+     * jobs widget includes a search bar and checkboxes representing categories.
+     *
+     * @see: https://github.com/jiren/filter.js/tree/master
      *
      * @param jobs    a list of jobs. Data is pulled from the USC Jobs Custom Post Type in our database.
      *
@@ -259,6 +285,14 @@ jQuery(function ($) {
         return FilterJS(jobs, "#usc_jobs_list", view, settings);
     }
 
+    /**
+     * WAITS FOR PAGE TO BE MOSTLY LOADED BEFORE FIRING.
+     * DISCLAIMER PROBABLY NOT NECESSARY, AS DOCUMENT.READY() IS PRETTY COMMON.
+     *
+     * Parse the jobs returned from the PHP file as a JSON string, call the method that
+     * updates the page with filterjs jobs.
+     * the end.
+     */
     $(document).ready(function() {
 
         var usc_jobs_as_json = JSON.parse(options.jobs);
@@ -275,6 +309,4 @@ jQuery(function ($) {
 
     //this one removes the widgets and puts in my widgets
     AjaxUSCJobs.remove_wordpress_widgets_for_filterjs_imposter_widgets();
-
-
 });

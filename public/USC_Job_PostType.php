@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Paul
- * Date: 28/07/14
- * Time: 12:34 AM
+ * USCJob_PostType extends the AdminPageFramework_PostType class and creates a 'usc_jobs' as a WordPress Custom Post Type
+ * Also associates the 'Departments' taxonomy with usc_jobs.
  */
 
 class USCJob_PostType extends AdminPageFramework_PostType {
@@ -80,7 +78,8 @@ class USCJob_PostType extends AdminPageFramework_PostType {
     }
 
     /*
-     * Built-in callback methods
+     * Method I've largely tried to circumvent.  Not really using it.
+     *
      */
     public function columns_usc_jobs( $aHeaderColumns ) {	// columns_{post type slug}
 
@@ -136,7 +135,10 @@ class USCJob_PostType extends AdminPageFramework_PostType {
     }
 
     /**
-     * Modifies the output of the post content.
+     * If we wanted, we could define the 'usc_jobs' template here instead of having a template file.
+     *
+     * But I didn't.  I've come up with a template file called usc_jobs-single, and so that's where to make the changes
+     * to the layout of a USC Job.
      */
     public function replyToPrintOptionValues( $sContent ) {
 
@@ -193,7 +195,5 @@ class USCJob_PostType extends AdminPageFramework_PostType {
         }
 
         return $html_string;
-
     }
-
 }

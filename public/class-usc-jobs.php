@@ -1,6 +1,10 @@
 <?php
 /**
- * USC Jobs.
+ * USC Jobs is more or less a standard Custom Post Type. It creates the 'usc_jobs' Post Type, meant to act as a
+ * scaffolding around jobs postings.  What it does is provides a consistent location for USC jobs to be posted, as well
+ * as a standardized format for posting them.
+ *
+ * Uses the AdminPageFramework to create the admin page, and then uses filter.js to create a better archive page.
  *
  * @package   USC_Jobs
  * @author    Paul Craig <pcraig3@uwo.ca>
@@ -9,12 +13,6 @@
  */
 
 /**
- * Plugin class. This class should ideally be used to work with the
- * public-facing side of the WordPress site.
- *
- * If you're interested in introducing administrative or dashboard
- * functionality, then refer to `class-usc-jobs-admin.php`
- *
  * @package USC_Jobs
  * @author    Paul Craig <pcraig3@uwo.ca>
  */
@@ -52,7 +50,11 @@ class USC_Jobs {
      */
     protected static $instance = null;
 
-
+    /**
+     * @since    0.8.0
+     *
+     * @var string      variable used so that the template-finding function works
+     */
     protected $usc_jobs_dir =  '';
 
     /**
@@ -104,6 +106,7 @@ class USC_Jobs {
         $this->number_of_usc_jobs_to_return_at_once = 150;
 
         //we're returning by the earliest date by default
+        //@see: http://codex.wordpress.org/Class_Reference/WP_Query
         $this->order_by_usc_jobs = array(
             'query' => array(
                 'orderby',
@@ -136,10 +139,11 @@ class USC_Jobs {
         //add_action( 'init', array( $this, 'add_jobs_post_type' ) );
         $this->add_jobs_post_type();
 
+        //set our own template instead of 'index.php'
         add_filter( 'template_include', array( $this, 'usc_jobs_set_template' ) ) ;
 
+        //register sidebars for jobs single and archive (even though the archive ones will get overwritten)
         add_action( 'widgets_init', array( $this, 'usc_jobs_register_sidebars' ) );
-
 
         //define the rewrite tag and a url pattern that triggers it
         add_action( 'init', array( $this, 'usc_jobs_rewrite_rules' ) );
@@ -155,7 +159,6 @@ class USC_Jobs {
         //add filter_js scripts if post_archive of usc jobs.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_filter_js_scripts' ) );
 
-
         /*
          * set an initial value to this variable, in case we call the method to overwrite the global value before we
          * call the method to store it
@@ -169,6 +172,15 @@ class USC_Jobs {
     }
 
     /**
+     * one of two functions created to get around a bug with the APC backend object-caching plugin
+     * Basically, our APC caching backend plugin was setting $_wp_using_ext_object_cache to true, with the
+     * unintended side-effect that any time we saved a transient, it wouldn't persist through the next pageload.
+     *
+     * So this function sets $wp_using_ext_object_cache_status to false so that setting a transient will work
+     *
+     * More detailed discussion here:
+     * @see: https://github.com/michaeluno/admin-page-framework/issues/118
+     *
      * @since   0.8.3
      */
     public function turn_off_object_cache_so_our_bloody_plugin_works() {
@@ -177,7 +189,18 @@ class USC_Jobs {
         $this->wp_using_ext_object_cache_status = $_wp_using_ext_object_cache;
         $_wp_using_ext_object_cache = false;
     }
+
     /**
+     * one of two functions created to get around a bug with the APC backend object-caching plugin
+     * Basically, our APC caching backend plugin was setting $_wp_using_ext_object_cache to true, with the
+     * unintended side-effect that any time we saved a transient, it wouldn't persist through the next pageload.
+     *
+     * So this function assumes the 'turn_off_object_cache_so_our_bloody_plugin_works' was called first,
+     * sets the $wp_using_ext_object_cache_status back to its original value
+     *
+     * More detailed discussion here:
+     * @see: https://github.com/michaeluno/admin-page-framework/issues/118
+     *
      * @since   0.8.3
      */
     public function turn_object_caching_back_on_for_the_next_poor_sod() {
@@ -187,7 +210,9 @@ class USC_Jobs {
     }
 
     /**
-     * @since    0.8.3
+     * function sets the default timezone to America/Toronto because that's where #westernu is.
+     *
+     * @since 0.8.3
      */
     public function set_server_to_local_time() {
 
@@ -196,7 +221,9 @@ class USC_Jobs {
     }
 
     /**
-     * @since    0.8.3
+     * function resets the server timezone back to whatever it was before calling 'set_server_to_local_time'
+     *
+     * @since 0.8.3
      */
     public function set_server_back_to_default_time() {
 
@@ -204,12 +231,20 @@ class USC_Jobs {
     }
 
     /**
+     * function expects a JSON feed plugin installed in the backend.  Calls this website's feed asking for
+     * USC Jobs posts, and returns them as JSON to the filter.js file.
+     * Strategy mirrors what USC Clubs or USC Jobs was doing, and I was using it until Tyler Benning pointed out the
+     * relative stupidity of taking longer to load the jobs by waiting on an API call
+     * (and relying on an API in the backend at all) when we could just work with WP_Query instead.
+     *
+     * So this method was deprecated.
+     *
      * http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-practical-example-of-wp_remote_get--wp-32109
      * Tom McFarlin
      *
      * @since    0.8.1
      *
-     */
+     *
     private function HTTP_GET_usc_jobs() {
 
         //Quick intro to headers: http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
@@ -218,13 +253,6 @@ class USC_Jobs {
             'Cache-Control' => 'max-age=0, no-cache, no-store',
             'Pragma'        => 'no-cache',
         );
-
-        /*
-        $cache_for_3_minutes_headers = array(
-
-            'Cache-Control' => 'no-transform,public,max-age=300,s-maxage=900',
-        );
-        */
 
         $order_by_string = '';
 
@@ -251,15 +279,24 @@ class USC_Jobs {
 
         return $json;
     }
+    */
 
     /**
+     * This function essentially works as a big whitelist for the Jobs Posts returned by the API
+     *
+     * It would take the unformatted json_response and, (if not empty), generates a sequential id for all jobs (starts at 1),
+     * as well as loop through all custom fields
+     *
+     * returns the modified response if it's not empty (which it shouldn't be)
+     *
+     * method was deprecated once 'HTTP_GET_usc_jobs' was too
      *
      * @since     0.6.0
      *
-     * @param null $json_response
-     * @param array $fields_to_keep
-     * @return array|null
-     */
+     * @param array $json_response  unfiltered json response returned from API
+     * @param array $fields_to_keep array of keys we want to keep for each job
+     * @return array|null modified  array with whitelisted fields, an id num, all of its custom fields
+     *
     private function filter_js_format_API_response( $json_response = null, array $fields_to_keep = array(
                                                                              'type',
                                                                              'slug',
@@ -311,7 +348,7 @@ class USC_Jobs {
             description
             parent
             post_count
-             */
+             *
 
             $posts = $json_response['posts'];
 
@@ -354,13 +391,19 @@ class USC_Jobs {
 
         return ( is_null($json_response_modified) ) ? $json_response : $json_response_modified;
     }
+    */
 
     /**
+     * This function serves the same function as 'filter_js_format_API_response' (see above), except that it formats job posts
+     * returned from the Query instead of formatting Job posts returned by an API.
+     *
+     * Sets up an array to return to filterjs so that we can create our dynamic archive page.
+     * Also sets a sequential id to all jobs.
      *
      * @since   0.8.3
      *
-     * @param null $posts               the usc_jobs posts returned by the main query.
-     * @return array|null
+     * @param null $posts   the usc_jobs posts returned by the main query.
+     * @return array|null   array of jobs formatted in a way filterjs understands
      */
     private function filter_js_format_query_response( $posts = null ) {
 
@@ -489,16 +532,18 @@ class USC_Jobs {
 
 
     /**
-     * Change Posts Per Page for USC Job Archive, and order by whatever meta value.
-     * I mean, we're assuming the apply_by_date.
-     * Also, only return posts whose apply-by dates are before today at 11 pm.
+     * function hijacks the main query if we're on the usc_jobs post archive
      *
-     * @author Bill Erickson
-     * @link http://www.billerickson.net/customize-the-wordpress-query/
+     * 1. Changes Posts per Page to an impossibly high number.
+     * 2. Orders posts by their apply-by-date
+     * 3. Removes all posts whose apply-by-dates are before today at 11pm
+     *
+     * @influence Bill Erickson
+     * @see: http://www.billerickson.net/customize-the-wordpress-query/
      *
      * @since   0.8.3
      *
-     * @param object $query data
+     * @param object $query data    the query object just before it hits the WordPress database
      */
     public function usc_jobs_increase_posts_per_page_order_by_apply_date( $query ) {
 
@@ -534,12 +579,11 @@ class USC_Jobs {
         }
     }
 
-
     /**
-     * Change Posts Per Page for Event Archive
+     * Looks for the 'usc_jobs_remuneration' query_var, and, if found, adds a meta query to the main query.
      *
-     * @author Bill Erickson
-     * @link http://www.billerickson.net/customize-the-wordpress-query/
+     * @influence Bill Erickson
+     * @see: http://www.billerickson.net/customize-the-wordpress-query/
      *
      * @since    0.4.5
      *
@@ -549,7 +593,8 @@ class USC_Jobs {
 
         $remuneration = get_query_var('usc_jobs_remuneration');
 
-        if( !empty($remuneration) && $query->is_main_query() && !$query->is_feed() && !is_admin() && is_post_type_archive( 'usc_jobs' ) ) {
+        if( !empty($remuneration) && $query->is_main_query() && !$query->is_feed()
+            && !is_admin() && is_post_type_archive( 'usc_jobs' ) ) {
             $meta_query = array(
                 array(
                     'key' => 'remuneration',
@@ -557,8 +602,8 @@ class USC_Jobs {
                     'compare' => '='
                 )
             );
-            $query->set( 'meta_query', $meta_query );
 
+            $query->set( 'meta_query', $meta_query );
         }
     }
 
@@ -566,9 +611,8 @@ class USC_Jobs {
      * Function adds the 'usc_jobs_remuneration' parameter to the query variables, as WordPress calls them.
      * If the function below this one describes the pattern in which 'usc_jobs_remuneration' should be used,
      * this is the function that registers the name of the variable with WordPress
-     *
-     * more information here:
-     * http://wordpress.stackexchange.com/questions/71305/when-should-add-rewrite-tag-be-used
+       * more information here:
+     * @see: http://wordpress.stackexchange.com/questions/71305/when-should-add-rewrite-tag-be-used
      *
      * @since    0.4.5
      */
@@ -596,7 +640,7 @@ class USC_Jobs {
     }
 
     /**
-     * Register Sidebar
+     * Register Sidebars.  Creates one for the single jobs and one for the jobs archive.
      *
      * http://devotepress.com/wordpress-coding/how-to-register-sidebars-in-wordpress/#.U-MXWxa-MUY
      */
@@ -632,6 +676,8 @@ class USC_Jobs {
     /**
      * Creates a new Job Post Type.  You should apply.
      *
+     * Needs the AdminPageFramework library in order to work.
+     *
      * @since 0.4.0
      */
     public function add_jobs_post_type() {
@@ -647,7 +693,7 @@ class USC_Jobs {
 
     /**
      * Checks if provided template path points to a 'usc_jobs' template recognised by our humble little plugin.
-     * If no usc_jobs-archive tempate is present the plug-in will pick the most appropriate
+     * If no usc_jobs-archive template is present the plug-in will pick the most appropriate
      * option, first from the theme/child-theme directory then the plugin.
      *
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L153
@@ -680,8 +726,11 @@ class USC_Jobs {
 
     /**
      * Checks to see if appropriate templates are present in active template directory.
-     * Otherwises uses templates present in plugin's template directory.
-     * Hooked onto template_include'
+     * Otherwise uses templates present in plugin's template directory.
+     * Hooked onto template_include
+     *
+     * **THIS MEANS THAT IF YOU WANT A CHANGE TO A TEMPLATE TO PROPAGATE, MAKE THE CHANGE TO THE TEMPLATE IN THE
+     * THEMES FOLDER, NOT THE TEMPLATE FILE IN THE FOLDER FOR THIS PLUGIN**
      *
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L192
      * @author  Stephen Harris
@@ -726,6 +775,8 @@ class USC_Jobs {
      * The idea here is that you can just inject whatever you want into the single-usc_jobs.php template that the theme uses
      * and that way not muck everything up.
      *
+     * **NOT USING THIS FUNCTION CURRENTLY**
+     *
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L243
      * @author  Stephen Harris
      *
@@ -763,6 +814,8 @@ class USC_Jobs {
      * for child themes. Looks for and includes templates {$slug}-{$name}.php
      *
      * You may include the same template part multiple times.
+     *
+     * **NOT USING THIS FUNCTION CURRENTLY**
      *
      * @see     https://github.com/stephenharris/Event-Organiser/blob/1.7.3/includes/event-organiser-templates.php#L7
      * @author  Stephen Harris
@@ -1049,7 +1102,7 @@ class USC_Jobs {
 
         if( $wp_query->is_main_query() && ( is_post_type_archive( 'usc_jobs' ) || is_tax( 'departments' ) ) ) {
 
-            /* This would get an arry of usc_jobs from our backend JSON API.
+            /* This would get an array of usc_jobs from our backend JSON API.
             However, it's quicker and more up-to-date (though significantly less elegant), to get jobs from the wp_query object,
             so unfortunately this clever little programming construct was abandoned */
             //$usc_jobs_as_json_array = $this->filter_js_format_API_response( $this->HTTP_GET_usc_jobs() );
@@ -1059,16 +1112,12 @@ class USC_Jobs {
 
             wp_enqueue_script( 'tinysort', plugins_url( '/bower_components/tinysort/dist/jquery.tinysort.min.js', __DIR__ ), array( 'jquery' ), self::VERSION );
 
-            //<soops h4ck> disable jQuery.noConflict for the length of the externally-hosted filter.js
+            //<soops h4ck> disable jQuery.noConflict for the length of filter.js
             wp_enqueue_script( 'jquery_no_conflict_disable', plugins_url( '/assets/js/jquery-no-conflict-disable.js', __FILE__ ), array( 'jquery', 'tinysort' ), self::VERSION );
             wp_enqueue_script( 'filterjs', plugins_url( '/assets/js/filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
             //wp_enqueue_script( 'filterjs', "https://raw.githubusercontent.com/jiren/filter.js/master/filter.js", array( 'jquery', 'tinysort', 'jquery-ui-core', 'jquery_no_conflict_disable' ), self::VERSION );
 
             wp_enqueue_script( 'public_filterjs', plugins_url( '/assets/js/public-filter.js', __FILE__ ), array( 'jquery', 'tinysort', 'jquery-ui-core', 'filterjs' ), self::VERSION );
-
-            //</soops h4ck>
-            //this messes up filterJS later on, so we can't really include it again.
-            //wp_enqueue_script( 'jquery_no_conflict_enable', plugins_url( '/assets/js/jquery-no-conflict-enable.js', __FILE__ ), array( 'jquery', 'filterjs', 'public_filterjs' ), self::VERSION );
 
             // declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
             wp_localize_script( 'public_filterjs', "options", array(
@@ -1077,8 +1126,6 @@ class USC_Jobs {
 
         }
     }
-
-
 
     /**
      * NOTE:  Actions are points in the execution of a page or process
@@ -1105,5 +1152,4 @@ class USC_Jobs {
     public function filter_method_name() {
         // @TODO: Define your filter hook callback here
     }
-
 }

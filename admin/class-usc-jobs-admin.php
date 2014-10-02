@@ -2,6 +2,9 @@
 /**
  * USC Jobs
  *
+ * Haven't really done too much here except set up the USC Jobs Admin page stuff.
+ * But I mean, I don't have a Settings page for the plugin or anything.
+ *
  * @package   USC_Jobs_Admin
  * @author    Paul Craig <pcraig3@uwo.ca>
  * @license   GPL-2.0+
@@ -47,13 +50,6 @@ class USC_Jobs_Admin {
 	private function __construct() {
 
 		/*
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
-
-		/*
 		 * Call $plugin_slug from public plugin class.
 		 */
 		$plugin = USC_Jobs::get_instance();
@@ -64,23 +60,13 @@ class USC_Jobs_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
 		// Add the options page and menu item.
-		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		//add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
 		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
-		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-
-		/*
-		 * Define custom functionality.
-		 *
-		 * Read more about actions and filters:
-		 * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-		 */
-		//add_action( '@TODO', array( $this, 'action_method_name' ) );
-		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+		//$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
+		//add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
         $this->add_jobs_post_type_admin();
-
 	}
 
     /**
@@ -93,6 +79,9 @@ class USC_Jobs_Admin {
         // Create meta boxes with form fields that appear in post definition pages (where you create a post) of the given post type.
         //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_MetaBox_BuiltinFieldTypes.php' );
         include_once('USC_Job_MetaBox.php');
+
+        //the USC_Job_PostType has to be added in the public area so that it's available on the front-end of the plugin, but
+        //the USC_Job_MetaBox is only for administrators trying to add new jobs.
         new USC_Job_MetaBox(
             'usc_jobs_metabox',	// meta box ID
             __( 'Job Fields', 'usc-jobs' ),	// title
@@ -100,12 +89,6 @@ class USC_Jobs_Admin {
             'normal',	// context (what kind of metabox this is)
             'default'	// priority
         );
-
-        // Add fields in the taxonomy page
-        //include_once(  dirname( dirname( dirname( __FILE__ ) ) ) . '/admin-page-framework/example/APF_TaxonomyField.php' );
-        include_once('USC_Department_TaxonomyField.php');
-        new USC_Department_TaxonomyField( 'departments' );	 	// taxonomy slug
-
     }
 
         /**

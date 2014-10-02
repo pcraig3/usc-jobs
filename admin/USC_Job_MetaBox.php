@@ -1,4 +1,12 @@
 <?php
+/**
+ * Class USC_Job_MetaBox
+ *
+ * This class is later associated with the USCJob_PostType.  (since we're just creating a metabox, we can put it
+ * wherever we like.)
+ *
+ * Anyway, this class defines a bunch of custom fields to associate with the USC_Jobs custom post type.
+ */
 class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
 
     /**
@@ -37,7 +45,16 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
      * ( optional ) Use the setUp() method to define settings of this meta box.
      */
     /**
-     * Framework method sets up all of the fields on the page and enqueues some JS
+     * Framework method sets up all of the custom fields for a USC Job and then enqueues some JS
+     *
+     * Fields added are:
+     * 1. apply_by_date:        the date applications for this job must be in by
+     * 2. remuneration:         whether this is a paid position or a volunteer opportunity
+     * 3. position:             the type of paid job (only if this is a paid job).  FT, PT, contract, intern, whatever.
+     * 4. application_link:     link to the actual application (usually a form to fill out or something)
+     * 5. job_posting_file:     the posting advertising this job
+     * 6. job_description_file: the description of the position (hint we usually don't need both)
+     * 7. contact_information:  a phone number or email or description or something.  I mean, usually an email
      *
      * @remark  this is a pre-defined framework method
      *
@@ -86,7 +103,6 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                     'internship'            => __( 'Internship', 'usc-jobs' ),
 
                 ),
-                'default' => 'volunteer',
                 'attributes'	=>	array(
                     'class'	=>	'hidden',
                 ),
@@ -129,18 +145,9 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
                     'cols'	=>	40,
                 ),
             )
-        /* ,
-        array (
-            'field_id'		=> 'taxonomy_checklist',
-            'type'			=> 'taxonomy',
-            'title'			=> __( 'Departments', 'usc-jobs' ),
-            'taxonomy_slugs'	=>	array( 'departments' )
-        )
-        */
         );
 
-        //http://testwestern.com//js/debug-bar.js?ver=20111209'
-
+        /* enqueue a javascript file with a very specialized function directly relating to this metabox */
         $this->enqueueScript(
             plugins_url('assets/js/reveal-job-pane.js', __FILE__ ),   // source url or path
             array( 'usc_jobs' ),
@@ -154,7 +161,18 @@ class USC_Job_MetaBox extends AdminPageFramework_MetaBox {
         USC_Jobs::get_instance()->turn_object_caching_back_on_for_the_next_poor_sod();
     }
 
-    /** Draft if errors found in validation: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish */
+    /**
+     * Function that validates values for jobs.
+     *
+     * Used to do a lot more, but it wasn't really working so well.
+     * Currently, the only error-checking I have is that this sets publish status to 'draft' if the apply_by_date is empty
+     *
+     * @seE: http://stackoverflow.com/questions/5007748/modifying-wordpress-post-status-on-publish
+     *
+     * @param array $aInput     values in each of the input fields at the time of submitting the form
+     * @param array $aOldInput  old values saved from before inputting the form.
+     * @return mixed            either the $aInput values if everything checks out, or the error array if an error is found
+     */
     public function validation_USC_Job_MetaBox( $aInput, $aOldInput ) {	// validation_{instantiated class name}
 
         USC_Jobs::get_instance()->turn_off_object_cache_so_our_bloody_plugin_works();

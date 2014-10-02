@@ -1,8 +1,10 @@
 /**
- * Created by Paul on 31/07/14.
+ * The only thing this file exists to do is reveal or hide a pane in the USC_Job_MetaBox depending on a prior value that
+ * was selected.
+ *
+ * If the position is paid, reveal the 'position' pane which presents all of the types of paid positions.
+ * Else, if it's a volunteer position, we don't need to be any more specific
  */
-
-
 jQuery(function ($) {
     /* You can safely use $ in this code block to reference jQuery */
 
@@ -45,5 +47,4 @@ jQuery(function ($) {
             $position_row.addClass('hidden').find('input').prop('checked', false);
         }
     }
-
 });
