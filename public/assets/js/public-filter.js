@@ -205,7 +205,7 @@ jQuery(function ($) {
          *
          *  Says '1 Job' or '2 Jobs,' which, if Steve Jobs were alive today, the excitement might kill him.
          *
-         * @since  0.8.0
+         * @since  1.0.0
          */
         update_visible_jobs: function() {
 

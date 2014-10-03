@@ -72,7 +72,7 @@ class USC_Jobs_Admin {
     /**
      * Creates all of the admin menus for new Job Post Type.  You should publish one.
      *
-     * @since 0.4.0
+     * @since 1.0.0
      */
     function add_jobs_post_type_admin() {
 

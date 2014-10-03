@@ -2,9 +2,9 @@
 Contributors: pcraig3
 Donate link: http://example.com/
 Tags: comments, spam
-Requires at least: 3.5.1
+Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 0.9.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,27 +20,29 @@ List of features we want:
 *   List Jobs on the site.
 *   Search, filter, whatever the jobs
 
-== Installation ==
-
-This section describes how to install the plugin and get it working.
 
 == Frequently Asked Questions ==
 
 = Give me a job. =
 
-No.  Maybe once we're at 0.9.1
+No.  Maybe once we're at 1.0.1
 
 
 == Changelog ==
+
+= 1.0.0 =
+* Deleted the Department AdminPageFramework taxonomy because we just want a garden-variety one
+* Says '1 Job' or '2 Jobs' now.  Woo.
+* Losta comments
 
 = 0.9.0 =
 * Almost DONE!!
 * * Updated media queries to match the Divi Theme's
 * * Mock collapseomatic element for mobile devices
-* * Global cache object and global timezone object initiated on plugin start.
+* * Global cache object and global timezone object initiated on plugin start
 * * Patched up CSS for single USC Job
-* * Removed a couple of the TODOs.
-* * Not strictly to do with this plugin, but it's using theme templates now instead of internal ones.
+* * Removed a couple of the TODOs
+* * Not strictly to do with this plugin, but it's using theme templates now instead of internal ones
 
 = 0.8.3 =
 * Added an accordion for Jobs filters when on mobile
@@ -49,7 +51,7 @@ No.  Maybe once we're at 0.9.1
 * Only display posts whose apply_by_dates are before 11pm on a given day
 * Added "position" field for paid positions
 * Backend error messages work (as well as skirting around the APC cache thing)
-* Cleaned up CSS.  Everything is blue what should be.
+* Cleaned up CSS.  Everything is blue what should be
 
 = 0.8.2 =
 * Added Tyler's stupid 'All' checkbox
@@ -59,7 +61,7 @@ No.  Maybe once we're at 0.9.1
 * Bunch of small fixes -- merits a .1 update
 * Icon font on single post types has been fixed (didn't work before in IE or Safari)
 * JSON request headers now (hopefully) disable caching.  Modifications to Jobs should be instantly reflected on the pulled-in-by-JSON Jobs Archive
-* Small JS fix reflects current number of jobs returned in some weird scenario where it might have been inaccurate.
+* Small JS fix reflects current number of jobs returned in some weird scenario where it might have been inaccurate
 * Both the query and the JSON url are identical now, same post_per_page limits and both return by soonest apply_by_date
 
 = 0.8.0 =

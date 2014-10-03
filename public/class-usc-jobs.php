@@ -21,11 +21,11 @@ class USC_Jobs {
     /**
      * Plugin version, used for cache-busting of style and script file references.
      *
-     * @since   0.9.0
+     * @since   1.0.0
      *
      * @var     string
      */
-    const VERSION = '0.9.0';
+    const VERSION = '1.0.0';
 
     /**
      *
