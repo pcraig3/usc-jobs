@@ -1,5 +1,42 @@
 <?php
 
+/* All of this stuff here changes the label for Jobs to 'Jobs List'
+ * for the duration of the page load so that the bradcrumbs work out okay.
+ *
+ * After the page has been loaded, the label for Jobs is reset to 'Jobs'
+ */
+$page_title = 'Jobs List';
+$jobs_label = 'Jobs';
+$post_type = 'usc_jobs';
+
+add_action('wp_head', function() use ( $post_type, $page_title ) {
+
+    if( $wp_post_types = return_post_type_if_exists( $post_type ) )
+        // see get_post_type_labels()
+        $wp_post_types[ $post_type ]->labels->name = $page_title;
+});
+
+add_action('wp_footer', function() use ( $post_type, $jobs_label ) {
+
+    if( $wp_post_types = return_post_type_if_exists( $post_type ) )
+        // see get_post_type_labels()
+        $wp_post_types[ $post_type ]->labels->name = $jobs_label;
+});
+
+function return_post_type_if_exists( $post_type = 'usc_jobs' ) {
+
+    global $wp_post_types;
+
+    // Someone has changed this post type, always check for that!
+    if ( empty ( $wp_post_types[ $post_type ] )
+        or ! is_object( $wp_post_types[ $post_type ] )
+        or empty ( $wp_post_types[ $post_type ]->labels )
+    )
+        return false;
+    else
+        return $wp_post_types;
+}
+/* end mucking about with Jobs label */
 
 get_header();
 

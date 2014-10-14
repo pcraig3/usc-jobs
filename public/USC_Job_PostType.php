@@ -43,7 +43,7 @@ class USCJob_PostType extends AdminPageFramework_PostType {
                 'has_archive'		=>	true,
                 'show_admin_column' =>	true,	// this is for custom taxonomies to automatically add the column in the listing table.
                 'menu_icon'			=>	'dashicons-hammer',
-                'rewrite'           => array( 'slug' => 'jobs','with_front' => false ),
+                'rewrite'           => array( 'slug' => 'jobs/list','with_front' => false ),
                 // ( framework specific key ) this sets the screen icon for the post type for WordPress v3.7.1 or below.
                 'screen_icon'		=>	'http://testwestern.com/wp-content/plugins/admin-page-framework/asset/image/wp_logo_bw_32x32.png'
             )

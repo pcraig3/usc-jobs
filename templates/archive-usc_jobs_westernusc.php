@@ -1,5 +1,36 @@
 <?php
 
+$page_title = 'Jobs List';
+$jobs_label = 'Jobs';
+$post_type = 'usc_jobs';
+
+add_action('wp_head', function() use ( $post_type, $page_title ) {
+
+    if( $wp_post_types = return_post_type_if_exists( $post_type ) )
+        // see get_post_type_labels()
+        $wp_post_types[ $post_type ]->labels->name = $page_title;
+});
+
+add_action('wp_footer', function() use ( $post_type, $jobs_label ) {
+
+    if( $wp_post_types = return_post_type_if_exists( $post_type ) )
+        // see get_post_type_labels()
+        $wp_post_types[ $post_type ]->labels->name = $jobs_label;
+});
+
+function return_post_type_if_exists( $post_type = 'usc_jobs' ) {
+
+    global $wp_post_types;
+
+    // Someone has changed this post type, always check for that!
+    if ( empty ( $wp_post_types[ $post_type ] )
+        or ! is_object( $wp_post_types[ $post_type ] )
+        or empty ( $wp_post_types[ $post_type ]->labels )
+    )
+        return false;
+    else
+        return $wp_post_types;
+}
 
 get_header();
 
@@ -10,12 +41,10 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() ); ?>
         <div class="entry-content">
             <div class="et_pb_section et_pb_fullwidth_section et_section_regular">
 
-
-
                 <section class="et_pb_fullwidth_header et_pb_bg_layout_dark et_pb_text_align_left">
                     <div class="et_pb_row">
                         <h1>
-                            Jobs
+                            <?php echo $page_title; ?>
                         </h1>
                         <p class="et_pb_fullwidth_header_subhead">
                             <?php

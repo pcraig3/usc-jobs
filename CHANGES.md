@@ -1,33 +1,3 @@
-=== USC Jobs ===
-Contributors: pcraig3
-Donate link: http://example.com/
-Tags: comments, spam
-Requires at least: 3.6
-Tested up to: 4.0
-Stable tag: 1.1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-Plugin creates a new 'Jobs' Custom Post Type -- expects the Admin Page Framework (and Collapseomatic) to be included.
-
-== Description ==
-
-Plugin creates a new 'Jobs' Custom Post Type -- expects the Admin Page Framework (and Collapseomatic) to be included.
-
-List of features we want:
-
-*   Create a Job.
-*   List Jobs on the site.
-*   Search, filter, whatever the jobs
-
-
-== Frequently Asked Questions ==
-
-= Give me a job. =
-
-No.  Maybe once we're at 1.1.1
-
-
 == Changelog ==
 
 = 1.1.0 =
@@ -134,8 +104,3 @@ No.  Maybe once we're at 1.1.1
 = 0.1.0 =
 * Trying to get a Custom Post built with the Advance Page Framework to show up.
 
-
-== Updates ==
-
-The basic structure of this plugin was cloned from the [WordPress-Plugin-Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate) project.
-This plugin supports the [GitHub Updater](https://github.com/afragen/github-updater) plugin, so if you install that, this plugin becomes automatically updateable direct from GitHub. Any submission to WP.org repo will make this redundant.
