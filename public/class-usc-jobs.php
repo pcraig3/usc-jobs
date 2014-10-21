@@ -231,170 +231,7 @@ class USC_Jobs {
     }
 
     /**
-     * function expects a JSON feed plugin installed in the backend.  Calls this website's feed asking for
-     * USC Jobs posts, and returns them as JSON to the filter.js file.
-     * Strategy mirrors what USC Clubs or USC Jobs was doing, and I was using it until Tyler Benning pointed out the
-     * relative stupidity of taking longer to load the jobs by waiting on an API call
-     * (and relying on an API in the backend at all) when we could just work with WP_Query instead.
-     *
-     * So this method was deprecated.
-     *
-     * http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-practical-example-of-wp_remote_get--wp-32109
-     * Tom McFarlin
-     *
-     * @since    0.8.1
-     *
-     *
-    private function HTTP_GET_usc_jobs() {
-
-        //Quick intro to headers: http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
-        $no_cache_headers = array(
-
-            'Cache-Control' => 'max-age=0, no-cache, no-store',
-            'Pragma'        => 'no-cache',
-        );
-
-        $order_by_string = '';
-
-        foreach($this->order_by_usc_jobs['JSON'] as $key => $value) {
-
-            $order_by_string .= '&' . $value . '=' . $this->order_by_usc_jobs['values'][$key];
-        }
-
-            $response = wp_remote_get( trailingslashit( get_bloginfo( 'url' ) )
-                . 'api/get_posts/?post_type=usc_jobs'
-                . '&count=' . $this->number_of_usc_jobs_to_return_at_once
-                . $order_by_string,
-                array( 'headers' => $no_cache_headers ) );
-
-        try {
-
-            // Note that we decode the body's response since it's the actual JSON feed
-            // second parameter returns response as an array
-            $json = json_decode( $response['body'], true );
-
-        } catch ( Exception $ex ) {
-            $json = null;
-        } // end try/catch
-
-        return $json;
-    }
-    */
-
-    /**
-     * This function essentially works as a big whitelist for the Jobs Posts returned by the API
-     *
-     * It would take the unformatted json_response and, (if not empty), generates a sequential id for all jobs (starts at 1),
-     * as well as loop through all custom fields
-     *
-     * returns the modified response if it's not empty (which it shouldn't be)
-     *
-     * method was deprecated once 'HTTP_GET_usc_jobs' was too
-     *
-     * @since     0.6.0
-     *
-     * @param array $json_response  unfiltered json response returned from API
-     * @param array $fields_to_keep array of keys we want to keep for each job
-     * @return array|null modified  array with whitelisted fields, an id num, all of its custom fields
-     *
-    private function filter_js_format_API_response( $json_response = null, array $fields_to_keep = array(
-                                                                             'type',
-                                                                             'slug',
-                                                                             'url',
-                                                                             'title',
-                                                                             'title_plain',
-                                                                             'date',
-                                                                             'modified',
-                                                                             'author',
-                                                                             'custom_fields',
-                                                                             'taxonomy_departments')
-    ) {
-
-        $json_response_modified = null;
-
-        if ( null === ( $json_response ) ) {
-
-            return new WP_Error( 'api_error', __( 'Sorry, but we\'ve got nothing back from the API. '
-                . 'Muck about with the JSON API plugin and see if that\'s still working, and if that\'s working fine, '
-                . ' work backwards from line 227 in the "class-usc-jobs.php" file under /wp-content/plugins/usc-jobs/public', 'usc-jobs' ) );
-
-        } elseif ( ! empty( $fields_to_keep ) ) {
-
-            /**
-             * Here's the simplified version.
-            posts   //array
-            id -> wp_id (because filter_js needs an id to work properly).
-            type
-            slug
-            url
-            //limit by status = "publish"
-            title
-            title_plain
-            date
-            modified
-            author  //array
-            custom_fields //array
-            apply_by_date  	    	//array (w/string)
-            remuneration     		//array (w/string)
-            position    			//array (w/string)
-            application_link    	//array (w/link)
-            job_posting_file	    //array (w/link)
-            job_description_file	//array (w/link)
-            contact_information	    //array (w/string)
-            taxonomy_departments	//array (w/arrays)
-            id
-            slug
-            title
-            description
-            parent
-            post_count
-             *
-
-            $posts = $json_response['posts'];
-
-            $temp_post = array();
-
-            foreach( $posts as $num => $post ) {
-
-                if('publish' === $post['status']) {
-
-                    $temp_post['id'] = $num + 1; //filter_js needs sequential id numbers
-                    $temp_post['wp_id'] = $post['id'];
-
-                    foreach( $fields_to_keep as &$field ) {
-
-                        $temp_post[$field] = $post[$field];
-                    }
-                    unset($field);
-
-                    //custom_fields don't need to be arrays.  At least not for jobs.
-                    if( in_array('custom_fields', $fields_to_keep ) ) {
-
-                        foreach( $temp_post['custom_fields'] as $key => $value ) {
-
-                            $temp_post['custom_fields'][$key] = array_shift($value);
-                        }
-                    }
-
-                    $posts[$num] = $temp_post;
-
-                }
-                else
-                    //if not published, remove the post
-                    unset($posts[$num]);
-            }
-
-            //array_values in case any posts were removed.
-            $json_response_modified = array_values($posts);
-
-        } // end if/else
-
-        return ( is_null($json_response_modified) ) ? $json_response : $json_response_modified;
-    }
-    */
-
-    /**
-     * This function serves the same function as 'filter_js_format_API_response' (see above), except that it formats job posts
+     * This function formats job posts
      * returned from the Query instead of formatting Job posts returned by an API.
      *
      * Sets up an array to return to filterjs so that we can create our dynamic archive page.
@@ -530,7 +367,6 @@ class USC_Jobs {
         return ( is_null($posts_for_filterjs) ) ? $posts : $posts_for_filterjs;
     }
 
-
     /**
      * function hijacks the main query if we're on the usc_jobs post archive
      *
@@ -562,15 +398,15 @@ class USC_Jobs {
             $this->set_server_to_local_time();
             //this is what these strings look like : "2014-08-22 05:00"
 
-            $eleven_pm_today = date( 'Y-m-d' ) . ' 23:00';
+            $one_minute_past_midnight_today = date( 'Y-m-d' ) . ' 00:01';
 
             $this->set_server_back_to_default_time();
 
-            /* remove jobs whose apply_by_dates are already past 11pm today */
+            /* remove jobs whose apply_by_dates today or later */
             $query->set('meta_query', array(
                 array(
                     'key'     => 'apply_by_date',
-                    'value'   => $eleven_pm_today, // A value must exist due to https://core.trac.wordpress.org/ticket/23268
+                    'value'   => $one_minute_past_midnight_today, // A value must exist due to https://core.trac.wordpress.org/ticket/23268
                     'compare' => '>',
                     )
                 )
@@ -763,7 +599,7 @@ class USC_Jobs {
             add_filter("previous_post_link",'__return_false');
 
             //Prepend our event details
-            add_filter('the_content', array( $this, '_usc_jobs_single_event_content' ) );
+            add_filter('the_content', array( $this, '_usc_jobs_single_job_content' ) );
             //$template = $this->usc_jobs_dir . 'templates/single-usc_jobs.php';
         }
 
@@ -785,7 +621,7 @@ class USC_Jobs {
      * @param $content
      * @return string
      */
-    public function _usc_jobs_single_event_content( $content ){
+    public function _usc_jobs_single_job_content( $content ){
 
         //Sanity check!
         if( !is_singular('usc_jobs') )
