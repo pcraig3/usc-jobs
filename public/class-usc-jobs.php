@@ -21,11 +21,11 @@ class USC_Jobs {
     /**
      * Plugin version, used for cache-busting of style and script file references.
      *
-     * @since   1.1.0
+     * @since   1.1.1
      *
      * @var     string
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.1';
 
     /**
      *
@@ -377,7 +377,7 @@ class USC_Jobs {
      * @influence Bill Erickson
      * @see: http://www.billerickson.net/customize-the-wordpress-query/
      *
-     * @since   0.8.3
+     * @since   1.1.1
      *
      * @param object $query data    the query object just before it hits the WordPress database
      */
@@ -402,7 +402,7 @@ class USC_Jobs {
 
             $this->set_server_back_to_default_time();
 
-            /* remove jobs whose apply_by_dates today or later */
+            /* remove jobs whose apply_by_dates are equal or greater than today at 1 minute past midnight */
             $query->set('meta_query', array(
                 array(
                     'key'     => 'apply_by_date',

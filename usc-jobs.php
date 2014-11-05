@@ -12,7 +12,7 @@
  * Plugin Name:       USC Jobs
  * Plugin URI:        https://github.com/pcraig3/usc-jobs
  * Description:       Creates the 'Job' Custom Post Type and an archive page made dynamic with filter.js.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Paul Craig
  * Author URI:        https://profiles.wordpress.org/pcraig3/
  * Text Domain:       usc-jobs

@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 1.1.1 =
+* Removed a pesky console.log call
+* Logic changes how jobs are returned to something less weird than what it was doing before.
+* Upgraded and then downgraded filter.js to the 1.5.* version
+
 = 1.1.0 =
 * Redid the URL structure to more closely match USC Clubs.  Jobs list is now found at /jobs/list
 * Updated template files for job archive and single jobs with code to change 'Jobs' to 'Jobs List' so the breadcrumbs work

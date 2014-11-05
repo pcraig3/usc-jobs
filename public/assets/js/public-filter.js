@@ -297,8 +297,6 @@ jQuery(function ($) {
 
         var usc_jobs_as_json = JSON.parse(options.jobs);
 
-        console.log( usc_jobs_as_json[0] );
-
         AjaxUSCJobs.jobs_gotten( usc_jobs_as_json );
 
     });

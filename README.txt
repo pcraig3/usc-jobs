@@ -1,10 +1,8 @@
 === USC Jobs ===
 Contributors: pcraig3
-Donate link: http://example.com/
-Tags: comments, spam
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,10 +23,15 @@ List of features we want:
 
 = Give me a job. =
 
-No.  Maybe once we're at 1.1.1
+No.  Maybe once we're at 1.2.0
 
 
 == Changelog ==
+
+= 1.1.1 =
+* Removed a pesky console.log call
+* Logic changes how jobs are returned to something less weird than what it was doing before.
+* Upgraded and then downgraded filter.js to the 1.5.* version
 
 = 1.1.0 =
 * Redid the URL structure to more closely match USC Clubs.  Jobs list is now found at /jobs/list
